@@ -1,0 +1,5 @@
+export enum SkillType {
+  BASIC_SKILL = "BASIC_SKILL",
+  ACTIVE_SKILL = "ACTIVE_SKILL",
+  PASSIVE_SKILL = "PASSIVE_SKILL",
+}
