@@ -6,13 +6,11 @@ import { LocationWeaponEquippedType } from "../../Shared/Enums/LocationWeaponEqu
 import { ICharacterAttributesManager } from "../Interfaces/ICharacterAttributesManager";
 import { ICharacterManager } from "../Interfaces/ICharacterManager";
 import { IWeaponCharacterManager } from "../Interfaces/IWeaponCharacterManager";
+import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
 
 @Service()
 export class CharacterManager implements ICharacterManager {
-  private CharacterName: string;
-  private CharacterClass: CharacterClass;
-  private CharacterType: CharacterType;
-
+  private CharacterModel: BaseCharacterModel;
   /**
    *
    */
@@ -25,20 +23,22 @@ export class CharacterManager implements ICharacterManager {
     characterName: string,
     characterClass: CharacterClass,
     characterType: CharacterType
-  ): CharacterManager {
-    this.CharacterName = characterName;
-    this.CharacterClass = characterClass;
-    this.CharacterType = characterType;
-    return this;
+  ): BaseCharacterModel {
+    this.CharacterModel.name = characterName;
+    this.CharacterModel.class = characterClass;
+    this.CharacterModel.type = characterType;
+    this.CharacterModel.attributes =
+      this.characterAttributesManager.BuildAttributes(characterClass);
+    return this.CharacterModel;
   }
   GetCharacterName(): string {
-    return this.CharacterName;
+    return this.CharacterModel.name;
   }
   GetCharacterClass(): CharacterClass {
-    return this.CharacterClass;
+    return this.CharacterModel.class;
   }
   GetCharacterType(): CharacterType {
-    return this.CharacterType;
+    return this.CharacterModel.type;
   }
 
   GetWeaponsEquipped(): Map<LocationWeaponEquippedType, BaseWeapon> {

@@ -2,21 +2,17 @@ import { Service } from "typedi";
 import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
 import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { AttributeType } from "../../Shared/Enums/AttributeType";
+import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { ICharacterAttributesManager } from "../Interfaces/ICharacterAttributesManager";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
+import { GenerateBaseCharacterAttributes } from "../Model/Base/Utils/GenerateCharacter";
 
 @Service()
 export class CharacterAttributesManager implements ICharacterAttributesManager {
   private ListBaseAttribute: BaseAttributeModel;
 
-  BuildAttributes(): void {
-    //TODO: Revisar inicialización de experiencia.
-    this.ListBaseAttribute.Level.SetValue(1);
-    this.ListBaseAttribute.NeededExperience.SetValue(100);
-    this.ListBaseAttribute.TotalExperience.SetValue(0);
-    this.ListBaseAttribute.CurrenthHealth.SetValue(
-      this.ListBaseAttribute.MaxHealth.GetValue()
-    );
+  BuildAttributes(characterClass: CharacterClass): BaseAttributeModel {
+    return GenerateBaseCharacterAttributes(characterClass);
   }
 
   GetListAttributes(): BaseAttributeModel {
@@ -28,7 +24,9 @@ export class CharacterAttributesManager implements ICharacterAttributesManager {
   ): BaseAttribute[] {
     const attributes: BaseAttribute[] = Object.values(
       character.attributes
-    ).filter((attribute) => attribute?.GetTag() === attributeType);
+    ).filter(
+      (attribute: BaseAttribute) => attribute?.GetTag() === attributeType
+    );
     return attributes;
   }
   GetValueByAttribute(
@@ -36,7 +34,9 @@ export class CharacterAttributesManager implements ICharacterAttributesManager {
     attributeSearched: string
   ): number {
     return Object.values(character.attributes)
-      .find((attribute) => attribute.GetName() === attributeSearched)
+      .find(
+        (attribute: BaseAttribute) => attribute.GetName() === attributeSearched
+      )
       ?.GetValue()!;
   }
 }
