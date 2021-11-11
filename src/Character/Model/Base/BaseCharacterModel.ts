@@ -1,10 +1,14 @@
-import { BaseAttributeModel } from "../../../Attributes/Models/Base/BaseAttributeModel";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
+import { ICharacterAttributesManager } from "../../Interfaces/ICharacterAttributesManager";
+import { CharacterSkillManager } from "../../Managers/CharacterSkillManager";
+import { CharacterWeaponManager } from "../../Managers/CharacterWeaponManager";
 
 export type BaseCharacterModel = {
-  name: string;
-  class: CharacterClass;
-  type: CharacterType;
-  attributes: BaseAttributeModel;
+  Name: string;
+  Class: CharacterClass;
+  Type: CharacterType;
+  Attributes: ICharacterAttributesManager;
+  Skills: CharacterSkillManager;
+  Weapons: CharacterWeaponManager;
 };

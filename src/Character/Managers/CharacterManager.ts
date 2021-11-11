@@ -1,12 +1,11 @@
-import { Service } from "typedi";
-import { BaseWeapon } from "../../Items/Weapons/Base/BaseWeapon";
+import { Inject, Service } from "typedi";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
-import { LocationWeaponEquippedType } from "../../Shared/Enums/LocationWeaponEquipedType";
-import { ICharacterAttributesManager } from "../Interfaces/ICharacterAttributesManager";
 import { ICharacterManager } from "../Interfaces/ICharacterManager";
-import { IWeaponCharacterManager } from "../Interfaces/IWeaponCharacterManager";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
+import { CharacterAttributesManager } from "./CharacterAttributesManager";
+import { CharacterSkillManager } from "./CharacterSkillManager";
+import { CharacterWeaponManager } from "./CharacterWeaponManager";
 
 @Service()
 export class CharacterManager implements ICharacterManager {
@@ -15,8 +14,12 @@ export class CharacterManager implements ICharacterManager {
    *
    */
   constructor(
-    private readonly weaponCharacterManager: IWeaponCharacterManager,
-    private readonly characterAttributesManager: ICharacterAttributesManager
+    @Inject()
+    private readonly characterWeaponManager: CharacterWeaponManager,
+    @Inject()
+    private readonly characterAttributesManager: CharacterAttributesManager,
+    @Inject()
+    private readonly characterSkillManager: CharacterSkillManager
   ) {}
 
   BuildCharacter(
@@ -24,37 +27,17 @@ export class CharacterManager implements ICharacterManager {
     characterClass: CharacterClass,
     characterType: CharacterType
   ): BaseCharacterModel {
-    this.CharacterModel.name = characterName;
-    this.CharacterModel.class = characterClass;
-    this.CharacterModel.type = characterType;
-    this.CharacterModel.attributes =
-      this.characterAttributesManager.BuildAttributes(characterClass);
+    this.characterAttributesManager.BuildAttributes(characterClass);
+    this.characterSkillManager.BuildInitialSkills();
+    this.CharacterModel = {
+      Name: characterName,
+      Class: characterClass,
+      Type: characterType,
+      Attributes: this.characterAttributesManager,
+      Skills: this.characterSkillManager,
+      Weapons: this.characterWeaponManager,
+    };
+
     return this.CharacterModel;
-  }
-  GetCharacterName(): string {
-    return this.CharacterModel.name;
-  }
-  GetCharacterClass(): CharacterClass {
-    return this.CharacterModel.class;
-  }
-  GetCharacterType(): CharacterType {
-    return this.CharacterModel.type;
-  }
-
-  GetWeaponsEquipped(): Map<LocationWeaponEquippedType, BaseWeapon> {
-    return this.weaponCharacterManager.GetWeaponsEquipped();
-  }
-
-  GetWeaponByLocation(
-    location: LocationWeaponEquippedType
-  ): BaseWeapon | undefined {
-    return this.weaponCharacterManager.GetWeaponEquipped(location);
-  }
-
-  SetWeaponInLocation(
-    weapon: BaseWeapon,
-    location: LocationWeaponEquippedType
-  ): void {
-    this.weaponCharacterManager.SetWeaponInLocation(weapon, location);
   }
 }

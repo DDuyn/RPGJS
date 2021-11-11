@@ -1,10 +1,10 @@
 import { Service } from "typedi";
 import { BaseWeapon } from "../../Items/Weapons/Base/BaseWeapon";
 import { LocationWeaponEquippedType } from "../../Shared/Enums/LocationWeaponEquipedType";
-import { IWeaponCharacterManager } from "../Interfaces/IWeaponCharacterManager";
+import { ICharacterWeaponManager } from "../Interfaces/ICharacterWeaponManager";
 
 @Service()
-export class WeaponCharacterManager implements IWeaponCharacterManager {
+export class CharacterWeaponManager implements ICharacterWeaponManager {
   private ListWeaponEquipped: Map<
     LocationWeaponEquippedType,
     BaseWeapon

@@ -1,7 +1,7 @@
 import { BaseWeapon } from "../../Items/Weapons/Base/BaseWeapon";
 import { LocationWeaponEquippedType } from "../../Shared/Enums/LocationWeaponEquipedType";
 
-export interface IWeaponCharacterManager {
+export interface ICharacterWeaponManager {
   GetWeaponsEquipped(): Map<LocationWeaponEquippedType, BaseWeapon>;
   GetWeaponEquipped(
     location: LocationWeaponEquippedType

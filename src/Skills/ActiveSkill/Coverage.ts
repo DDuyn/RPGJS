@@ -1,18 +1,18 @@
+import { BaseAttributeModel } from "../../../../../Attributes/Models/Base/BaseAttributeModel";
+import { MaxHealth } from "../../../../../Attributes/PrimaryAttributes/MaxHealth";
 import { Strength } from "../../../../../Attributes/PrimaryAttributes/Strength";
 import { CharacterClass } from "../../../../../Shared/Enums/CharacterClass";
 import { ValueType } from "../../../../../Shared/Enums/ValueType";
 import { BaseActiveSkill } from "../../../../../Skills/ActiveSkill/Base/BaseActiveSkill";
-import { BaseAttributeCharacter } from "../../../../Base/BaseAttributesCharacter";
-import { Fury } from "../../Attributes/Fury";
 
-export class Smash extends BaseActiveSkill {
+export class Coverage extends BaseActiveSkill {
   /**
    *
    */
-  constructor(characterAttributes: BaseAttributeCharacter) {
+  constructor(characterAttributes: BaseAttributeModel) {
     super();
-    this.Name = "Smash";
-    this.CastSelf = false;
+    this.Name = "Coverage";
+    this.CastSelf = true;
     this.BaseValue = 40;
     this.SkillCharacterClass = CharacterClass.WARRIOR;
     this.ValueType = ValueType.FLAT;
@@ -20,20 +20,16 @@ export class Smash extends BaseActiveSkill {
     this.SetCanPurchase(characterAttributes);
   }
 
-  protected SetRequirements(): void {
-    this.GetRequeriments().set(new Strength(), 8);
-    this.GetRequeriments().set(new Fury(), 15);
+  protected LogicSkill(attackerAttributes?: BaseAttributeModel): number | void {
+    attackerAttributes!.Defense.SetValue(
+      attackerAttributes!.Defense.GetValue() + this.BaseValue
+    );
   }
-
+  protected SetRequirements(): void {
+    this.GetRequeriments().set(new Strength(), 5);
+    this.GetRequeriments().set(new MaxHealth(), 5);
+  }
   protected UpgradeSkill(): void {
     throw new Error("Method not implemented.");
-  }
-
-  protected LogicSkill(
-    attackerAttributes?: BaseAttributeCharacter,
-    defenderAttributes?: BaseAttributeCharacter
-  ): number | void {
-    console.log(attackerAttributes);
-    console.log(defenderAttributes);
   }
 }

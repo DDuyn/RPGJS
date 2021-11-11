@@ -1,7 +1,7 @@
+import { BaseAttributeModel } from "../../../../../Attributes/Models/Base/BaseAttributeModel";
 import { CharacterClass } from "../../../../../Shared/Enums/CharacterClass";
 import { ValueType } from "../../../../../Shared/Enums/ValueType";
 import { BaseBasicSkill } from "../../../../../Skills/BasicSkill/Base/BaseBasicSkill";
-import { BaseAttributeCharacter } from "../../../../Base/BaseAttributesCharacter";
 
 export class Rage extends BaseBasicSkill {
   /**
@@ -16,9 +16,7 @@ export class Rage extends BaseBasicSkill {
     this.ValueType = ValueType.FLAT;
   }
 
-  protected LogicSkill(
-    attackerAttributes: BaseAttributeCharacter
-  ): number | void {
+  protected LogicSkill(attackerAttributes: BaseAttributeModel): number | void {
     attackerAttributes.Damage.SetValue(
       attackerAttributes.Damage.GetValue() + this.GetBaseValue()
     );

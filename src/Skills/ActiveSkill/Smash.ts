@@ -1,18 +1,18 @@
-import { MaxHealth } from "../../../../../Attributes/PrimaryAttributes/MaxHealth";
+import { BaseAttributeModel } from "../../../../../Attributes/Models/Base/BaseAttributeModel";
 import { Strength } from "../../../../../Attributes/PrimaryAttributes/Strength";
 import { CharacterClass } from "../../../../../Shared/Enums/CharacterClass";
 import { ValueType } from "../../../../../Shared/Enums/ValueType";
 import { BaseActiveSkill } from "../../../../../Skills/ActiveSkill/Base/BaseActiveSkill";
-import { BaseAttributeCharacter } from "../../../../Base/BaseAttributesCharacter";
+import { Fury } from "../../Attributes/Fury";
 
-export class Coverage extends BaseActiveSkill {
+export class Smash extends BaseActiveSkill {
   /**
    *
    */
-  constructor(characterAttributes: BaseAttributeCharacter) {
+  constructor(characterAttributes: BaseAttributeModel) {
     super();
-    this.Name = "Coverage";
-    this.CastSelf = true;
+    this.Name = "Smash";
+    this.CastSelf = false;
     this.BaseValue = 40;
     this.SkillCharacterClass = CharacterClass.WARRIOR;
     this.ValueType = ValueType.FLAT;
@@ -20,18 +20,20 @@ export class Coverage extends BaseActiveSkill {
     this.SetCanPurchase(characterAttributes);
   }
 
-  protected LogicSkill(
-    attackerAttributes?: BaseAttributeCharacter
-  ): number | void {
-    attackerAttributes!.Defense.SetValue(
-      attackerAttributes!.Defense.GetValue() + this.BaseValue
-    );
-  }
   protected SetRequirements(): void {
-    this.GetRequeriments().set(new Strength(), 5);
-    this.GetRequeriments().set(new MaxHealth(), 5);
+    this.GetRequeriments().set(new Strength(), 8);
+    this.GetRequeriments().set(new Fury(), 15);
   }
+
   protected UpgradeSkill(): void {
     throw new Error("Method not implemented.");
+  }
+
+  protected LogicSkill(
+    attackerAttributes?: BaseAttributeModel,
+    defenderAttributes?: BaseAttributeModel
+  ): number | void {
+    console.log(attackerAttributes);
+    console.log(defenderAttributes);
   }
 }

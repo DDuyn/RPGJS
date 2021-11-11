@@ -1,3 +1,4 @@
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { MaxHealth } from "../../Attributes/PrimaryAttributes/MaxHealth";
 import { BaseAttributeCharacter } from "../../Character/Base/BaseAttributesCharacter";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
@@ -21,9 +22,7 @@ export class Regenerate extends BasePassiveSkill {
     this.SetRequirements();
     this.SetCanPurchase(characterAttributes);
   }
-  protected LogicSkill(
-    attackerAttributes: BaseAttributeCharacter
-  ): number | void {
+  protected LogicSkill(attackerAttributes: BaseAttributeModel): number | void {
     const currentHealth = attackerAttributes.CurrentHealth.GetValue();
     return currentHealth + Math.round(currentHealth * this.BaseValue);
   }

@@ -1,4 +1,5 @@
 export enum AttributeModifyType {
+  NONE = "NONE",
   HEALTH = "HEALTH",
   DEFENSE = "DEFENSE",
   DAMAGE = "DAMAGE",

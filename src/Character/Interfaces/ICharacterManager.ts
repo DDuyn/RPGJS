@@ -8,7 +8,4 @@ export interface ICharacterManager {
     characterClass: CharacterClass,
     characterType: CharacterType
   ): BaseCharacterModel;
-  GetCharacterName(): string;
-  GetCharacterClass(): CharacterClass;
-  GetCharacterType(): CharacterType;
 }

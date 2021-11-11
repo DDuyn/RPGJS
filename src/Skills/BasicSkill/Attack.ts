@@ -1,4 +1,4 @@
-import { BaseAttributeCharacter } from "../../Character/Base/BaseAttributesCharacter";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { Utils } from "../../Shared/Utils/Utils";
 import { BaseBasicSkill } from "./Base/BaseBasicSkill";
 
@@ -13,8 +13,8 @@ export class Attack extends BaseBasicSkill {
   }
 
   protected LogicSkill(
-    attackerAttributes: BaseAttributeCharacter,
-    defenderAttributes: BaseAttributeCharacter
+    attackerAttributes: BaseAttributeModel,
+    defenderAttributes: BaseAttributeModel
   ): number {
     const damageCalculated: number = Utils.Random(
       attackerAttributes.Damage.GetValue() * 0.75,

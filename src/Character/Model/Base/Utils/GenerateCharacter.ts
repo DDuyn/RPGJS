@@ -16,12 +16,12 @@ import { Strength } from "../../../../Attributes/PrimaryAttributes/Strength";
 import { CharacterClass } from "../../../../Shared/Enums/CharacterClass";
 import { CharacterConstants } from "../../../Constants/CharacterConstants";
 
-const BASE_ATTRIBUTE_MODEL: BaseAttributeModel = {
+export const BASE_ATTRIBUTE_MODEL: BaseAttributeModel = {
   Strength: new Strength(),
   Dextery: new Dextery(),
   Intelligence: new Intelligence(),
   MaxHealth: new MaxHealth(),
-  CurrenthHealth: new CurrentHealth(),
+  CurrentHealth: new CurrentHealth(),
   Agility: new Agility(),
   Damage: new Damage(),
   Defense: new Defense(),
@@ -52,7 +52,8 @@ export type BASE_BATTLE_ATTRIBUTE = {
 export const GenerateBaseCharacterAttributes = (
   characterClass: CharacterClass
 ): BaseAttributeModel => {
-  CharacterConstants.CHARACTER_BUILD_BY_CLASS[characterClass]();
+  if (characterClass !== CharacterClass.NONE)
+    CharacterConstants.CHARACTER_BUILD_BY_CLASS[characterClass]();
   GenerateBaseLevelAttributes();
   return BASE_ATTRIBUTE_MODEL;
 };
@@ -69,7 +70,7 @@ export const GenerateBasePrimaryAttributes = (
 export const GenerateBaseBattleAttributes = (
   attributes: BASE_BATTLE_ATTRIBUTE
 ): void => {
-  BASE_ATTRIBUTE_MODEL.CurrenthHealth.SetValue(
+  BASE_ATTRIBUTE_MODEL.CurrentHealth.SetValue(
     BASE_ATTRIBUTE_MODEL.MaxHealth.GetValue()
   );
   BASE_ATTRIBUTE_MODEL.Agility.SetValue(attributes.Agility);

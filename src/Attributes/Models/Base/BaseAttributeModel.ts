@@ -18,7 +18,7 @@ export type BaseAttributeModel = {
   Dextery: Dextery;
   Intelligence: Intelligence;
   MaxHealth: MaxHealth;
-  CurrenthHealth: CurrentHealth;
+  CurrentHealth: CurrentHealth;
   Agility: Agility;
   Damage: Damage;
   Defense: Defense;

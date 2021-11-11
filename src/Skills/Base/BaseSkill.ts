@@ -1,5 +1,5 @@
 import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
-import { BaseAttributeCharacter } from "../../Character/Base/BaseAttributesCharacter";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../Shared/Enums/SkillType";
@@ -74,15 +74,15 @@ export abstract class BaseSkill {
   }
 
   public InitSkill(
-    attackerAttributes: BaseAttributeCharacter,
-    defenderAttributes?: BaseAttributeCharacter
+    attackerAttributes: BaseAttributeModel,
+    defenderAttributes?: BaseAttributeModel
   ): number | void {
     return this.LogicSkill(attackerAttributes, defenderAttributes);
   }
 
   protected abstract LogicSkill(
-    attackerAttributes: BaseAttributeCharacter,
-    defenderAttributes?: BaseAttributeCharacter
+    attackerAttributes: BaseAttributeModel,
+    defenderAttributes?: BaseAttributeModel
   ): number | void;
 
   protected SetCanPurchase(attributes: BaseAttributeCharacter): void {
