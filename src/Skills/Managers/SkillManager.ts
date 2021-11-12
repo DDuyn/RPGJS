@@ -12,7 +12,7 @@ import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
 export abstract class SkillManager implements ISkillManager {
   private SkillModel: BaseSkillModel;
 
-  BuildSkill(
+  protected BuildSkill(
     skillName: string,
     skillType: SkillType,
     attributeModifier: AttributeModifyType,
@@ -52,7 +52,7 @@ export abstract class SkillManager implements ISkillManager {
     return this.SkillModel;
   }
 
-  SetCanPurchase(character: BaseCharacterModel): boolean {
+  protected SetCanPurchase(character: BaseCharacterModel): boolean {
     let canPurchase = true;
     this.SkillModel.Requirements.forEach((requireValue, attribute) => {
       if (
