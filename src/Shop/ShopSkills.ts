@@ -1,48 +1,47 @@
-import { BaseCharacter } from "../Character/Base/BaseCharacter";
+import { BaseCharacterModel } from "../Character/Model/Base/BaseCharacterModel";
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
 import { SkillType } from "../Shared/Enums/SkillType";
-import { BaseSkill } from "../Skills/Base/BaseSkill";
+import { SkillManager } from "../Skills/Managers/SkillManager";
 import { AllSkills } from "../Skills/UtilsSkill/AllSkills";
 
 export class ShopSkill {
   private static AllSkills: AllSkills;
-  private static Character: BaseCharacter;
+  private static Character: BaseCharacterModel;
 
   /**
    *
    */
-  constructor(character: BaseCharacter) {
+  constructor(character: BaseCharacterModel) {
     ShopSkill.Character = character;
-    ShopSkill.AllSkills = new AllSkills(
-      ShopSkill.Character.GetCharacterAttributes()
-    );
+    ShopSkill.AllSkills = new AllSkills(character);
   }
 
   public GetAllSkillsByCharacter(
     characterClass: CharacterClass
-  ): Array<BaseSkill> {
+  ): SkillManager[] {
     return ShopSkill.AllSkills.GetAllSkills().filter((skill) => {
       return (
-        (skill.GetSkillCharacterClass() === CharacterClass.NONE ||
-          skill.GetSkillCharacterClass() === characterClass) &&
+        (skill.GetSkillModel().SkillCharacterClass === CharacterClass.NONE ||
+          skill.GetSkillModel().SkillCharacterClass === characterClass) &&
         !this.hasSkillPurchase(skill) &&
-        skill.GetSkillType() !== SkillType.BASIC_SKILL
+        skill.GetSkillModel().SkillType !== SkillType.BASIC_SKILL
       );
     });
   }
 
-  public PurchaseSkill(skill: BaseSkill): boolean {
-    if (skill.IsCanPurchase()) {
-      ShopSkill.Character.GetCharacterSkills().AddSkill(skill);
+  public PurchaseSkill(skill: SkillManager): boolean {
+    if (skill.GetSkillModel().CanPurchase) {
+      ShopSkill.Character.Skills.AddSkill(skill);
       return true;
     }
 
     return false;
   }
 
-  private hasSkillPurchase(skillSearched: BaseSkill): boolean {
-    return !!ShopSkill.Character.GetCharacterSkills()
-      .GetSkills()
-      .find((skill) => skill.GetName() === skillSearched.GetName());
+  private hasSkillPurchase(skillSearched: SkillManager): boolean {
+    return !!ShopSkill.Character.Skills.GetSkills().find(
+      (skill) =>
+        skill.GetSkillModel().Name === skillSearched.GetSkillModel().Name
+    );
   }
 }

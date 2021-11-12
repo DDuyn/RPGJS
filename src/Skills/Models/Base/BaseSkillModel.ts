@@ -1,4 +1,5 @@
 import { BaseAttribute } from "../../../Attributes/Base/BaseAttribute";
+import { BaseCharacterModel } from "../../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../../Shared/Enums/SkillType";
@@ -18,4 +19,8 @@ export type BaseSkillModel = {
   Description: string;
   CanPurchase: boolean;
   Requirements: Map<BaseAttribute, number>;
+  LogicSkill: (
+    attacker: BaseCharacterModel,
+    defender?: BaseCharacterModel
+  ) => number | void;
 };

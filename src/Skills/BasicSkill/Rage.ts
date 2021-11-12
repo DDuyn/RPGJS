@@ -1,30 +1,46 @@
-import { BaseAttributeModel } from "../../../../../Attributes/Models/Base/BaseAttributeModel";
-import { CharacterClass } from "../../../../../Shared/Enums/CharacterClass";
-import { ValueType } from "../../../../../Shared/Enums/ValueType";
-import { BaseBasicSkill } from "../../../../../Skills/BasicSkill/Base/BaseBasicSkill";
+import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
+import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
+import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
+import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { SkillType } from "../../Shared/Enums/SkillType";
+import { ValueType } from "../../Shared/Enums/ValueType";
+import { ILogicSkill } from "../Interfaces/ILogicSkill";
+import { SkillManager } from "../Managers/SkillManager";
 
-export class Rage extends BaseBasicSkill {
+export class Rage extends SkillManager implements ILogicSkill {
+  private NAME: string = "Rage";
+  private ENERGY_COST: number = 15;
+  private DURATION: number = 0;
+  private BASE_VALUE: number = 20;
+  private IS_CAST_SELF: boolean = true;
+  private DESCRIPTION: string = "Description Rage";
+  private REQUIREMENTS: Map<BaseAttribute, number> = new Map();
   /**
    *
    */
   constructor() {
     super();
-    this.Name = "Rage";
-    this.CastSelf = true;
-    this.BaseValue = 20;
-    this.SkillCharacterClass = CharacterClass.WARRIOR;
-    this.ValueType = ValueType.FLAT;
-  }
-
-  protected LogicSkill(attackerAttributes: BaseAttributeModel): number | void {
-    attackerAttributes.Damage.SetValue(
-      attackerAttributes.Damage.GetValue() + this.GetBaseValue()
+    this.BuildSkill(
+      this.NAME,
+      SkillType.ACTIVE_SKILL,
+      AttributeModifyType.DAMAGE,
+      ValueType.FLAT,
+      CharacterClass.WARRIOR,
+      this.ENERGY_COST,
+      this.DURATION,
+      this.BASE_VALUE,
+      this.IS_CAST_SELF,
+      false,
+      this.DESCRIPTION,
+      this.REQUIREMENTS,
+      this.LogicSkill
     );
   }
-  protected SetRequirements(): void {
-    throw new Error("Method not implemented.");
-  }
-  protected UpgradeSkill(): void {
-    throw new Error("Method not implemented.");
+
+  LogicSkill(attacker: BaseCharacterModel): number | void {
+    const attackerAttributes = attacker.Attributes.GetListAttributes();
+    attackerAttributes.Damage.SetValue(
+      attackerAttributes.Damage.GetValue() + this.BASE_VALUE
+    );
   }
 }

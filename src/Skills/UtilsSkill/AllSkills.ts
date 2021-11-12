@@ -1,27 +1,25 @@
-import { BaseAttributeCharacter } from "../../Character/Base/BaseAttributesCharacter";
+import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { ClockWork } from "../ActiveSkill/ClockWork";
-import { BaseSkill } from "../Base/BaseSkill";
+import { SkillManager } from "../Managers/SkillManager";
 import { Regenerate } from "../PassiveSkill/Regenerate";
 import { AllMageSkills } from "./MageSkills/AllMageSkills";
 import { AllWarriorSkills } from "./WarriorSkills/AllWarriorSkills";
 
 export class AllSkills {
-  private ListAllSkills: Array<BaseSkill> = new Array();
+  private ListAllSkills: SkillManager[] = [];
 
-  constructor(characterAttributes: BaseAttributeCharacter) {
-    new AllWarriorSkills(characterAttributes, this.ListAllSkills);
-    new AllMageSkills(characterAttributes, this.ListAllSkills);
-    this.InitCommonActiveSkills(characterAttributes);
+  constructor(character: BaseCharacterModel) {
+    new AllWarriorSkills(character, this.ListAllSkills);
+    new AllMageSkills(character, this.ListAllSkills);
+    this.InitCommonActiveSkills(character);
   }
 
-  public GetAllSkills(): Array<BaseSkill> {
+  public GetAllSkills(): SkillManager[] {
     return this.ListAllSkills;
   }
 
-  private InitCommonActiveSkills(
-    characterAttributes: BaseAttributeCharacter
-  ): void {
-    this.ListAllSkills.push(new Regenerate(characterAttributes));
-    this.ListAllSkills.push(new ClockWork(characterAttributes));
+  private InitCommonActiveSkills(character: BaseCharacterModel): void {
+    this.ListAllSkills.push(new Regenerate(character));
+    this.ListAllSkills.push(new ClockWork(character));
   }
 }

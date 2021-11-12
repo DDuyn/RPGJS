@@ -1,10 +1,10 @@
 import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
-import { ICharacterAttributesManager } from "../../Character/Interfaces/ICharacterAttributesManager";
+import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
+import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
 
 export interface ISkillManager {
   BuildSkill(
@@ -19,29 +19,12 @@ export interface ISkillManager {
     castSelf: boolean,
     canPurchase: boolean,
     description: string,
-    requirements: Map<BaseAttribute, number>
+    requirements: Map<BaseAttribute, number>,
+    logicSkill: (
+      attacker: BaseCharacterModel,
+      defender?: BaseCharacterModel
+    ) => number | void
   ): void;
-  GetName(): string;
-  GetSkillType(): SkillType;
-  GetAttributeModifierType(): AttributeModifyType;
-  GetSkillValueType(): ValueType;
-  GetSkillCharacterClass(): CharacterClass;
-  GetEnergyCost(): number;
-  GetDescription(): string;
-  GetDuration(): number;
-  IsCanPurchase(): boolean;
-  GetRequirements(): Map<BaseAttribute, number>;
-  GetBaseValue(): number;
-  GetLevel(): number;
-  IsCastSelf(): boolean;
-  InitSkill(
-    attackerAttributes: BaseAttributeModel,
-    defenderAttributes: BaseAttributeModel
-  ): number | void;
-  LogicSkill(
-    attackerAttributes: BaseAttributeModel,
-    defenderAttributes: BaseAttributeModel
-  ): number | void;
-  SetCanPurchase(attributes: ICharacterAttributesManager): boolean;
-  UpdrageSkill(): void;
+  GetSkillModel(): BaseSkillModel;
+  SetCanPurchase(character: BaseCharacterModel): boolean;
 }

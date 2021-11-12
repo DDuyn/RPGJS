@@ -1,45 +1,53 @@
 import { Service } from "typedi";
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
-import { BaseSkill } from "../../Skills/Base/BaseSkill";
 import { Attack } from "../../Skills/BasicSkill/Attack";
+import { SkillManager } from "../../Skills/Managers/SkillManager";
 import { ICharacterSkillManager } from "../Interfaces/ICharacterSkillManager";
+import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
 
 @Service()
 export class CharacterSkillManager implements ICharacterSkillManager {
-  private ListSkill: BaseSkill[] = [];
-  private ListPassiveSkill: Map<AttributeModifyType, BaseSkill> = new Map();
+  private ListSkill: SkillManager[] = [];
+  private ListPassiveSkill: Map<AttributeModifyType, SkillManager> = new Map();
 
-  BuildInitialSkills(): BaseSkill[] {
+  BuildInitialSkills(): SkillManager[] {
     this.ListSkill.push(new Attack());
     return this.ListSkill;
   }
 
-  GetSkills(): BaseSkill[] {
+  GetSkills(): SkillManager[] {
     return this.ListSkill;
   }
-  GetSkill(skillSearched: string): BaseSkill {
-    return this.ListSkill.find((skill) => skill.GetName() === skillSearched)!;
+  GetSkill(skillSearched: string): SkillManager {
+    return this.ListSkill.find(
+      (skill) => skill.GetSkillModel().Name === skillSearched
+    )!;
   }
-  AddSkill(skill: BaseSkill): void {
+  AddSkill(skill: SkillManager): void {
     this.ListSkill.push(skill);
   }
-  GetListPassiveSkill(): Map<AttributeModifyType, BaseSkill> {
+  GetListPassiveSkill(): Map<AttributeModifyType, SkillManager> {
     return this.ListPassiveSkill;
   }
   DoSkill(
-    skill: BaseSkill,
-    attacker: BaseAttributeModel,
-    defender?: BaseAttributeModel
+    skill: SkillManager,
+    attacker: BaseCharacterModel,
+    defender?: BaseCharacterModel
   ): number | void {
-    return skill.InitSkill(attacker, defender);
+    return skill.GetSkillModel().LogicSkill(attacker, defender);
   }
-  SetPassiveSkill(passiveSkill: BaseSkill): void {
-    if (!!this.ListPassiveSkill.get(passiveSkill.GetAttributeModifyType()))
-      this.ListPassiveSkill.delete(passiveSkill.GetAttributeModifyType());
+  SetPassiveSkill(passiveSkill: SkillManager): void {
+    if (
+      !!this.ListPassiveSkill.get(
+        passiveSkill.GetSkillModel().AttributeModifier
+      )
+    )
+      this.ListPassiveSkill.delete(
+        passiveSkill.GetSkillModel().AttributeModifier
+      );
 
     this.ListPassiveSkill.set(
-      passiveSkill.GetAttributeModifyType(),
+      passiveSkill.GetSkillModel().AttributeModifier,
       passiveSkill
     );
   }
@@ -47,7 +55,9 @@ export class CharacterSkillManager implements ICharacterSkillManager {
   HasPassiveSkillByModifierType(modifierType: AttributeModifyType): boolean {
     return !!this.ListPassiveSkill.get(modifierType);
   }
-  GetPassiveSkillByModifierType(modifierType: AttributeModifyType): BaseSkill {
+  GetPassiveSkillByModifierType(
+    modifierType: AttributeModifyType
+  ): SkillManager {
     return this.ListPassiveSkill.get(modifierType)!;
   }
 }

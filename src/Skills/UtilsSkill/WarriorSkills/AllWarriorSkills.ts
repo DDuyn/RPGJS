@@ -1,30 +1,27 @@
-import { BaseAttributeCharacter } from "../../../Character/Base/BaseAttributesCharacter";
-import { Coverage } from "../../../Character/Classes/Warrior/Skills/ActiveSkill/Coverage";
-import { Smash } from "../../../Character/Classes/Warrior/Skills/ActiveSkill/Smash";
-import { BaseSkill } from "../../Base/BaseSkill";
+import { BaseCharacterModel } from "../../../Character/Model/Base/BaseCharacterModel";
+import { Coverage } from "../../ActiveSkill/Coverage";
+import { Smash } from "../../ActiveSkill/Smash";
+import { SkillManager } from "../../Managers/SkillManager";
 export class AllWarriorSkills {
   /**
    *
    */
-  constructor(
-    characterAttributes: BaseAttributeCharacter,
-    listSkill: BaseSkill[]
-  ) {
-    this.InitActiveSkill(characterAttributes, listSkill);
-    this.InitPassiveSkil(characterAttributes, listSkill);
+  constructor(character: BaseCharacterModel, listSkill: SkillManager[]) {
+    this.InitActiveSkill(character, listSkill);
+    this.InitPassiveSkil(character, listSkill);
   }
 
   private InitActiveSkill(
-    characterAttributes: BaseAttributeCharacter,
-    listSkill: BaseSkill[]
+    character: BaseCharacterModel,
+    listSkill: SkillManager[]
   ): void {
-    listSkill.push(new Smash(characterAttributes));
-    listSkill.push(new Coverage(characterAttributes));
+    listSkill.push(new Smash(character));
+    listSkill.push(new Coverage(character));
   }
 
   private InitPassiveSkil(
-    characterAttributes: BaseAttributeCharacter,
-    listSkill: BaseSkill[]
+    character: BaseCharacterModel,
+    listSkill: SkillManager[]
   ): void {
     //TODO: Añadir habilidades pasivas
   }

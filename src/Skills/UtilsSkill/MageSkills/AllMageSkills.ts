@@ -1,28 +1,25 @@
-import { BaseAttributeCharacter } from "../../../Character/Base/BaseAttributesCharacter";
-import { FireBall } from "../../../Character/Classes/Mage/Skills/ActiveSkill/FireBall";
-import { BaseSkill } from "../../Base/BaseSkill";
+import { BaseCharacterModel } from "../../../Character/Model/Base/BaseCharacterModel";
+import { FireBall } from "../../ActiveSkill/FireBall";
+import { SkillManager } from "../../Managers/SkillManager";
 export class AllMageSkills {
   /**
    *
    */
-  constructor(
-    characterAttributes: BaseAttributeCharacter,
-    listSkill: BaseSkill[]
-  ) {
-    this.InitActiveSkill(characterAttributes, listSkill);
-    this.InitPassiveSkil(characterAttributes, listSkill);
+  constructor(character: BaseCharacterModel, listSkill: SkillManager[]) {
+    this.InitActiveSkill(character, listSkill);
+    this.InitPassiveSkil(character, listSkill);
   }
 
   private InitActiveSkill(
-    characterAttributes: BaseAttributeCharacter,
-    listSkill: BaseSkill[]
+    character: BaseCharacterModel,
+    listSkill: SkillManager[]
   ): void {
-    listSkill.push(new FireBall(characterAttributes));
+    listSkill.push(new FireBall(character));
   }
 
   private InitPassiveSkil(
-    characterAttributes: BaseAttributeCharacter,
-    listSkill: BaseSkill[]
+    character: BaseCharacterModel,
+    listSkill: SkillManager[]
   ): void {
     //TODO: Añadir habilidades pasivas
   }

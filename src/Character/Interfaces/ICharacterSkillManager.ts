@@ -1,19 +1,21 @@
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
-import { BaseSkill } from "../../Skills/Base/BaseSkill";
+import { SkillManager } from "../../Skills/Managers/SkillManager";
+import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
 
 export interface ICharacterSkillManager {
-  BuildInitialSkills(): BaseSkill[];
-  GetSkills(): BaseSkill[];
-  GetSkill(skillSearched: string): BaseSkill;
-  AddSkill(skill: BaseSkill): void;
-  GetListPassiveSkill(): Map<AttributeModifyType, BaseSkill>;
+  BuildInitialSkills(): SkillManager[];
+  GetSkills(): SkillManager[];
+  GetSkill(skillSearched: string): SkillManager;
+  AddSkill(skill: SkillManager): void;
+  GetListPassiveSkill(): Map<AttributeModifyType, SkillManager>;
   DoSkill(
-    skill: BaseSkill,
-    attacker: BaseAttributeModel,
-    defender?: BaseAttributeModel
+    skill: SkillManager,
+    attacker: BaseCharacterModel,
+    defender?: BaseCharacterModel
   ): number | void;
-  SetPassiveSkill(passiveSkill: BaseSkill): void;
+  SetPassiveSkill(passiveSkill: SkillManager): void;
   HasPassiveSkillByModifierType(modifierType: AttributeModifyType): boolean;
-  GetPassiveSkillByModifierType(modifierType: AttributeModifyType): BaseSkill;
+  GetPassiveSkillByModifierType(
+    modifierType: AttributeModifyType
+  ): SkillManager;
 }

@@ -1,33 +1,55 @@
+import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
 import { Agility } from "../../Attributes/BattleAttributes/Agility";
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
+import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
+import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
-import { BaseActiveSkill } from "./Base/BaseActiveSkill";
+import { ILogicSkill } from "../Interfaces/ILogicSkill";
+import { IUpgradeSkill } from "../Interfaces/IUpgradeSkill";
+import { SkillManager } from "../Managers/SkillManager";
 
-export class ClockWork extends BaseActiveSkill {
+export class ClockWork
+  extends SkillManager
+  implements ILogicSkill, IUpgradeSkill {
+  private NAME: string = "ClockWork";
+  private ENERGY_COST: number = 20;
+  private DURATION: number = 0;
+  private BASE_VALUE: number = 0.1;
+  private IS_CAST_SELF: boolean = true;
+  private DESCRIPTION: string = "Description ClockWork";
+  private REQUIREMENTS: Map<BaseAttribute, number> = new Map([
+    [new Agility(), 25],
+  ]);
   /**
    *
    */
-  constructor(characterAttributes: BaseAttributeModel) {
+  constructor(character: BaseCharacterModel) {
     super();
-    this.Name = "ClockWork";
-    this.CastSelf = true;
-    this.BaseValue = 0.1;
-    this.EnergyCost = 20;
-    this.SkillCharacterClass = CharacterClass.NONE;
-    this.ValueType = ValueType.PERCENT;
-    this.SetRequirements();
-    this.SetCanPurchase(characterAttributes);
+    this.BuildSkill(
+      this.NAME,
+      SkillType.ACTIVE_SKILL,
+      AttributeModifyType.NONE,
+      ValueType.PERCENT,
+      CharacterClass.NONE,
+      this.ENERGY_COST,
+      this.DURATION,
+      this.BASE_VALUE,
+      this.IS_CAST_SELF,
+      this.SetCanPurchase(character),
+      this.DESCRIPTION,
+      this.REQUIREMENTS,
+      this.LogicSkill
+    );
   }
-  protected LogicSkill(attackerAttributes: BaseAttributeModel): number | void {
+  LogicSkill(attacker: BaseCharacterModel): number | void {
+    const attackerAttributes = attacker!.Attributes.GetListAttributes();
     const agility = attackerAttributes.Agility.GetValue();
-    const agilityModified = agility + Math.round(agility * this.BaseValue);
+    const agilityModified = agility + Math.round(agility * this.BASE_VALUE);
     attackerAttributes.Agility.SetValue(agilityModified);
   }
-  protected SetRequirements(): void {
-    this.GetRequeriments().set(new Agility(), 25);
-  }
-  protected UpgradeSkill(): void {
+
+  UpgradeSkill(): void {
     throw new Error("Method not implemented.");
   }
 }

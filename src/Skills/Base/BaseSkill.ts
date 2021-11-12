@@ -1,100 +1,74 @@
 import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
+import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
+import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
 
 export abstract class BaseSkill {
-  protected Name: string;
-  protected SkillType: SkillType;
-  protected AttributeModifyType: AttributeModifyType;
-  protected ValueType: ValueType;
-  protected SkillCharacterClass: CharacterClass;
-  protected EnergyCost: number;
-  protected BaseValue: number;
-  protected Level: number = 1;
-  protected CastSelf: boolean;
-  protected Duration: number;
-  protected Description: string;
+  private BaseSkillModel: BaseSkillModel;
 
   private CanPurchase: boolean;
   private Requirements: Map<BaseAttribute, number> = new Map();
 
-  public GetName(): string {
-    return this.Name;
-  }
-
-  public GetSkillType(): SkillType {
-    return this.SkillType;
-  }
-
-  public GetAttributeModifyType(): AttributeModifyType {
-    return this.AttributeModifyType;
-  }
-
-  public GetSkillValueType(): ValueType {
-    return this.ValueType;
-  }
-
-  public GetSkillCharacterClass(): CharacterClass {
-    return this.SkillCharacterClass;
-  }
-
-  public GetEnergyCost(): number {
-    return this.EnergyCost;
-  }
-
-  public GetDescription(): string {
-    return this.Description;
-  }
-
-  public GetDuration(): number {
-    return this.Duration;
-  }
-
-  public IsCanPurchase(): boolean {
-    return this.CanPurchase;
-  }
-
-  public GetRequeriments(): Map<BaseAttribute, number> {
-    return this.Requirements;
-  }
-
-  public GetBaseValue(): number {
-    return this.BaseValue;
-  }
-
-  public GetLevel(): number {
-    return this.Level;
-  }
-
-  public IsCastSelf(): boolean {
-    return this.CastSelf;
+  public GetSkillModel(): BaseSkillModel {
+    return this.BaseSkillModel;
   }
 
   public InitSkill(
-    attackerAttributes: BaseAttributeModel,
-    defenderAttributes?: BaseAttributeModel
+    attacker: BaseCharacterModel,
+    defender?: BaseCharacterModel
   ): number | void {
-    return this.LogicSkill(attackerAttributes, defenderAttributes);
+    return this.LogicSkill(attacker, defender);
   }
 
   protected abstract LogicSkill(
-    attackerAttributes: BaseAttributeModel,
-    defenderAttributes?: BaseAttributeModel
+    attacker: BaseCharacterModel,
+    defender?: BaseCharacterModel
   ): number | void;
 
-  protected SetCanPurchase(attributes: BaseAttributeCharacter): void {
+  protected SetCanPurchase(character: BaseCharacterModel): void {
     this.CanPurchase = true;
     this.Requirements.forEach((requirementValue, attribute) => {
       if (
-        requirementValue > attributes.GetValueByAttribute(attribute.GetName())
+        requirementValue >
+        character.Attributes.GetValueByAttribute(attribute.GetName())
       ) {
         this.CanPurchase = false;
         return;
       }
     });
+  }
+
+  protected BuildSkill(
+    skillName: string,
+    skillType: SkillType,
+    attributeModifier: AttributeModifyType,
+    skillValueType: ValueType,
+    skillCharacterClass: CharacterClass,
+    energyCost: number,
+    duration: number,
+    baseValue: number,
+    castSelf: boolean,
+    description: string,
+    requirements: Map<BaseAttribute, number>
+  ): void {
+    this.BaseSkillModel = {
+      Name: skillName,
+      SkillType: skillType,
+      AttributeModifier: attributeModifier,
+      ValueType: skillValueType,
+      SkillCharacterClass: skillCharacterClass,
+      EnergyCost: energyCost,
+      Duration: duration,
+      BaseValue: baseValue,
+      CastSelf: castSelf,
+      Description: description,
+      Level: 1,
+      CanPurchase: this.CanPurchase,
+      Requirements: requirements,
+    };
   }
 
   protected abstract SetRequirements(): void;
