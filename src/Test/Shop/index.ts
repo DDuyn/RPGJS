@@ -3,9 +3,10 @@ import Container from "typedi";
 import { CharacterManager } from "../../Character/Managers/CharacterManager";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
-import { ShopSkill } from "../../Shop/ShopSkills";
+import { SkillManager } from "../../Skills/Managers/SkillManager";
 
 const characterManager = Container.get<CharacterManager>(CharacterManager);
+const skillManager = Container.get<SkillManager>(SkillManager);
 
 const ragnar = characterManager.BuildCharacter(
   "Ragnar",
@@ -13,13 +14,12 @@ const ragnar = characterManager.BuildCharacter(
   CharacterType.PLAYER
 );
 
-let shop = new ShopSkill(ragnar);
-let skillshop = shop.GetAllSkillsByCharacter(ragnar.Class);
-console.log("Skill Shop 1", skillshop[1]);
-shop.PurchaseSkill(skillshop[1]);
-console.log("Ragnar Shop 1", ragnar.Skills.GetSkills());
-console.log("--------------TEST----------");
-shop = new ShopSkill(ragnar);
-skillshop = shop.GetAllSkillsByCharacter(ragnar.Class);
-console.log(skillshop);
-console.log(ragnar.Skills.GetSkills());
+const skillsInShop = skillManager.GetSkillsForShoppingByCharacter(ragnar);
+const skillCart = skillsInShop.find((s) => s.Name === "Smash")!;
+
+console.log(skillsInShop);
+
+skillCart.CanPurchase
+  ? ragnar.SkillManager.AddSkill(skillCart)
+  : console.log("No puedo comprar");
+console.log(ragnar.SkillManager.GetSkills());

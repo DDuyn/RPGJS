@@ -1,67 +1,63 @@
 import { Service } from "typedi";
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
-import { CharacterClass } from "../../Shared/Enums/CharacterClass";
-import { SkillType } from "../../Shared/Enums/SkillType";
-import { ValueType } from "../../Shared/Enums/ValueType";
+import { Attack } from "../BasicSkill/Attack";
 import { ISkillManager } from "../Interfaces/ISkillManager";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
+import { GenerateAllSkills } from "../Utils/GenerateAllSkills";
 
 @Service()
 export abstract class SkillManager implements ISkillManager {
-  private SkillModel: BaseSkillModel;
+  private ListSkill: BaseSkillModel[] = [];
+  private ListPassiveSkill: Map<AttributeModifyType, BaseSkillModel> =
+    new Map();
 
-  protected BuildSkill(
-    skillName: string,
-    skillType: SkillType,
-    attributeModifier: AttributeModifyType,
-    skillValueType: ValueType,
-    skillCharacterClass: CharacterClass,
-    energyCost: number,
-    duration: number,
-    baseValue: number,
-    castSelf: boolean,
-    canPurchase: boolean,
-    description: string,
-    requirements: Map<BaseAttribute, number>,
-    logicSkill: (
-      attacker: BaseCharacterModel,
-      defender?: BaseCharacterModel
-    ) => number | void
-  ): void {
-    this.SkillModel = {
-      Name: skillName,
-      SkillType: skillType,
-      AttributeModifier: attributeModifier,
-      ValueType: skillValueType,
-      SkillCharacterClass: skillCharacterClass,
-      EnergyCost: energyCost,
-      Duration: duration,
-      BaseValue: baseValue,
-      CastSelf: castSelf,
-      Description: description,
-      Level: 1,
-      CanPurchase: canPurchase,
-      Requirements: requirements,
-      LogicSkill: logicSkill,
-    };
+  BuildInitialSkills(): BaseSkillModel[] {
+    //TODO: Generar skills básicas según clase de heroe.
+    this.ListSkill.push(new Attack().GenerateSkill());
+    return this.ListSkill;
   }
 
-  GetSkillModel(): BaseSkillModel {
-    return this.SkillModel;
+  GetSkills(): BaseSkillModel[] {
+    return this.ListSkill;
   }
 
-  protected SetCanPurchase(character: BaseCharacterModel): boolean {
-    let canPurchase = true;
-    this.SkillModel.Requirements.forEach((requireValue, attribute) => {
-      if (
-        requireValue >
-        character.Attributes.GetValueByAttribute(attribute.GetName())
-      ) {
-        canPurchase = false;
-      }
-    });
-    return canPurchase;
+  GetSkill(skillSearched: string): BaseSkillModel {
+    return this.ListSkill.find((skill) => skill.Name === skillSearched)!;
+  }
+
+  AddSkill(skill: BaseSkillModel): void {
+    this.ListSkill.push(skill);
+  }
+
+  GetListPassiveSkill(): Map<AttributeModifyType, BaseSkillModel> {
+    return this.ListPassiveSkill;
+  }
+
+  SetPassiveSkill(passiveSkill: BaseSkillModel): void {
+    if (!!this.ListPassiveSkill.get(passiveSkill.AttributeModifier))
+      this.ListPassiveSkill.delete(passiveSkill.AttributeModifier);
+
+    this.ListPassiveSkill.set(passiveSkill.AttributeModifier, passiveSkill);
+  }
+
+  HasPassiveSkillByModifierType(modifierType: AttributeModifyType): boolean {
+    return !!this.ListPassiveSkill.get(modifierType);
+  }
+  GetPassiveSkillByModifierType(
+    modifierType: AttributeModifyType
+  ): BaseSkillModel {
+    return this.ListPassiveSkill.get(modifierType)!;
+  }
+
+  GetSkillsForShoppingByCharacter(
+    character: BaseCharacterModel
+  ): BaseSkillModel[] {
+    const skills: BaseSkillModel[] = GenerateAllSkills(character);
+    return skills.filter(
+      (skill) =>
+        skill.Name !==
+        this.ListSkill.find((skillSearched) => skillSearched.Name)?.Name
+    );
   }
 }

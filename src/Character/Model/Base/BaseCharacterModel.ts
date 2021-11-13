@@ -1,7 +1,7 @@
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
+import { ISkillManager } from "../../../Skills/Interfaces/ISkillManager";
 import { ICharacterAttributesManager } from "../../Interfaces/ICharacterAttributesManager";
-import { CharacterSkillManager } from "../../Managers/CharacterSkillManager";
 import { CharacterWeaponManager } from "../../Managers/CharacterWeaponManager";
 
 export type BaseCharacterModel = {
@@ -9,6 +9,6 @@ export type BaseCharacterModel = {
   Class: CharacterClass;
   Type: CharacterType;
   Attributes: ICharacterAttributesManager;
-  Skills: CharacterSkillManager;
+  SkillManager: ISkillManager;
   Weapons: CharacterWeaponManager;
 };

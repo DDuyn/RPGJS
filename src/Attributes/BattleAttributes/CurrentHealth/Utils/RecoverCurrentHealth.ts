@@ -1,13 +1,15 @@
 import { BaseCharacterModel } from "../../../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../../../Shared/Enums/AttributeModifyType";
 import { ValueType } from "../../../../Shared/Enums/ValueType";
-import { BaseSkill } from "../../../../Skills/Base/BaseSkill";
+import { BaseSkillModel } from "../../../../Skills/Models/Base/BaseSkillModel";
 
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
 
 export const RecoverCurrentHealth = (character: BaseCharacterModel): number => {
-  let currentHealth = character.Attributes.GetListAttributes().CurrentHealth.GetValue();
-  const maxHealth = character.Attributes.GetListAttributes().MaxHealth.GetValue();
+  let currentHealth =
+    character.Attributes.GetListAttributes().CurrentHealth.GetValue();
+  const maxHealth =
+    character.Attributes.GetListAttributes().MaxHealth.GetValue();
 
   if (CurrentHealthIsEqualsMaxHealth(currentHealth, maxHealth))
     return maxHealth;
@@ -18,7 +20,7 @@ export const RecoverCurrentHealth = (character: BaseCharacterModel): number => {
     );
 
   const passiveSkill = GetHealthSkillPassive(character);
-  currentHealth = passiveSkill.InitSkill(character) as number;
+  currentHealth = passiveSkill.LogicSkill(character) as number;
 
   if (!IsValueSkillPercentDamage(passiveSkill)) return currentHealth;
 
@@ -35,17 +37,19 @@ const CurrentHealthIsEqualsMaxHealth = (
 };
 
 const HasPassiveHealthSkill = (character: BaseCharacterModel): boolean => {
-  return character.Skills.HasPassiveSkillByModifierType(
+  return character.SkillManager.HasPassiveSkillByModifierType(
     AttributeModifyType.HEALTH
   );
 };
 
-const GetHealthSkillPassive = (character: BaseCharacterModel): BaseSkill => {
-  return character.Skills.GetPassiveSkillByModifierType(
+const GetHealthSkillPassive = (
+  character: BaseCharacterModel
+): BaseSkillModel => {
+  return character.SkillManager.GetPassiveSkillByModifierType(
     AttributeModifyType.HEALTH
   );
 };
 
-const IsValueSkillPercentDamage = (skill: BaseSkill): boolean => {
-  return skill.GetSkillValueType() === ValueType.PERCENT;
+const IsValueSkillPercentDamage = (skill: BaseSkillModel): boolean => {
+  return skill.ValueType === ValueType.PERCENT;
 };

@@ -21,7 +21,7 @@ export class Utils {
     const keys = Object.keys(enumeration).filter(
       (x) => !Math.abs(Number.parseInt(x) + 1)
     );
-    return (keys[Math.floor(Math.random() * keys.length)] as unknown) as T;
+    return keys[Math.floor(Math.random() * keys.length)] as unknown as T;
   }
 
   public static Shuffle<T>(list: T[]): T[] {

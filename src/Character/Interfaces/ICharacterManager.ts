@@ -1,5 +1,6 @@
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
+import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
 
 export interface ICharacterManager {
@@ -8,4 +9,10 @@ export interface ICharacterManager {
     characterClass: CharacterClass,
     characterType: CharacterType
   ): BaseCharacterModel;
+
+  DoSkill(
+    skill: BaseSkillModel,
+    attacker: BaseCharacterModel,
+    defender?: BaseCharacterModel
+  ): number | void;
 }
