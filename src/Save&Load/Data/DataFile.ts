@@ -1,9 +1,11 @@
-import { BaseCharacter } from "../../Character/Base/BaseCharacter";
+import { CharacterManager } from "../../Character/Managers/CharacterManager";
+import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { BaseWeapon } from "../../Items/Weapons/Base/BaseWeapon";
+import { SkillManager } from "../../Skills/Managers/SkillManager";
 
 export type DataFile = {
   owner?: string;
-  character?: BaseCharacter[];
+  character?: BaseCharacterModel[];
   weapons?: BaseWeapon[];
 };
 
@@ -12,7 +14,7 @@ export class DataFileUtils {
   public SetOwnerDataFile(owner: string): void {
     this.DataFile.owner = owner;
   }
-  public SetCharacterDataFile(characterList: BaseCharacter[]): void {
+  public SetCharacterDataFile(characterList: BaseCharacterModel[]): void {
     this.DataFile.character = characterList;
   }
   public SetWeaponDataFile(weaponList: BaseWeapon[]): void {
@@ -23,9 +25,11 @@ export class DataFileUtils {
     return this.DataFile;
   }
 
-  public ExtractCharacterDataFile(data: DataFile): BaseCharacter[] {
+  public ExtractCharacterDataFile(data: DataFile): BaseCharacterModel[] {
     data.character?.forEach((character) => {
-      Object.setPrototypeOf(character, BaseCharacter.prototype);
+      //TODO: Rehacer con los demas managers.
+      Object.setPrototypeOf(character, CharacterManager.prototype);
+      Object.setPrototypeOf(character.SkillManager, SkillManager.prototype);
     });
 
     return data.character!;

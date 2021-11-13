@@ -12,4 +12,4 @@ const ragnar = characterManager.BuildCharacter(
   CharacterType.PLAYER
 );
 
-console.log(ragnar.Attributes.GetListAttributes());
+ragnar.DoSkill(ragnar.SkillManager.GetSkill("Attack"), ragnar);

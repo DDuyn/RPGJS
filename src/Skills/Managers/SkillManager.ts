@@ -7,7 +7,7 @@ import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
 import { GenerateAllSkills } from "../Utils/GenerateAllSkills";
 
 @Service()
-export abstract class SkillManager implements ISkillManager {
+export class SkillManager implements ISkillManager {
   private ListSkill: BaseSkillModel[] = [];
   private ListPassiveSkill: Map<AttributeModifyType, BaseSkillModel> =
     new Map();

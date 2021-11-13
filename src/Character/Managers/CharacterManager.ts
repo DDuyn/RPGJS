@@ -38,16 +38,17 @@ export class CharacterManager implements ICharacterManager {
       Attributes: this.characterAttributesManager,
       SkillManager: this.skillManager,
       Weapons: this.characterWeaponManager,
+      DoSkill: this.DoSkill,
     };
 
     return this.CharacterModel;
   }
 
   DoSkill(
+    this: BaseCharacterModel,
     skill: BaseSkillModel,
-    attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
   ): number | void {
-    return skill.LogicSkill(attacker, defender);
+    return skill.LogicSkill(this, defender);
   }
 }

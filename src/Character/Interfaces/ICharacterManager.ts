@@ -11,8 +11,8 @@ export interface ICharacterManager {
   ): BaseCharacterModel;
 
   DoSkill(
+    this: BaseCharacterModel,
     skill: BaseSkillModel,
-    attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
   ): number | void;
 }
