@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { Container } from "typedi";
+import { AttributeConstants } from "../../../Attributes/Constants/AttributeConstants";
 import { CharacterManager } from "../../../Character/Managers/CharacterManager";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
@@ -12,4 +13,22 @@ const ragnar = characterManager.BuildCharacter(
   CharacterType.PLAYER
 );
 
-ragnar.DoSkill(ragnar.SkillManager.GetSkill("Attack"), ragnar);
+console.log(ragnar.Attributes.GetListAttributes());
+
+const skillsInShop =
+  ragnar.SkillManager.GetSkillsForShoppingByCharacter(ragnar);
+const skillCart = skillsInShop.find((s) => s.Name === "Coverage")!;
+
+skillCart.CanPurchase
+  ? ragnar.SkillManager.AddSkill(skillCart)
+  : console.log("No puedo comprar");
+
+console.log(
+  "Antes",
+  ragnar.Attributes.GetValueByAttribute(AttributeConstants.DEFENSE)
+);
+ragnar.DoSkill(ragnar.SkillManager.GetSkill("Coverage"));
+console.log(
+  "Final",
+  ragnar.Attributes.GetValueByAttribute(AttributeConstants.DEFENSE)
+);

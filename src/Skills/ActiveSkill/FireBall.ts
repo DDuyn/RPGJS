@@ -1,4 +1,4 @@
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { Dextery } from "../../Attributes/PrimaryAttributes/Dextery";
 import { Intelligence } from "../../Attributes/PrimaryAttributes/Intelligence";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
@@ -21,9 +21,9 @@ export class FireBall
   private BASE_VALUE: number = 40;
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Description FireBall";
-  private REQUIREMENTS: Map<BaseAttribute, number> = new Map([
-    [new Intelligence(), 20],
-    [new Dextery(), 20],
+  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map([
+    [new Intelligence().BuildAttribute(), 20],
+    [new Dextery().BuildAttribute(), 20],
   ]);
 
   GenerateSkill(character: BaseCharacterModel): BaseSkillModel {
@@ -48,6 +48,7 @@ export class FireBall
   }
 
   LogicSkill(
+    this: BaseSkillModel,
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
   ): number | void {

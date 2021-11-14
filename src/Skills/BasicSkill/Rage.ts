@@ -1,21 +1,21 @@
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
-import { ILogicSkill } from "../Interfaces/ILogicSkill";
 import { ISkill } from "../Interfaces/ISkill";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
 
-export class Rage implements ISkill, ILogicSkill {
+export class Rage implements ISkill {
   private NAME: string = "Rage";
   private ENERGY_COST: number = 15;
   private DURATION: number = 0;
   private BASE_VALUE: number = 20;
   private IS_CAST_SELF: boolean = true;
   private DESCRIPTION: string = "Description Rage";
-  private REQUIREMENTS: Map<BaseAttribute, number> = new Map();
+  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map();
 
   GenerateSkill(): BaseSkillModel {
     const SkillModel = {
@@ -38,10 +38,12 @@ export class Rage implements ISkill, ILogicSkill {
     return SkillModel;
   }
 
-  LogicSkill(attacker: BaseCharacterModel): number | void {
-    const attackerAttributes = attacker.Attributes.GetListAttributes();
-    attackerAttributes.Damage.SetValue(
-      attackerAttributes.Damage.GetValue() + this.BASE_VALUE
-    );
+  LogicSkill(
+    this: BaseSkillModel,
+    attacker: BaseCharacterModel
+  ): number | void {
+    attacker.Attributes.GetAttribute(AttributeConstants.DAMAGE).Value =
+      attacker.Attributes.GetAttribute(AttributeConstants.DAMAGE).Value +
+      this.BaseValue;
   }
 }

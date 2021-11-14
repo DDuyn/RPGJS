@@ -1,17 +1,21 @@
 import { BaseCharacterModel } from "../../../Character/Model/Base/BaseCharacterModel";
-import { BaseBattleAttribute } from "../Base/BaseBattleAttribute";
+import { AttributeType } from "../../../Shared/Enums/AttributeType";
+import { IAttribute } from "../../IManagers/IAttribute";
+import { BaseAttributeModel } from "../../Models/Base/BaseAttributeModel";
 import { RecoverCurrentHealth } from "./Utils/RecoverCurrentHealth";
 
-export class CurrentHealth extends BaseBattleAttribute {
-  /**
-   *
-   */
-  constructor() {
-    super();
-    this.SetName("CurrentHealth");
+export class CurrentHealth implements IAttribute {
+  private NAME: string = "CurrentHealth";
+
+  BuildAttribute(): BaseAttributeModel {
+    return {
+      Name: this.NAME,
+      Value: 0,
+      AttributeType: AttributeType.BATTLE_ATTRIBUTE,
+    };
   }
 
-  public GetCurrentHealthRecovered(character: BaseCharacterModel): number {
+  GetCurrentHealthRecovered(character: BaseCharacterModel): number {
     return RecoverCurrentHealth(character);
   }
 }

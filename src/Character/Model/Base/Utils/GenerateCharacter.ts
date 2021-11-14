@@ -15,22 +15,40 @@ import { MaxHealth } from "../../../../Attributes/PrimaryAttributes/MaxHealth";
 import { Strength } from "../../../../Attributes/PrimaryAttributes/Strength";
 import { CharacterClass } from "../../../../Shared/Enums/CharacterClass";
 import { CharacterConstants } from "../../../Constants/CharacterConstants";
+import { BaseCharacterModel } from "../BaseCharacterModel";
 
-export const BASE_ATTRIBUTE_MODEL: BaseAttributeModel = {
-  Strength: new Strength(),
-  Dextery: new Dextery(),
-  Intelligence: new Intelligence(),
-  MaxHealth: new MaxHealth(),
-  CurrentHealth: new CurrentHealth(),
-  Agility: new Agility(),
-  Damage: new Damage(),
-  Defense: new Defense(),
-  Energy: new Energy(),
-  Resistance: new Resistance(),
-  Spell: new Spell(),
-  Level: new Level(),
-  NeededExperience: new NeededExperience(),
-  TotalExperience: new TotalExperience(),
+export const ATTRIBUTES: BaseAttributeModel[] = [
+  new Strength().BuildAttribute(),
+  new Dextery().BuildAttribute(),
+  new Intelligence().BuildAttribute(),
+  new MaxHealth().BuildAttribute(),
+  new CurrentHealth().BuildAttribute(),
+  new Agility().BuildAttribute(),
+  new Damage().BuildAttribute(),
+  new Defense().BuildAttribute(),
+  new Energy().BuildAttribute(),
+  new Resistance().BuildAttribute(),
+  new Spell().BuildAttribute(),
+  new Level().BuildAttribute(),
+  new NeededExperience().BuildAttribute(),
+  new TotalExperience().BuildAttribute(),
+];
+
+export const LIST_ATTRIBUTES = {
+  Strength: new Strength().BuildAttribute(),
+  Dextery: new Dextery().BuildAttribute(),
+  Intelligence: new Intelligence().BuildAttribute(),
+  MaxHealth: new MaxHealth().BuildAttribute(),
+  CurrentHealth: new CurrentHealth().BuildAttribute(),
+  Agility: new Agility().BuildAttribute(),
+  Damage: new Damage().BuildAttribute(),
+  Defense: new Defense().BuildAttribute(),
+  Energy: new Energy().BuildAttribute(),
+  Resistance: new Resistance().BuildAttribute(),
+  Spell: new Spell().BuildAttribute(),
+  Level: new Level().BuildAttribute(),
+  NeededExperience: new NeededExperience().BuildAttribute(),
+  TotalExperience: new TotalExperience().BuildAttribute(),
 };
 
 export type BASE_PRIMARY_ATTRIBUTE = {
@@ -50,40 +68,38 @@ export type BASE_BATTLE_ATTRIBUTE = {
 };
 
 export const GenerateBaseCharacterAttributes = (
-  characterClass: CharacterClass
-): BaseAttributeModel => {
-  if (characterClass !== CharacterClass.NONE)
-    CharacterConstants.CHARACTER_BUILD_BY_CLASS[characterClass]();
+  character: BaseCharacterModel
+): BaseAttributeModel[] => {
+  if (character.Class !== CharacterClass.NONE)
+    CharacterConstants.CHARACTER_BUILD_BY_CLASS[character.Class]();
   GenerateBaseLevelAttributes();
-  return BASE_ATTRIBUTE_MODEL;
+  return Object.values(LIST_ATTRIBUTES);
 };
 
 export const GenerateBasePrimaryAttributes = (
   attributes: BASE_PRIMARY_ATTRIBUTE
 ): void => {
-  BASE_ATTRIBUTE_MODEL.Strength.SetValue(attributes.Strength);
-  BASE_ATTRIBUTE_MODEL.Dextery.SetValue(attributes.Dextery);
-  BASE_ATTRIBUTE_MODEL.Intelligence.SetValue(attributes.Intelligence);
-  BASE_ATTRIBUTE_MODEL.MaxHealth.SetValue(attributes.MaxHealth);
+  LIST_ATTRIBUTES.Strength.Value = attributes.Strength;
+  LIST_ATTRIBUTES.Dextery.Value = attributes.Dextery;
+  LIST_ATTRIBUTES.Intelligence.Value = attributes.Intelligence;
+  LIST_ATTRIBUTES.MaxHealth.Value = attributes.MaxHealth;
 };
 
 export const GenerateBaseBattleAttributes = (
   attributes: BASE_BATTLE_ATTRIBUTE
 ): void => {
-  BASE_ATTRIBUTE_MODEL.CurrentHealth.SetValue(
-    BASE_ATTRIBUTE_MODEL.MaxHealth.GetValue()
-  );
-  BASE_ATTRIBUTE_MODEL.Agility.SetValue(attributes.Agility);
-  BASE_ATTRIBUTE_MODEL.Damage.SetValue(attributes.Damage);
-  BASE_ATTRIBUTE_MODEL.Defense.SetValue(attributes.Defense);
-  BASE_ATTRIBUTE_MODEL.Energy.SetValue(attributes.Energy);
-  BASE_ATTRIBUTE_MODEL.Resistance.SetValue(attributes.Resistance);
-  BASE_ATTRIBUTE_MODEL.Spell.SetValue(attributes.Spell);
+  LIST_ATTRIBUTES.CurrentHealth.Value = LIST_ATTRIBUTES.MaxHealth.Value;
+  LIST_ATTRIBUTES.Agility.Value = attributes.Agility;
+  LIST_ATTRIBUTES.Damage.Value = attributes.Damage;
+  LIST_ATTRIBUTES.Defense.Value = attributes.Defense;
+  LIST_ATTRIBUTES.Energy.Value = attributes.Energy;
+  LIST_ATTRIBUTES.Resistance.Value = attributes.Resistance;
+  LIST_ATTRIBUTES.Spell.Value = attributes.Spell;
 };
 
 const GenerateBaseLevelAttributes = (): void => {
-  BASE_ATTRIBUTE_MODEL.Level.SetValue(1);
-  BASE_ATTRIBUTE_MODEL.TotalExperience.SetValue(0);
+  LIST_ATTRIBUTES.Level.Value = 1;
+  LIST_ATTRIBUTES.TotalExperience.Value = 0;
   //TODO: Revisar experiencia necesaria.
-  BASE_ATTRIBUTE_MODEL.NeededExperience.SetValue(200);
+  LIST_ATTRIBUTES.NeededExperience.Value = 200;
 };

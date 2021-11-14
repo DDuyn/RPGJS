@@ -1,11 +1,14 @@
-import { BaseBattleAttribute } from "./Base/BaseBattleAttribute";
+import { AttributeType } from "../../Shared/Enums/AttributeType";
+import { IAttribute } from "../IManagers/IAttribute";
+import { BaseAttributeModel } from "../Models/Base/BaseAttributeModel";
 
-export class Defense extends BaseBattleAttribute {
-    /**
-     *
-     */
-    constructor() {
-        super();
-        this.SetName('Defense');
-    }
+export class Defense implements IAttribute {
+  private NAME: string = "Defense";
+  BuildAttribute(): BaseAttributeModel {
+    return {
+      Name: this.NAME,
+      Value: 0,
+      AttributeType: AttributeType.BATTLE_ATTRIBUTE,
+    };
+  }
 }

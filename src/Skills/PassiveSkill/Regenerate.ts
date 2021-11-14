@@ -1,4 +1,5 @@
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { MaxHealth } from "../../Attributes/PrimaryAttributes/MaxHealth";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
@@ -20,8 +21,8 @@ export class Regenerate
   private BASE_VALUE: number = 0.1;
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Description Regenerate";
-  private REQUIREMENTS: Map<BaseAttribute, number> = new Map([
-    [new MaxHealth(), 100],
+  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map([
+    [new MaxHealth().BuildAttribute(), 100],
   ]);
 
   GenerateSkill(character: BaseCharacterModel): BaseSkillModel {
@@ -45,10 +46,17 @@ export class Regenerate
     return SkillModel;
   }
 
-  LogicSkill(attacker: BaseCharacterModel): number | void {
-    const attackerAttributes = attacker.Attributes.GetListAttributes();
-    const currentHealth = attackerAttributes.CurrentHealth.GetValue();
-    return currentHealth + Math.round(currentHealth * this.BASE_VALUE);
+  LogicSkill(
+    this: BaseSkillModel,
+    attacker: BaseCharacterModel
+  ): number | void {
+    return (
+      attacker.Attributes.GetAttribute(AttributeConstants.CURRENTHEALTH).Value +
+      Math.round(
+        attacker.Attributes.GetAttribute(AttributeConstants.CURRENTHEALTH)
+          .Value * this.BaseValue
+      )
+    );
   }
   UpgradeSkill(): void {
     throw new Error("Method not implemented.");

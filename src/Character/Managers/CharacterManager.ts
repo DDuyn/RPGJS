@@ -1,11 +1,11 @@
 import { Inject, Service } from "typedi";
+import { AttributeManager } from "../../Attributes/Managers/AttributeManager";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
 import { SkillManager } from "../../Skills/Managers/SkillManager";
 import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
 import { ICharacterManager } from "../Interfaces/ICharacterManager";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
-import { CharacterAttributesManager } from "./CharacterAttributesManager";
 import { CharacterWeaponManager } from "./CharacterWeaponManager";
 
 @Service()
@@ -19,7 +19,7 @@ export class CharacterManager implements ICharacterManager {
     @Inject()
     private readonly characterWeaponManager: CharacterWeaponManager,
     @Inject()
-    private readonly characterAttributesManager: CharacterAttributesManager,
+    private readonly attributeManager: AttributeManager,
     @Inject()
     private readonly skillManager: SkillManager
   ) {}
@@ -29,17 +29,18 @@ export class CharacterManager implements ICharacterManager {
     characterClass: CharacterClass,
     characterType: CharacterType
   ): BaseCharacterModel {
-    this.characterAttributesManager.BuildAttributes(characterClass);
-    this.skillManager.BuildInitialSkills();
     this.CharacterModel = {
       Name: characterName,
       Class: characterClass,
       Type: characterType,
-      Attributes: this.characterAttributesManager,
+      Attributes: this.attributeManager,
       SkillManager: this.skillManager,
       Weapons: this.characterWeaponManager,
       DoSkill: this.DoSkill,
     };
+
+    this.attributeManager.BuildAttributes(this.CharacterModel);
+    this.skillManager.BuildInitialSkills();
 
     return this.CharacterModel;
   }

@@ -1,4 +1,5 @@
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { MaxHealth } from "../../Attributes/PrimaryAttributes/MaxHealth";
 import { Strength } from "../../Attributes/PrimaryAttributes/Strength";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
@@ -21,9 +22,9 @@ export class Coverage
   private BASE_VALUE: number = 40;
   private IS_CAST_SELF: boolean = true;
   private DESCRIPTION: string = "Description Coverage";
-  private REQUIREMENTS: Map<BaseAttribute, number> = new Map([
-    [new Strength(), 5],
-    [new MaxHealth(), 400],
+  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map([
+    [new Strength().BuildAttribute(), 5],
+    [new MaxHealth().BuildAttribute(), 20],
   ]);
 
   GenerateSkill(character: BaseCharacterModel): BaseSkillModel {
@@ -47,11 +48,15 @@ export class Coverage
     return SkillModel;
   }
 
-  LogicSkill(attacker: BaseCharacterModel): number | void {
-    const attackerAttributes = attacker.Attributes.GetListAttributes();
-    attackerAttributes!.Defense.SetValue(
-      attackerAttributes!.Defense.GetValue() + this.BASE_VALUE
+  LogicSkill(
+    this: BaseSkillModel,
+    attacker: BaseCharacterModel
+  ): number | void {
+    const defense = attacker.Attributes.GetAttribute(
+      AttributeConstants.DEFENSE
     );
+    attacker.Attributes.GetAttribute(AttributeConstants.DEFENSE).Value =
+      defense.Value + this.BaseValue;
   }
 
   UpgradeSkill(): void {

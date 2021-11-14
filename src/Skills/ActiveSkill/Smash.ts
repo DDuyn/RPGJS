@@ -1,4 +1,4 @@
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { Strength } from "../../Attributes/PrimaryAttributes/Strength";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
@@ -20,8 +20,8 @@ export class Smash
   private BASE_VALUE: number = 40;
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Description Smash";
-  private REQUIREMENTS: Map<BaseAttribute, number> = new Map([
-    [new Strength(), 8],
+  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map([
+    [new Strength().BuildAttribute(), 8],
   ]);
 
   GenerateSkill(character: BaseCharacterModel): BaseSkillModel {
@@ -50,6 +50,7 @@ export class Smash
   }
 
   LogicSkill(
+    this: BaseSkillModel,
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
   ): number | void {

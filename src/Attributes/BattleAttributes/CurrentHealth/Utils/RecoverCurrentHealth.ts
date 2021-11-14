@@ -2,14 +2,17 @@ import { BaseCharacterModel } from "../../../../Character/Model/Base/BaseCharact
 import { AttributeModifyType } from "../../../../Shared/Enums/AttributeModifyType";
 import { ValueType } from "../../../../Shared/Enums/ValueType";
 import { BaseSkillModel } from "../../../../Skills/Models/Base/BaseSkillModel";
+import { AttributeConstants } from "../../../Constants/AttributeConstants";
 
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
 
 export const RecoverCurrentHealth = (character: BaseCharacterModel): number => {
-  let currentHealth =
-    character.Attributes.GetListAttributes().CurrentHealth.GetValue();
-  const maxHealth =
-    character.Attributes.GetListAttributes().MaxHealth.GetValue();
+  let currentHealth = character.Attributes.GetValueByAttribute(
+    AttributeConstants.CURRENTHEALTH
+  );
+  const maxHealth = character.Attributes.GetValueByAttribute(
+    AttributeConstants.MAXHEALTH
+  );
 
   if (CurrentHealthIsEqualsMaxHealth(currentHealth, maxHealth))
     return maxHealth;

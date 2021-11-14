@@ -1,11 +1,14 @@
-import { BaseBattleAttribute } from "./Base/BaseBattleAttribute";
+import { AttributeType } from "../../Shared/Enums/AttributeType";
+import { IAttribute } from "../IManagers/IAttribute";
+import { BaseAttributeModel } from "../Models/Base/BaseAttributeModel";
 
-export class Agility extends BaseBattleAttribute {
-    /**
-     *
-     */
-    constructor() {
-        super();
-        this.SetName('Agility');        
-    }
+export class Agility implements IAttribute {
+  private NAME: string = "Agility";
+  BuildAttribute(): BaseAttributeModel {
+    return {
+      Name: this.NAME,
+      Value: 0,
+      AttributeType: AttributeType.BATTLE_ATTRIBUTE,
+    };
+  }
 }

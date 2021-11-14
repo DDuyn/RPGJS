@@ -1,11 +1,14 @@
-import { BasePrimaryAttribute } from "./Base/BasePrimaryAttribute";
+import { AttributeType } from "../../Shared/Enums/AttributeType";
+import { IAttribute } from "../IManagers/IAttribute";
+import { BaseAttributeModel } from "../Models/Base/BaseAttributeModel";
 
-export class Intelligence extends BasePrimaryAttribute {
-    /**
-     *
-     */
-    constructor() {
-        super();
-        this.SetName('Intelligence');
-    }
+export class Intelligence implements IAttribute {
+  private NAME: string = "Intelligence";
+  BuildAttribute(): BaseAttributeModel {
+    return {
+      Name: this.NAME,
+      Value: 0,
+      AttributeType: AttributeType.PRIMARY_ATTRIBUTE,
+    };
+  }
 }

@@ -1,5 +1,6 @@
-import { BaseAttribute } from "../../Attributes/Base/BaseAttribute";
 import { Agility } from "../../Attributes/BattleAttributes/Agility";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
@@ -20,8 +21,8 @@ export class ClockWork
   private BASE_VALUE: number = 0.1;
   private IS_CAST_SELF: boolean = true;
   private DESCRIPTION: string = "Description ClockWork";
-  private REQUIREMENTS: Map<BaseAttribute, number> = new Map([
-    [new Agility(), 25],
+  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map([
+    [new Agility().BuildAttribute(), 25],
   ]);
 
   GenerateSkill(character: BaseCharacterModel): BaseSkillModel {
@@ -45,11 +46,16 @@ export class ClockWork
     return SkillModel;
   }
 
-  LogicSkill(attacker: BaseCharacterModel): number | void {
-    const attackerAttributes = attacker.Attributes.GetListAttributes();
-    const agility = attackerAttributes.Agility.GetValue();
-    const agilityModified = agility + Math.round(agility * this.BASE_VALUE);
-    attackerAttributes.Agility.SetValue(agilityModified);
+  LogicSkill(
+    this: BaseSkillModel,
+    attacker: BaseCharacterModel
+  ): number | void {
+    const agility = attacker.Attributes.GetAttribute(
+      AttributeConstants.AGILITY
+    ).Value;
+    const agilityModified = agility + Math.round(agility * this.BaseValue);
+    attacker.Attributes.GetAttribute(AttributeConstants.AGILITY).Value =
+      agilityModified;
   }
 
   UpgradeSkill(): void {

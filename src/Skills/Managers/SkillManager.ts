@@ -44,6 +44,7 @@ export class SkillManager implements ISkillManager {
   HasPassiveSkillByModifierType(modifierType: AttributeModifyType): boolean {
     return !!this.ListPassiveSkill.get(modifierType);
   }
+
   GetPassiveSkillByModifierType(
     modifierType: AttributeModifyType
   ): BaseSkillModel {
