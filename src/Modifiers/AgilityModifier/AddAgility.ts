@@ -1,19 +1,26 @@
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { ValueType } from "../../Shared/Enums/ValueType";
-import { BaseModifier } from "../Base/BaseModifier";
+import { Utils } from "../../Shared/Utils/Utils";
+import { IModifier } from "../Interfaces/IModifier";
+import { BaseModifierModel } from "../Model/Base/BaseModifierModel";
 
-export class AddAgility extends BaseModifier {
+export class AddAgility implements IModifier {
+  private TIER: number = Utils.Random(1, 10);
   private BASE_MAX_VALUE: number = 5;
-  /**
-   *
-   */
-  constructor() {
-    super();
-    this.RandomTier();
-    this.SetMaxValue(this.BASE_MAX_VALUE);
-    this.Description = `+${this.GetMaxValue()} Agility`;
-    this.Name = "Of the Eagle";
-    this.AttributeModifyType = AttributeModifyType.AGILITY;
-    this.ValueType = ValueType.FLAT;
+  private NAME: string = "AddAgility";
+  private DESCRIPTION: string = `+${this.BASE_MAX_VALUE * this.TIER} Agility`;
+  private ATTRIBUTE_MODIFY: AttributeModifyType = AttributeModifyType.AGILITY;
+  private VALUE_TYPE: ValueType = ValueType.FLAT;
+
+  BuildModifier(): BaseModifierModel {
+    return {
+      Name: this.NAME,
+      Description: this.DESCRIPTION,
+      AttributeModifier: this.ATTRIBUTE_MODIFY,
+      ValueType: this.VALUE_TYPE,
+      Tier: this.TIER,
+      MaxValue: this.BASE_MAX_VALUE * this.TIER,
+      MinValue: 0,
+    };
   }
 }
