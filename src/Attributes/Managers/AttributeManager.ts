@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { GenerateBaseCharacterAttributes } from "../../Character/Model/Base/Utils/GenerateCharacter";
 import { AttributeType } from "../../Shared/Enums/AttributeType";
-import { IAttributeManager } from "../IManagers/IAttributeManager";
+import { IAttributeManager } from "../Interfaces/IAttributeManager";
 import { BaseAttributeModel } from "../Models/Base/BaseAttributeModel";
 
 @Service()
