@@ -1,4 +1,4 @@
-import { IAttributeManager } from "../../../Attributes/IManagers/IAttributeManager";
+import { IAttributeManager } from "../../../Attributes/Interfaces/IAttributeManager";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
 import { ISkillManager } from "../../../Skills/Interfaces/ISkillManager";

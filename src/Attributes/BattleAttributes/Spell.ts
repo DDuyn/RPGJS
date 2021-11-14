@@ -1,5 +1,5 @@
 import { AttributeType } from "../../Shared/Enums/AttributeType";
-import { IAttribute } from "../IManagers/IAttribute";
+import { IAttribute } from "../Interfaces/IAttribute";
 import { BaseAttributeModel } from "../Models/Base/BaseAttributeModel";
 
 export class Spell implements IAttribute {
