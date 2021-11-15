@@ -1,10 +1,9 @@
-import { BasePrefix } from "../Base/BasePrefix";
-import { Eldritch } from "../Eldritch";
-import { Hunters } from "../Hunters";
-import { Warlords } from "../Warlords";
+import { AffixType } from "../../../../Shared/Enums/AffixType";
+import { BaseAffixModel } from "../../Models/BaseAffixModel";
+import { GetAllAffixes } from "../../Utils/GetAllAffixes";
 
-export const GetAllPrefix = (): BasePrefix[] => {
-  const listPrefix: BasePrefix[] = [];
-  listPrefix.push(new Warlords(), new Eldritch(), new Hunters());
-  return listPrefix;
+export const GetAllPrefix = (): BaseAffixModel[] => {
+  return GetAllAffixes().filter(
+    (affix) => affix.AffixType === AffixType.PREFIX
+  );
 };

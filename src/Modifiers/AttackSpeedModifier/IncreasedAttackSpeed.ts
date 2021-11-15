@@ -1,20 +1,28 @@
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { ValueType } from "../../Shared/Enums/ValueType";
-import { BaseModifier } from "../Base/BaseModifier";
+import { Utils } from "../../Shared/Utils/Utils";
+import { IModifier } from "../Interfaces/IModifier";
+import { BaseModifierModel } from "../Model/Base/BaseModifierModel";
 
-export class IncreasedAttackSpeed extends BaseModifier {
-  private BASE_PERCENT_SPEED = 5;
-  /**
-   *
-   */
-  constructor() {
-    super();
-    this.RandomTier();
-    this.SetMaxValue(this.BASE_PERCENT_SPEED);
-    this.Description = ` Increased ${this.GetMaxValue()}% Attack Speed`;
-    //TODO: Cambiar NAME a los modifiers
-    this.Name = `Warlord's`;
-    this.AttributeModifyType = AttributeModifyType.AGILITY;
-    this.ValueType = ValueType.PERCENT;
+export class IncreasedAttackSpeed implements IModifier {
+  private TIER: number = Utils.Random(1, 10);
+  private BASE_MAX_VALUE = 5;
+  private NAME: string = "IncreasedAttackSpeed";
+  private DESCRIPTION: string = `Increased ${
+    this.BASE_MAX_VALUE * this.TIER
+  } % Attack Speed`;
+  private ATTRIBUTE_MODIFY: AttributeModifyType = AttributeModifyType.AGILITY;
+  private VALUE_TYPE: ValueType = ValueType.PERCENT;
+
+  BuildModifier(): BaseModifierModel {
+    return {
+      Name: this.NAME,
+      Description: this.DESCRIPTION,
+      AttributeModifier: this.ATTRIBUTE_MODIFY,
+      ValueType: this.VALUE_TYPE,
+      Tier: this.TIER,
+      MaxValue: this.BASE_MAX_VALUE * this.TIER,
+      MinValue: 0,
+    };
   }
 }

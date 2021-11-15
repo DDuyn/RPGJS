@@ -1,3 +1,4 @@
+import { AttributeManager } from "../../Attributes/Managers/AttributeManager";
 import { CharacterManager } from "../../Character/Managers/CharacterManager";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { BaseWeapon } from "../../Items/Weapons/Base/BaseWeapon";
@@ -30,6 +31,10 @@ export class DataFileUtils {
       //TODO: Rehacer con los demas managers.
       Object.setPrototypeOf(character, CharacterManager.prototype);
       Object.setPrototypeOf(character.SkillManager, SkillManager.prototype);
+      Object.setPrototypeOf(
+        character.AttributeManager,
+        AttributeManager.prototype
+      );
     });
 
     return data.character!;

@@ -1,10 +1,9 @@
-import { BaseSuffix } from "../Base/BaseSuffix";
-import { OffTheBrute } from "../OffTheBrute";
-import { OffTheEagle } from "../OffTheEagle";
-import { OffTheEye } from "../OffTheEye";
+import { AffixType } from "../../../../Shared/Enums/AffixType";
+import { BaseAffixModel } from "../../Models/BaseAffixModel";
+import { GetAllAffixes } from "../../Utils/GetAllAffixes";
 
-export const GetAllSuffix = (): BaseSuffix[] => {
-  const listSuffix: BaseSuffix[] = [];
-  listSuffix.push(new OffTheBrute(), new OffTheEagle(), new OffTheEye());
-  return listSuffix;
+export const GetAllSuffix = (): BaseAffixModel[] => {
+  return GetAllAffixes().filter(
+    (affix) => affix.AffixType === AffixType.PREFIX
+  );
 };

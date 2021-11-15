@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-shop": "ts-node src/test/Shop/index.ts",
     "test-weapon": "ts-node src/test/Weapon/index.ts",
-    "test-create-character": "ts-node src/test/Character/Create/index.ts"
+    "test-create-character": "ts-node src/test/Character/Create/index.ts",
+    "test-modifier": "ts-node src/test/Modifier/index.ts"
   },
   "author": "",
   "license": "ISC",

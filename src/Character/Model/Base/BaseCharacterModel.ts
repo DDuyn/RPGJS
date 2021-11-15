@@ -9,7 +9,7 @@ export type BaseCharacterModel = {
   Name: string;
   Class: CharacterClass;
   Type: CharacterType;
-  Attributes: IAttributeManager;
+  AttributeManager: IAttributeManager;
   SkillManager: ISkillManager;
   Weapons: CharacterWeaponManager;
   DoSkill: (

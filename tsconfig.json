@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es2017",
+        "target": "es2019",
         "module": "commonjs",
         "outDir": "dist",
         "esModuleInterop": true,
@@ -17,7 +17,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
-    "lib": ["es2017"],
+    "lib": ["es2019"],
     "include": [
         "src/**/*.ts",
     ],

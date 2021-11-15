@@ -24,7 +24,7 @@ export const GenerateRandomLoot = (levelDungeon: number): Loot => {
   const loot = new Loot();
   LEVEL_DUNGEON = levelDungeon;
   RARITY_DUNGEON = Utils.Shuffle<PROBABILITY_RARITY_ITEM>(
-    TEST_CHANCES_RARITY.flatMap((rarity) =>
+    TEST_CHANCES_RARITY.flatMap((rarity: PROBABILITY_RARITY_ITEM) =>
       Array(rarity.probability).fill(rarity)
     )
   );

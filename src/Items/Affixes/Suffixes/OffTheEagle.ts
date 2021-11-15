@@ -1,13 +1,19 @@
 import { AddAgility } from "../../../Modifiers/AgilityModifier/AddAgility";
-import { BaseSuffix } from "./Base/BaseSuffix";
+import { IModifier } from "../../../Modifiers/Interfaces/IModifier";
+import { AffixType } from "../../../Shared/Enums/AffixType";
+import { IAffix } from "../Interfaces/IAffix";
+import { BaseAffixModel } from "../Models/BaseAffixModel";
 
-export class OffTheEagle extends BaseSuffix {
-  /**
-   *
-   */
-  constructor() {
-    super();
-    this.ListModifiers.push(new AddAgility());
-    this.Name = "Off the Eagle";
+export class OffTheEagle implements IAffix {
+  private NAME: string = "Off the Eagle";
+  private AFFIX_TYPE: AffixType = AffixType.SUFFIX;
+  private MODIFIERS: IModifier[] = [new AddAgility()];
+
+  BuildAffix(): BaseAffixModel {
+    return {
+      Name: this.NAME,
+      AffixType: this.AFFIX_TYPE,
+      Modifiers: this.MODIFIERS,
+    };
   }
 }

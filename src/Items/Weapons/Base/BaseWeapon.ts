@@ -1,11 +1,13 @@
-import { BaseAttribute } from "../../../Attributes/Base/BaseAttribute";
+import { BaseAttributeModel } from "../../../Attributes/Models/Base/BaseAttributeModel";
 import { BaseModifier } from "../../../Modifiers/Base/BaseModifier";
+import { BaseModifierModel } from "../../../Modifiers/Model/Base/BaseModifierModel";
 import { Constants } from "../../../Shared/Constants/Constants";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { ItemType } from "../../../Shared/Enums/ItemType";
 import { Rarity } from "../../../Shared/Enums/Rarity";
 import { WeaponType } from "../../../Shared/Enums/WeaponType";
 import { Utils } from "../../../Shared/Utils/Utils";
+import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
 import { BasePrefix } from "../../Affixes/Prefix/Base/BasePrefix";
 import { BaseSuffix } from "../../Affixes/Suffixes/Base/BaseSuffix";
 import { GenerateExplicitsModifers } from "../Utils/GenerateExplicitsModifiers";
@@ -28,11 +30,11 @@ export abstract class BaseWeapon {
   private ItemType: ItemType = ItemType.WEAPON;
   //TODO: Utils CanEquip
   private CanEquip: boolean;
-  private ImplicitModifiers: BaseModifier[] = [];
-  private ExplicitModifiers: BaseModifier[] = [];
-  private Prefixes: BasePrefix[] = [];
-  private Suffixes: BaseSuffix[] = [];
-  private Requirements: Map<BaseAttribute, number> = new Map();
+  private ImplicitModifiers: BaseModifierModel[] = [];
+  private ExplicitModifiers: BaseModifierModel[] = [];
+  private Prefixes: BaseAffixModel[] = [];
+  private Suffixes: BaseAffixModel[] = [];
+  private Requirements: Map<BaseAttributeModel, number> = new Map();
 
   public GetName(): string {
     return this.Name;
@@ -70,7 +72,7 @@ export abstract class BaseWeapon {
     return this.Description;
   }
 
-  public GetRequeriments(): Map<BaseAttribute, number> {
+  public GetRequeriments(): Map<BaseAttributeModel, number> {
     return this.Requirements;
   }
 

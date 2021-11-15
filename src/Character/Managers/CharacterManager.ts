@@ -33,7 +33,7 @@ export class CharacterManager implements ICharacterManager {
       Name: characterName,
       Class: characterClass,
       Type: characterType,
-      Attributes: this.attributeManager,
+      AttributeManager: this.attributeManager,
       SkillManager: this.skillManager,
       Weapons: this.characterWeaponManager,
       DoSkill: this.DoSkill,

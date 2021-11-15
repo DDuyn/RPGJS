@@ -1,6 +1,6 @@
 import { Rarity } from "../../../Shared/Enums/Rarity";
 import { Utils } from "../../../Shared/Utils/Utils";
-import { BasePrefix } from "../../Affixes/Prefix/Base/BasePrefix";
+import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
 import { GetAllPrefix } from "../../Affixes/Prefix/Utils/GetAllPrefix";
 
 const GENERATE_RARITY_ITEM = {
@@ -10,16 +10,16 @@ const GENERATE_RARITY_ITEM = {
   LEGENDARY: () => GenerateUniqueItem(),
 };
 
-let ListPrefix: BasePrefix[] = [];
-let ListPrefixSelected: BasePrefix[] = [];
+let ListPrefix: BaseAffixModel[] = [];
+let ListPrefixSelected: BaseAffixModel[] = [];
 
-export const GeneratePrefixes = (rarity: Rarity): BasePrefix[] => {
+export const GeneratePrefixes = (rarity: Rarity): BaseAffixModel[] => {
   ListPrefixSelected = [];
   ListPrefix = [...GetAllPrefix()];
   return GenerateItem(rarity);
 };
 
-const GenerateItem = (rarity: Rarity): BasePrefix[] => {
+const GenerateItem = (rarity: Rarity): BaseAffixModel[] => {
   if (rarity !== Rarity.COMMON) GENERATE_RARITY_ITEM[rarity]();
 
   return ListPrefixSelected;
@@ -52,10 +52,10 @@ const SelectRandomPrefix = (totalPrefix: number): void => {
   }
 };
 
-const GetRandomPrefix = (): BasePrefix => {
-  return Utils.GetIndexFromList<BasePrefix>(ListPrefix);
+const GetRandomPrefix = (): BaseAffixModel => {
+  return Utils.GetIndexFromList<BaseAffixModel>(ListPrefix);
 };
 
-const GetIndexPrefix = (prefix: BasePrefix): number => {
+const GetIndexPrefix = (prefix: BaseAffixModel): number => {
   return ListPrefix.indexOf(prefix);
 };
