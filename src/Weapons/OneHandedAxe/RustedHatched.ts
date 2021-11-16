@@ -6,6 +6,7 @@ import { IncreasedAttackSpeed } from "../../Modifiers/AttackSpeedModifier/Increa
 import { BaseModifierModel } from "../../Modifiers/Model/Base/BaseModifierModel";
 import { Constants } from "../../Shared/Constants/Constants";
 import { ItemType } from "../../Shared/Enums/ItemType";
+import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
 import { Rarity } from "../../Shared/Enums/Rarity";
 import { WeaponType } from "../../Shared/Enums/WeaponType";
 import { IWeapon } from "../Interfaces/IWeapon";
@@ -51,6 +52,7 @@ export class RustedHatched implements IWeapon {
           : Constants.STRING_EMPY,
       Description: this.DESCRIPTION,
       Damage: this.BASE_DAMAGE,
+      LocationWeapon: [LocationWeapon.MAIN_HAND, LocationWeapon.OFF_HAND],
       WeaponType: this.WEAPON_TYPE,
       IsTwoHanded: this.IS_TWO_HANDED,
       Rarity: rarity,

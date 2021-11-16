@@ -13,7 +13,7 @@ const ragnar = characterManager.BuildCharacter(
   CharacterType.PLAYER
 );
 
-console.log(ragnar.Attributes.GetListAttributes());
+console.log(ragnar.AttributeManager.GetListAttributes());
 
 const skillsInShop =
   ragnar.SkillManager.GetSkillsForShoppingByCharacter(ragnar);
@@ -25,10 +25,10 @@ skillCart.CanPurchase
 
 console.log(
   "Antes",
-  ragnar.Attributes.GetValueByAttribute(AttributeConstants.DEFENSE)
+  ragnar.AttributeManager.GetValueByAttribute(AttributeConstants.DEFENSE)
 );
 ragnar.DoSkill(ragnar.SkillManager.GetSkill("Coverage"));
 console.log(
   "Final",
-  ragnar.Attributes.GetValueByAttribute(AttributeConstants.DEFENSE)
+  ragnar.AttributeManager.GetValueByAttribute(AttributeConstants.DEFENSE)
 );

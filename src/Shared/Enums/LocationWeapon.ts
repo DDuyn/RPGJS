@@ -1,4 +1,4 @@
-export enum LocationWeaponEquippedType {
+export enum LocationWeapon {
   MAIN_HAND = "MAIN_HAND",
   OFF_HAND = "OFF_HAND",
   BOOTS = "BOOTS",

@@ -7,10 +7,10 @@ import { AttributeConstants } from "../../../Constants/AttributeConstants";
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
 
 export const RecoverCurrentHealth = (character: BaseCharacterModel): number => {
-  let currentHealth = character.Attributes.GetValueByAttribute(
+  let currentHealth = character.AttributeManager.GetValueByAttribute(
     AttributeConstants.CURRENTHEALTH
   );
-  const maxHealth = character.Attributes.GetValueByAttribute(
+  const maxHealth = character.AttributeManager.GetValueByAttribute(
     AttributeConstants.MAXHEALTH
   );
 

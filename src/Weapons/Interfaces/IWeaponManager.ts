@@ -1,13 +1,8 @@
-import { LocationWeaponEquippedType } from "../../Shared/Enums/LocationWeaponEquipedType";
+import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
 import { BaseWeaponModel } from "../Models/BaseWeaponModel";
 
 export interface IWeaponManager {
-  GetWeaponsEquipped(): Map<LocationWeaponEquippedType, BaseWeaponModel>;
-  GetWeaponEquipped(
-    location: LocationWeaponEquippedType
-  ): BaseWeaponModel | undefined;
-  SetWeaponInLocation(
-    weapon: BaseWeaponModel,
-    location: LocationWeaponEquippedType
-  ): void;
+  GetWeaponsEquipped(): Map<LocationWeapon, BaseWeaponModel>;
+  GetWeaponEquipped(location: LocationWeapon): BaseWeaponModel | undefined;
+  SetWeaponInLocation(weapon: BaseWeaponModel, location: LocationWeapon): void;
 }
