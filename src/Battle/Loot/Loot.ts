@@ -1,13 +1,13 @@
-import { BaseWeapon } from "../../Items/Weapons/Base/BaseWeapon";
+import { BaseWeaponModel } from "../../Weapons/Models/BaseWeaponModel";
 
 export class Loot {
-  private LootWeapons: BaseWeapon[] = [];
+  private LootWeapons: BaseWeaponModel[] = [];
 
-  public GetLootWeapons(): BaseWeapon[] {
+  public GetLootWeapons(): BaseWeaponModel[] {
     return this.LootWeapons;
   }
 
-  public SetLootWeapon(lootWeapons: BaseWeapon[]): void {
+  public SetLootWeapon(lootWeapons: BaseWeaponModel[]): void {
     this.LootWeapons = [...lootWeapons];
   }
 }

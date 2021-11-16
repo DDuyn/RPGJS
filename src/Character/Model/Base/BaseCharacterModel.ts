@@ -3,7 +3,7 @@ import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
 import { ISkillManager } from "../../../Skills/Interfaces/ISkillManager";
 import { BaseSkillModel } from "../../../Skills/Models/Base/BaseSkillModel";
-import { CharacterWeaponManager } from "../../Managers/CharacterWeaponManager";
+import { IWeaponManager } from "../../../Weapons/Interfaces/IWeaponManager";
 
 export type BaseCharacterModel = {
   Name: string;
@@ -11,7 +11,7 @@ export type BaseCharacterModel = {
   Type: CharacterType;
   AttributeManager: IAttributeManager;
   SkillManager: ISkillManager;
-  Weapons: CharacterWeaponManager;
+  WeaponManager: IWeaponManager;
   DoSkill: (
     this: BaseCharacterModel,
     skill: BaseSkillModel,

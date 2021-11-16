@@ -42,8 +42,8 @@ export class Rage implements ISkill {
     this: BaseSkillModel,
     attacker: BaseCharacterModel
   ): number | void {
-    attacker.Attributes.GetAttribute(AttributeConstants.DAMAGE).Value =
-      attacker.Attributes.GetAttribute(AttributeConstants.DAMAGE).Value +
+    attacker.AttributeManager.GetAttribute(AttributeConstants.DAMAGE).Value =
+      attacker.AttributeManager.GetAttribute(AttributeConstants.DAMAGE).Value +
       this.BaseValue;
   }
 }

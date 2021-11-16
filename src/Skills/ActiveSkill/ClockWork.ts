@@ -8,13 +8,10 @@ import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { ISkill } from "../Interfaces/ISkill";
 import { IUpgradeSkill } from "../Interfaces/IUpgradeSkill";
-import { SkillCanPurchaseManager } from "../Managers/SkillCanPurchaseManager";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
+import { CanPurchase } from "../Utils/CanPurchaseSkill";
 
-export class ClockWork
-  extends SkillCanPurchaseManager
-  implements ISkill, IUpgradeSkill
-{
+export class ClockWork implements ISkill, IUpgradeSkill {
   private NAME: string = "ClockWork";
   private ENERGY_COST: number = 20;
   private DURATION: number = 0;
@@ -38,7 +35,7 @@ export class ClockWork
       CastSelf: this.IS_CAST_SELF,
       Description: this.DESCRIPTION,
       Level: 1,
-      CanPurchase: this.IsCanPurchase(this.REQUIREMENTS, character),
+      CanPurchase: CanPurchase(this.REQUIREMENTS, character),
       Requirements: this.REQUIREMENTS,
       LogicSkill: this.LogicSkill,
     };
@@ -50,12 +47,13 @@ export class ClockWork
     this: BaseSkillModel,
     attacker: BaseCharacterModel
   ): number | void {
-    const agility = attacker.Attributes.GetAttribute(
+    const agility = attacker.AttributeManager.GetAttribute(
       AttributeConstants.AGILITY
     ).Value;
     const agilityModified = agility + Math.round(agility * this.BaseValue);
-    attacker.Attributes.GetAttribute(AttributeConstants.AGILITY).Value =
-      agilityModified;
+    attacker.AttributeManager.GetAttribute(
+      AttributeConstants.AGILITY
+    ).Value = agilityModified;
   }
 
   UpgradeSkill(): void {

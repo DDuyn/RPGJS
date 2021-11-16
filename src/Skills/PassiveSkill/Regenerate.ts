@@ -8,13 +8,10 @@ import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { ISkill } from "../Interfaces/ISkill";
 import { IUpgradeSkill } from "../Interfaces/IUpgradeSkill";
-import { SkillCanPurchaseManager } from "../Managers/SkillCanPurchaseManager";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
+import { CanPurchase } from "../Utils/CanPurchaseSkill";
 
-export class Regenerate
-  extends SkillCanPurchaseManager
-  implements ISkill, IUpgradeSkill
-{
+export class Regenerate implements ISkill, IUpgradeSkill {
   private NAME: string = "Regenerate";
   private ENERGY_COST: number = 0;
   private DURATION: number = 0;
@@ -38,7 +35,7 @@ export class Regenerate
       CastSelf: this.IS_CAST_SELF,
       Description: this.DESCRIPTION,
       Level: 1,
-      CanPurchase: this.IsCanPurchase(this.REQUIREMENTS, character),
+      CanPurchase: CanPurchase(this.REQUIREMENTS, character),
       Requirements: this.REQUIREMENTS,
       LogicSkill: this.LogicSkill,
     };
@@ -51,9 +48,10 @@ export class Regenerate
     attacker: BaseCharacterModel
   ): number | void {
     return (
-      attacker.Attributes.GetAttribute(AttributeConstants.CURRENTHEALTH).Value +
+      attacker.AttributeManager.GetAttribute(AttributeConstants.CURRENTHEALTH)
+        .Value +
       Math.round(
-        attacker.Attributes.GetAttribute(AttributeConstants.CURRENTHEALTH)
+        attacker.AttributeManager.GetAttribute(AttributeConstants.CURRENTHEALTH)
           .Value * this.BaseValue
       )
     );

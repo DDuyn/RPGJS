@@ -4,9 +4,9 @@ import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
 import { SkillManager } from "../../Skills/Managers/SkillManager";
 import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
+import { WeaponManager } from "../../Weapons/Managers/WeaponManager";
 import { ICharacterManager } from "../Interfaces/ICharacterManager";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
-import { CharacterWeaponManager } from "./CharacterWeaponManager";
 
 @Service()
 export class CharacterManager implements ICharacterManager {
@@ -17,7 +17,7 @@ export class CharacterManager implements ICharacterManager {
    */
   constructor(
     @Inject()
-    private readonly characterWeaponManager: CharacterWeaponManager,
+    private readonly weaponManager: WeaponManager,
     @Inject()
     private readonly attributeManager: AttributeManager,
     @Inject()
@@ -35,7 +35,7 @@ export class CharacterManager implements ICharacterManager {
       Type: characterType,
       AttributeManager: this.attributeManager,
       SkillManager: this.skillManager,
-      Weapons: this.characterWeaponManager,
+      WeaponManager: this.weaponManager,
       DoSkill: this.DoSkill,
     };
 

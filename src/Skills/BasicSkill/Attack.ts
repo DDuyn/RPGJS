@@ -44,10 +44,10 @@ export class Attack implements ISkill {
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
   ): number {
-    const attackerDamage = attacker.Attributes.GetAttribute(
+    const attackerDamage = attacker.AttributeManager.GetAttribute(
       AttributeConstants.DAMAGE
     );
-    const defenderDefense = defender!.Attributes.GetAttribute(
+    const defenderDefense = defender!.AttributeManager.GetAttribute(
       AttributeConstants.DEFENSE
     );
 

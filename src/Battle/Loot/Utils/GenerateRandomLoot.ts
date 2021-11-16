@@ -1,7 +1,7 @@
-import { BaseWeapon } from "../../../Items/Weapons/Base/BaseWeapon";
-import { GetRandomWeapon } from "../../../Items/Weapons/Utils/GetRandomWeapon";
 import { Rarity } from "../../../Shared/Enums/Rarity";
 import { Utils } from "../../../Shared/Utils/Utils";
+import { BaseWeaponModel } from "../../../Weapons/Models/BaseWeaponModel";
+import { GetRandomWeapon } from "../../../Weapons/Utils/GetRandomWeapon";
 import { Loot } from "../Loot";
 
 //TODO: MOVER
@@ -11,8 +11,8 @@ let LEVEL_DUNGEON: number = 0;
 let RARITY_DUNGEON: PROBABILITY_RARITY_ITEM[] = [];
 //TODO: BORRAR
 const TEST_CHANCES_RARITY: PROBABILITY_RARITY_ITEM[] = [
-  { rarity: Rarity.COMMON, probability: 85 },
-  { rarity: Rarity.MAGIC, probability: 10 },
+  { rarity: Rarity.COMMON, probability: 45 },
+  { rarity: Rarity.MAGIC, probability: 40 },
   { rarity: Rarity.RARE, probability: 4 },
   { rarity: Rarity.UNIQUE, probability: 1 },
   { rarity: Rarity.LEGENDARY, probability: 0 },
@@ -32,13 +32,13 @@ export const GenerateRandomLoot = (levelDungeon: number): Loot => {
   return loot;
 };
 
-const GenerateWeaponLoot = (): BaseWeapon[] => {
+const GenerateWeaponLoot = (): BaseWeaponModel[] => {
   const totalNumberWeapons = GetTotalNumberWeapons();
   return GenerateRandomWeapons(totalNumberWeapons);
 };
 
-const GenerateRandomWeapons = (totalLootWeapon: number): BaseWeapon[] => {
-  const weaponsDroped: BaseWeapon[] = [];
+const GenerateRandomWeapons = (totalLootWeapon: number): BaseWeaponModel[] => {
+  const weaponsDroped: BaseWeaponModel[] = [];
 
   for (let index = 0; index < totalLootWeapon; index++) {
     const weaponGenerate = GetRandomWeapon(

@@ -7,13 +7,10 @@ import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { ISkill } from "../Interfaces/ISkill";
 import { IUpgradeSkill } from "../Interfaces/IUpgradeSkill";
-import { SkillCanPurchaseManager } from "../Managers/SkillCanPurchaseManager";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
+import { CanPurchase } from "../Utils/CanPurchaseSkill";
 
-export class Smash
-  extends SkillCanPurchaseManager
-  implements ISkill, IUpgradeSkill
-{
+export class Smash implements ISkill, IUpgradeSkill {
   private NAME: string = "Smash";
   private ENERGY_COST: number = 25;
   private DURATION: number = 0;
@@ -37,7 +34,7 @@ export class Smash
       CastSelf: this.IS_CAST_SELF,
       Description: this.DESCRIPTION,
       Level: 1,
-      CanPurchase: this.IsCanPurchase(this.REQUIREMENTS, character),
+      CanPurchase: CanPurchase(this.REQUIREMENTS, character),
       Requirements: this.REQUIREMENTS,
       LogicSkill: this.LogicSkill,
     };
