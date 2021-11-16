@@ -1,9 +1,9 @@
 import { BaseAttributeCharacter } from "../Character/Base/BaseAttributesCharacter";
+import { Loot } from "../Loot/Loot";
+import { GenerateRandomLoot } from "../Loot/Utils/GenerateRandomLoot";
 import { CharacterType } from "../Shared/Enums/CharacterType";
 import { Utils } from "../Shared/Utils/Utils";
 import { BaseSkill } from "../Skills/Base/BaseSkill";
-import { Loot } from "./Loot/Loot";
-import { GenerateRandomLoot } from "./Loot/Utils/GenerateRandomLoot";
 import { Party } from "./Party/Party";
 import { CharacterInBattle } from "./Type/CharacterInBattle";
 

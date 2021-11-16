@@ -1,7 +1,7 @@
 import { BaseAttributeCharacter } from "../../Character/Base/BaseAttributesCharacter";
 import { BaseCharacter } from "../../Character/Base/BaseCharacter";
+import { Loot } from "../../Loot/Loot";
 import { Utils } from "../../Shared/Utils/Utils";
-import { Loot } from "../Loot/Loot";
 import { CharacterInBattle } from "../Type/CharacterInBattle";
 
 export class Party {

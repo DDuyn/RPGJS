@@ -7,6 +7,9 @@ export interface ISkillManager {
   GetSkills(): BaseSkillModel[];
   GetSkill(skillSearched: string): BaseSkillModel;
   AddSkill(skill: BaseSkillModel): void;
+  GetActiveSkills(): BaseSkillModel[];
+  SetActiveSkill(skill: BaseSkillModel): boolean;
+  DeleteActiveSkill(skill: BaseSkillModel): boolean;
   GetListPassiveSkill(): Map<AttributeModifyType, BaseSkillModel>;
   SetPassiveSkill(passiveSkill: BaseSkillModel): void;
   HasPassiveSkillByModifierType(modifierType: AttributeModifyType): boolean;

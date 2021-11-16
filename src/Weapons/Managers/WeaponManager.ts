@@ -23,4 +23,6 @@ export class WeaponManager implements IWeaponManager {
       console.log("No se puede equipar");
     }
   }
+
+  //TODO: Calculo de Attributes según arma equipada.
 }

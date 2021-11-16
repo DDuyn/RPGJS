@@ -9,6 +9,7 @@ import { GenerateAllSkills } from "../Utils/GenerateAllSkills";
 @Service()
 export class SkillManager implements ISkillManager {
   private ListSkill: BaseSkillModel[] = [];
+  private ListActiveSkill: BaseSkillModel[] = [];
   private ListPassiveSkill: Map<AttributeModifyType, BaseSkillModel> =
     new Map();
 
@@ -28,6 +29,31 @@ export class SkillManager implements ISkillManager {
 
   AddSkill(skill: BaseSkillModel): void {
     this.ListSkill.push(skill);
+  }
+
+  GetActiveSkills(): BaseSkillModel[] {
+    return this.ListActiveSkill;
+  }
+
+  SetActiveSkill(skill: BaseSkillModel): boolean {
+    if (this.ListActiveSkill.length === 4) return false;
+
+    this.ListActiveSkill.push(skill);
+
+    return true;
+  }
+
+  DeleteActiveSkill(skill: BaseSkillModel): boolean {
+    //TODO: Crear CONTROL DE EXCEPCIONES
+    const skillFounded = this.ListActiveSkill.find(
+      (skillActive) => skillActive.Name === skill.Name
+    );
+    if (skillFounded === undefined) return false;
+
+    const indexSkill = this.ListActiveSkill.indexOf(skillFounded);
+    this.ListActiveSkill.slice(indexSkill, 1);
+
+    return true;
   }
 
   GetListPassiveSkill(): Map<AttributeModifyType, BaseSkillModel> {

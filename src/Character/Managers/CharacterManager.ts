@@ -1,5 +1,6 @@
 import { Inject, Service } from "typedi";
 import { AttributeManager } from "../../Attributes/Managers/AttributeManager";
+import { LootManager } from "../../Loot/Managers/LootManager";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
 import { SkillManager } from "../../Skills/Managers/SkillManager";
@@ -21,7 +22,9 @@ export class CharacterManager implements ICharacterManager {
     @Inject()
     private readonly attributeManager: AttributeManager,
     @Inject()
-    private readonly skillManager: SkillManager
+    private readonly skillManager: SkillManager,
+    @Inject()
+    private readonly lootManager: LootManager
   ) {}
 
   BuildCharacter(
@@ -36,6 +39,7 @@ export class CharacterManager implements ICharacterManager {
       AttributeManager: this.attributeManager,
       SkillManager: this.skillManager,
       WeaponManager: this.weaponManager,
+      LootManager: this.lootManager,
       DoSkill: this.DoSkill,
     };
 

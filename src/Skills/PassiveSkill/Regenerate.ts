@@ -57,6 +57,7 @@ export class Regenerate implements ISkill, IUpgradeSkill {
     );
   }
   UpgradeSkill(): void {
+    //TODO: Sistema de skill upgrade
     throw new Error("Method not implemented.");
   }
 }
