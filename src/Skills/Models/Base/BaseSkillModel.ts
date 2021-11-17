@@ -23,5 +23,5 @@ export type BaseSkillModel = {
     this: BaseSkillModel,
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
-  ) => number | void;
+  ) => void;
 };

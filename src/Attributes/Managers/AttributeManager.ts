@@ -10,7 +10,7 @@ export class AttributeManager implements IAttributeManager {
   private ListAttributes: BaseAttributeModel[] = [];
 
   BuildAttributes(character: BaseCharacterModel): void {
-    this.ListAttributes = GenerateBaseCharacterAttributes(character);
+    this.ListAttributes = GenerateBaseCharacterAttributes(character.Class);
   }
 
   GetListAttributes(): BaseAttributeModel[] {

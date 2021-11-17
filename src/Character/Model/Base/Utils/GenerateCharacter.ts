@@ -15,24 +15,6 @@ import { MaxHealth } from "../../../../Attributes/PrimaryAttributes/MaxHealth";
 import { Strength } from "../../../../Attributes/PrimaryAttributes/Strength";
 import { CharacterClass } from "../../../../Shared/Enums/CharacterClass";
 import { CharacterConstants } from "../../../Constants/CharacterConstants";
-import { BaseCharacterModel } from "../BaseCharacterModel";
-
-export const ATTRIBUTES: BaseAttributeModel[] = [
-  new Strength().BuildAttribute(),
-  new Dextery().BuildAttribute(),
-  new Intelligence().BuildAttribute(),
-  new MaxHealth().BuildAttribute(),
-  new CurrentHealth().BuildAttribute(),
-  new Agility().BuildAttribute(),
-  new Damage().BuildAttribute(),
-  new Defense().BuildAttribute(),
-  new Energy().BuildAttribute(),
-  new Resistance().BuildAttribute(),
-  new Spell().BuildAttribute(),
-  new Level().BuildAttribute(),
-  new NeededExperience().BuildAttribute(),
-  new TotalExperience().BuildAttribute(),
-];
 
 export const LIST_ATTRIBUTES = {
   Strength: new Strength().BuildAttribute(),
@@ -68,10 +50,10 @@ export type BASE_BATTLE_ATTRIBUTE = {
 };
 
 export const GenerateBaseCharacterAttributes = (
-  character: BaseCharacterModel
+  characterClass: CharacterClass
 ): BaseAttributeModel[] => {
-  if (character.Class !== CharacterClass.NONE)
-    CharacterConstants.CHARACTER_BUILD_BY_CLASS[character.Class]();
+  if (characterClass !== CharacterClass.NONE)
+    CharacterConstants.CHARACTER_BUILD_BY_CLASS[characterClass]();
   GenerateBaseLevelAttributes();
   return Object.values(LIST_ATTRIBUTES);
 };

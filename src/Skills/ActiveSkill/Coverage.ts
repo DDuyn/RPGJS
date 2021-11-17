@@ -45,10 +45,7 @@ export class Coverage implements ISkill, IUpgradeSkill {
     return SkillModel;
   }
 
-  LogicSkill(
-    this: BaseSkillModel,
-    attacker: BaseCharacterModel
-  ): number | void {
+  LogicSkill(this: BaseSkillModel, attacker: BaseCharacterModel): void {
     const defense = attacker.AttributeManager.GetAttribute(
       AttributeConstants.DEFENSE
     );

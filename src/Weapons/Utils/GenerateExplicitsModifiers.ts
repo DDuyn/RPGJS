@@ -36,11 +36,15 @@ const SelectRandomSuffixModifier = (): void => {
 const GetRandomModifierByPrefix = (
   prefix: BaseAffixModel
 ): BaseModifierModel => {
-  return Utils.GetIndexFromList<IModifier>(prefix.Modifiers).BuildModifier();
+  return Utils.GetRandomElementFromList<IModifier>(
+    prefix.Modifiers
+  ).BuildModifier();
 };
 
 const GetRandomModifierBySuffix = (
   suffix: BaseAffixModel
 ): BaseModifierModel => {
-  return Utils.GetIndexFromList<IModifier>(suffix.Modifiers).BuildModifier();
+  return Utils.GetRandomElementFromList<IModifier>(
+    suffix.Modifiers
+  ).BuildModifier();
 };

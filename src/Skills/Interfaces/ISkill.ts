@@ -7,5 +7,5 @@ export interface ISkill {
     this: BaseSkillModel,
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
-  ): number | void;
+  ): void;
 }

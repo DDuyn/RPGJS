@@ -53,9 +53,9 @@ const SelectRandomPrefix = (totalPrefix: number): void => {
 };
 
 const GetRandomPrefix = (): BaseAffixModel => {
-  return Utils.GetIndexFromList<BaseAffixModel>(ListPrefix);
+  return Utils.GetRandomElementFromList<BaseAffixModel>(ListPrefix);
 };
 
 const GetIndexPrefix = (prefix: BaseAffixModel): number => {
-  return ListPrefix.indexOf(prefix);
+  return Utils.GetIndexFromList<BaseAffixModel>(ListPrefix, prefix);
 };

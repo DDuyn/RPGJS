@@ -98,7 +98,7 @@ export class Battle {
     attacker: CharacterInBattle,
     defender: CharacterInBattle
   ): number | void {
-    return attacker.character.DoSkill(attacker.skill!, defender.character)!;
+    return attacker.character.DoSkill(attacker.skill!, defender.character);
   }
 
   private static IsCombatientDead(defender: CharacterInBattle): boolean {

@@ -1,4 +1,5 @@
 import { IAttributeManager } from "../../../Attributes/Interfaces/IAttributeManager";
+import { BaseAttributeModel } from "../../../Attributes/Models/Base/BaseAttributeModel";
 import { ILootManager } from "../../../Loot/Interface/ILootManager";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
@@ -14,9 +15,10 @@ export type BaseCharacterModel = {
   SkillManager: ISkillManager;
   WeaponManager: IWeaponManager;
   LootManager: ILootManager;
+  Attributes: BaseAttributeModel[];
   DoSkill: (
     this: BaseCharacterModel,
     skill: BaseSkillModel,
     defender?: BaseCharacterModel
-  ) => number | void;
+  ) => void;
 };

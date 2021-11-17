@@ -43,17 +43,13 @@ export class ClockWork implements ISkill, IUpgradeSkill {
     return SkillModel;
   }
 
-  LogicSkill(
-    this: BaseSkillModel,
-    attacker: BaseCharacterModel
-  ): number | void {
+  LogicSkill(this: BaseSkillModel, attacker: BaseCharacterModel): void {
     const agility = attacker.AttributeManager.GetAttribute(
       AttributeConstants.AGILITY
     ).Value;
     const agilityModified = agility + Math.round(agility * this.BaseValue);
-    attacker.AttributeManager.GetAttribute(
-      AttributeConstants.AGILITY
-    ).Value = agilityModified;
+    attacker.AttributeManager.GetAttribute(AttributeConstants.AGILITY).Value =
+      agilityModified;
   }
 
   UpgradeSkill(): void {

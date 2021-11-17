@@ -48,7 +48,7 @@ export class FireBall implements ISkill, IUpgradeSkill {
     this: BaseSkillModel,
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
-  ): number | void {
+  ): void {
     console.log(attacker);
     console.log(defender);
   }

@@ -9,7 +9,7 @@ export class Utils {
     return Math.floor((value + Number.EPSILON) * 100) / 100;
   }
 
-  public static GetIndexFromList<T>(list: T[]): T {
+  public static GetRandomElementFromList<T>(list: T[]): T {
     return list[Math.floor(Math.random() * list.length)] as T;
   }
 
@@ -26,5 +26,9 @@ export class Utils {
 
   public static Shuffle<T>(list: T[]): T[] {
     return list.sort(() => 0.5 - Math.random());
+  }
+
+  public static GetIndexFromList<T>(list: T[], element: any): number {
+    return list.indexOf(element);
   }
 }

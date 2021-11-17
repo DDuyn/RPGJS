@@ -23,7 +23,7 @@ export const RecoverCurrentHealth = (character: BaseCharacterModel): number => {
     );
 
   const passiveSkill = GetHealthSkillPassive(character);
-  currentHealth = passiveSkill.LogicSkill(character) as number;
+  passiveSkill.LogicSkill(character);
 
   if (!IsValueSkillPercentDamage(passiveSkill)) return currentHealth;
 

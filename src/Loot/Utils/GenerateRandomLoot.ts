@@ -60,5 +60,6 @@ const GenerateItemLevel = () => {
 };
 
 const GenerateRarity = () => {
-  return Utils.GetIndexFromList<PROBABILITY_RARITY_ITEM>(RARITY_DUNGEON).rarity;
+  return Utils.GetRandomElementFromList<PROBABILITY_RARITY_ITEM>(RARITY_DUNGEON)
+    .rarity;
 };

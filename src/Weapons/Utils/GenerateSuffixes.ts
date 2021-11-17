@@ -56,9 +56,9 @@ const SelectRandomSuffix = (totalSuffix: number): void => {
 };
 
 const GetRandomSuffix = (): BaseAffixModel => {
-  return Utils.GetIndexFromList<BaseAffixModel>(ListSuffix);
+  return Utils.GetRandomElementFromList<BaseAffixModel>(ListSuffix);
 };
 
 const GetIndexSuffix = (suffix: BaseAffixModel): number => {
-  return ListSuffix.indexOf(suffix);
+  return Utils.GetIndexFromList<BaseAffixModel>(ListSuffix, suffix);
 };

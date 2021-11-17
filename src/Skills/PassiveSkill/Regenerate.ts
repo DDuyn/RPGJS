@@ -43,18 +43,16 @@ export class Regenerate implements ISkill, IUpgradeSkill {
     return SkillModel;
   }
 
-  LogicSkill(
-    this: BaseSkillModel,
-    attacker: BaseCharacterModel
-  ): number | void {
-    return (
+  LogicSkill(this: BaseSkillModel, attacker: BaseCharacterModel): void {
+    attacker.AttributeManager.GetAttribute(
+      AttributeConstants.CURRENTHEALTH
+    ).Value =
       attacker.AttributeManager.GetAttribute(AttributeConstants.CURRENTHEALTH)
         .Value +
       Math.round(
         attacker.AttributeManager.GetAttribute(AttributeConstants.CURRENTHEALTH)
           .Value * this.BaseValue
-      )
-    );
+      );
   }
   UpgradeSkill(): void {
     //TODO: Sistema de skill upgrade

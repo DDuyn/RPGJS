@@ -38,10 +38,7 @@ export class Rage implements ISkill {
     return SkillModel;
   }
 
-  LogicSkill(
-    this: BaseSkillModel,
-    attacker: BaseCharacterModel
-  ): number | void {
+  LogicSkill(this: BaseSkillModel, attacker: BaseCharacterModel): void {
     attacker.AttributeManager.GetAttribute(AttributeConstants.DAMAGE).Value =
       attacker.AttributeManager.GetAttribute(AttributeConstants.DAMAGE).Value +
       this.BaseValue;

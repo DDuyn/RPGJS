@@ -8,6 +8,7 @@ import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
 import { WeaponManager } from "../../Weapons/Managers/WeaponManager";
 import { ICharacterManager } from "../Interfaces/ICharacterManager";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
+import { GenerateBaseCharacterAttributes } from "../Model/Base/Utils/GenerateCharacter";
 
 @Service()
 export class CharacterManager implements ICharacterManager {
@@ -40,10 +41,15 @@ export class CharacterManager implements ICharacterManager {
       SkillManager: this.skillManager,
       WeaponManager: this.weaponManager,
       LootManager: this.lootManager,
+      Attributes: GenerateBaseCharacterAttributes(characterClass),
       DoSkill: this.DoSkill,
     };
 
-    this.attributeManager.BuildAttributes(this.CharacterModel);
+    console.log(
+      characterName,
+      this.CharacterModel.Attributes.find((a) => a.Name === "CurrentHealth")
+    );
+
     this.skillManager.BuildInitialSkills();
 
     return this.CharacterModel;
@@ -53,7 +59,7 @@ export class CharacterManager implements ICharacterManager {
     this: BaseCharacterModel,
     skill: BaseSkillModel,
     defender?: BaseCharacterModel
-  ): number | void {
-    return skill.LogicSkill(this, defender);
+  ): void {
+    skill.LogicSkill(this, defender);
   }
 }

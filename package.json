@@ -9,7 +9,8 @@
     "test-shop": "ts-node src/test/Shop/index.ts",
     "test-weapon": "ts-node src/test/Weapon/index.ts",
     "test-create-character": "ts-node src/test/Character/Create/index.ts",
-    "test-modifier": "ts-node src/test/Modifier/index.ts"
+    "test-modifier": "ts-node src/test/Modifier/index.ts",
+    "test-battle": "ts-node src/test/Battle/index.ts"
   },
   "author": "",
   "license": "ISC",

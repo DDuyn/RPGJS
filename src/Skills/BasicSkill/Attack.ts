@@ -43,7 +43,7 @@ export class Attack implements ISkill {
     this: BaseSkillModel,
     attacker: BaseCharacterModel,
     defender?: BaseCharacterModel
-  ): number {
+  ): void {
     const attackerDamage = attacker.AttributeManager.GetAttribute(
       AttributeConstants.DAMAGE
     );
@@ -59,6 +59,9 @@ export class Attack implements ISkill {
       100 / (100 + defenderDefense.Value)
     );
 
-    return Math.round(damageCalculated * defenseCalculated);
+    defender!.AttributeManager.GetAttribute(AttributeConstants.DEFENSE).Value =
+      Math.round(damageCalculated * defenseCalculated);
+
+    console.log("Attack", defender!.AttributeManager.GetListAttributes());
   }
 }

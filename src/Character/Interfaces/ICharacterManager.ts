@@ -14,5 +14,5 @@ export interface ICharacterManager {
     this: BaseCharacterModel,
     skill: BaseSkillModel,
     defender?: BaseCharacterModel
-  ): number | void;
+  ): void;
 }
