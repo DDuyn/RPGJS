@@ -1,5 +1,5 @@
 import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
-import { Strength } from "../../Attributes/PrimaryAttributes/Strength";
+import { Strength } from "../../Attributes/Models/PrimaryAttributes/Strength";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";

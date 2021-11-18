@@ -1,5 +1,4 @@
 import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
 import { BaseModifierModel } from "../../Modifiers/Model/Base/BaseModifierModel";
 import { ItemType } from "../../Shared/Enums/ItemType";
 import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
@@ -21,5 +20,5 @@ export type BaseWeaponModel = {
   Explicits: BaseModifierModel[];
   Prefixes: BaseAffixModel[];
   Suffixes: BaseAffixModel[];
-  Requirements: Map<BaseAttributeModel, number>;
+  Requirements: Map<string, number>;
 };

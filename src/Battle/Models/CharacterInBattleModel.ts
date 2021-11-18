@@ -1,8 +1,8 @@
-import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
+import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
 
 export type CharacterInBattleModel = {
-  Character: BaseCharacterModel;
+  Character: ICharacter;
   Skill?: BaseSkillModel;
   IsStarter: boolean;
   IsDead: boolean;

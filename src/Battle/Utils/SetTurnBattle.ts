@@ -1,5 +1,5 @@
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
-import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
+import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { Utils } from "../../Shared/Utils/Utils";
 import { CharacterInBattleModel } from "../Models/CharacterInBattleModel";
 import { TurnBattleModel } from "../Models/TurnBattleModel";
@@ -21,11 +21,9 @@ export const SetTurnBattle = (
   return turnBattle;
 };
 
-const CalculateAgility = (character: BaseCharacterModel): number => {
+const CalculateAgility = (character: ICharacter): number => {
   //TODO: Generar método para definir turnos.
-  return character.AttributeManager.GetValueByAttribute(
-    AttributeConstants.AGILITY
-  );
+  return character.GetValueByAttribute(AttributeConstants.AGILITY);
 };
 
 const EnemyIsMostFastThanPlayer = (

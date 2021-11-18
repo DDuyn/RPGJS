@@ -1,7 +1,7 @@
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
-import { MaxHealth } from "../../Attributes/PrimaryAttributes/MaxHealth";
-import { Strength } from "../../Attributes/PrimaryAttributes/Strength";
+import { MaxHealth } from "../../Attributes/Models/PrimaryAttributes/MaxHealth";
+import { Strength } from "../../Attributes/Models/PrimaryAttributes/Strength";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";

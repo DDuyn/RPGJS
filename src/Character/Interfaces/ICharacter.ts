@@ -3,16 +3,14 @@ import { CharacterType } from "../../Shared/Enums/CharacterType";
 import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
 
-export interface ICharacterManager {
+export interface ICharacter {
   BuildCharacter(
-    characterName: String,
+    characterName: string,
     characterClass: CharacterClass,
     characterType: CharacterType
   ): BaseCharacterModel;
-
-  DoSkill(
-    this: BaseCharacterModel,
-    skill: BaseSkillModel,
-    defender?: BaseCharacterModel
-  ): void;
+  DoSkill(this: ICharacter, skill: BaseSkillModel, defender?: ICharacter): void;
+  GetData(): BaseCharacterModel;
+  GetValueByAttribute(attributeName: string): number;
+  SetValueInAttribute(value: number, attributeName: string): void;
 }

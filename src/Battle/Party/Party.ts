@@ -1,5 +1,5 @@
-import { BaseAttributeCharacter } from "../../Character/Base/BaseAttributesCharacter";
-import { BaseCharacter } from "../../Character/Base/BaseCharacter";
+import { BaseAttributeCharacter } from "../../Character/Classes/Base/BaseAttributesCharacter";
+import { BaseCharacter } from "../../Character/Classes/Base/BaseCharacter";
 import { Loot } from "../../Loot/Loot";
 import { Utils } from "../../Shared/Utils/Utils";
 import { CharacterInBattle } from "../Type/CharacterInBattle";

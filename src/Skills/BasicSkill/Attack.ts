@@ -1,6 +1,6 @@
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
-import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
+import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../Shared/Enums/SkillType";
@@ -41,27 +41,27 @@ export class Attack implements ISkill {
 
   LogicSkill(
     this: BaseSkillModel,
-    attacker: BaseCharacterModel,
-    defender?: BaseCharacterModel
+    attacker: ICharacter,
+    defender?: ICharacter
   ): void {
-    const attackerDamage = attacker.AttributeManager.GetAttribute(
+    const attackerDamage = attacker.GetValueByAttribute(
       AttributeConstants.DAMAGE
     );
-    const defenderDefense = defender!.AttributeManager.GetAttribute(
+    const defenderDefense = defender!.GetValueByAttribute(
       AttributeConstants.DEFENSE
     );
 
     const damageCalculated: number = Utils.Random(
-      attackerDamage.Value * 0.75,
-      attackerDamage.Value
+      attackerDamage * 0.75,
+      attackerDamage
     );
     const defenseCalculated: number = Utils.Rounded(
-      100 / (100 + defenderDefense.Value)
+      100 / (100 + defenderDefense)
     );
 
-    defender!.AttributeManager.GetAttribute(AttributeConstants.DEFENSE).Value =
-      Math.round(damageCalculated * defenseCalculated);
-
-    console.log("Attack", defender!.AttributeManager.GetListAttributes());
+    defender!.SetValueInAttribute(
+      Math.round(damageCalculated * defenseCalculated),
+      AttributeConstants.DEFENSE
+    );
   }
 }

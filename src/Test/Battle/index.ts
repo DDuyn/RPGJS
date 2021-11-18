@@ -1,24 +1,18 @@
 import "reflect-metadata";
 import Container from "typedi";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { BattleManager } from "../../Battle/Managers/BattleManager";
 import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleModel";
-import { CharacterManager } from "../../Character/Managers/CharacterManager";
-import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { Mage } from "../../Character/Model/Mage/Mage";
+import { Warrior } from "../../Character/Model/Warrior/Warrior";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
 
-const characterManager = Container.get<CharacterManager>(CharacterManager);
 const battleManager = Container.get<BattleManager>(BattleManager);
 
-const warrior = characterManager.BuildCharacter(
-  "Ragnar",
-  CharacterClass.WARRIOR,
-  CharacterType.PLAYER
-);
-const mage = characterManager.BuildCharacter(
-  "Merlín",
-  CharacterClass.MAGE,
-  CharacterType.IA
-);
+const warrior = new Warrior("Ragnar", CharacterType.PLAYER);
+const warrior1 = new Warrior("Ragnar 1", CharacterType.PLAYER);
+
+const mage = new Mage("Merlín", CharacterType.IA);
 
 const playerInBattle: CharacterInBattleModel = {
   Character: warrior,
@@ -34,8 +28,26 @@ const enemyInBattle: CharacterInBattleModel = {
   IsDead: false,
 };
 
-console.log("Vida Main", warrior.Attributes);
-console.log("Vida Main", mage.Attributes);
+console.log(warrior.GetData().Name, warrior.GetData().Attributes);
+console.log(warrior1.GetData().Name, warrior1.GetData().Attributes);
+console.log(mage.GetData().Name, mage.GetData().Attributes);
+
+console.log(
+  warrior.GetData().Name,
+  warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+);
+
+console.log(
+  mage.GetData().Name,
+  mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+);
+
+warrior.SetValueInAttribute(999, AttributeConstants.CURRENTHEALTH);
+
+console.log(
+  warrior.GetData().Name,
+  warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+);
 /*
 const partyPlayer: PartyModel = { Characters: [playerInBattle] };
 const partyEnemy: PartyModel = { Characters: [enemyInBattle] };

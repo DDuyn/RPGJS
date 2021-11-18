@@ -1,36 +1,36 @@
-import { Agility } from "../../../../Attributes/BattleAttributes/Agility";
-import { CurrentHealth } from "../../../../Attributes/BattleAttributes/CurrentHealth/CurrentHealth";
-import { Damage } from "../../../../Attributes/BattleAttributes/Damage";
-import { Defense } from "../../../../Attributes/BattleAttributes/Defense";
-import { Energy } from "../../../../Attributes/BattleAttributes/Energy";
-import { Resistance } from "../../../../Attributes/BattleAttributes/Resistance";
-import { Spell } from "../../../../Attributes/BattleAttributes/Spell";
-import { Level } from "../../../../Attributes/LevelAttributes/Level";
-import { NeededExperience } from "../../../../Attributes/LevelAttributes/NeededExperience";
-import { TotalExperience } from "../../../../Attributes/LevelAttributes/TotalExperience";
-import { BaseAttributeModel } from "../../../../Attributes/Models/Base/BaseAttributeModel";
-import { Dextery } from "../../../../Attributes/PrimaryAttributes/Dextery";
-import { Intelligence } from "../../../../Attributes/PrimaryAttributes/Intelligence";
-import { MaxHealth } from "../../../../Attributes/PrimaryAttributes/MaxHealth";
-import { Strength } from "../../../../Attributes/PrimaryAttributes/Strength";
+import { Attribute } from "../../../../Attributes/Attribute";
+import { Agility } from "../../../../Attributes/Models/BattleAttributes/Agility";
+import { CurrentHealth } from "../../../../Attributes/Models/BattleAttributes/CurrentHealth/CurrentHealth";
+import { Damage } from "../../../../Attributes/Models/BattleAttributes/Damage";
+import { Defense } from "../../../../Attributes/Models/BattleAttributes/Defense";
+import { Energy } from "../../../../Attributes/Models/BattleAttributes/Energy";
+import { Resistance } from "../../../../Attributes/Models/BattleAttributes/Resistance";
+import { Spell } from "../../../../Attributes/Models/BattleAttributes/Spell";
+import { Level } from "../../../../Attributes/Models/LevelAttributes/Level";
+import { NeededExperience } from "../../../../Attributes/Models/LevelAttributes/NeededExperience";
+import { TotalExperience } from "../../../../Attributes/Models/LevelAttributes/TotalExperience";
+import { Dextery } from "../../../../Attributes/Models/PrimaryAttributes/Dextery";
+import { Intelligence } from "../../../../Attributes/Models/PrimaryAttributes/Intelligence";
+import { MaxHealth } from "../../../../Attributes/Models/PrimaryAttributes/MaxHealth";
+import { Strength } from "../../../../Attributes/Models/PrimaryAttributes/Strength";
 import { CharacterClass } from "../../../../Shared/Enums/CharacterClass";
 import { CharacterConstants } from "../../../Constants/CharacterConstants";
 
 export const LIST_ATTRIBUTES = {
-  Strength: new Strength().BuildAttribute(),
-  Dextery: new Dextery().BuildAttribute(),
-  Intelligence: new Intelligence().BuildAttribute(),
-  MaxHealth: new MaxHealth().BuildAttribute(),
-  CurrentHealth: new CurrentHealth().BuildAttribute(),
-  Agility: new Agility().BuildAttribute(),
-  Damage: new Damage().BuildAttribute(),
-  Defense: new Defense().BuildAttribute(),
-  Energy: new Energy().BuildAttribute(),
-  Resistance: new Resistance().BuildAttribute(),
-  Spell: new Spell().BuildAttribute(),
-  Level: new Level().BuildAttribute(),
-  NeededExperience: new NeededExperience().BuildAttribute(),
-  TotalExperience: new TotalExperience().BuildAttribute(),
+  Strength: new Strength(),
+  Dextery: new Dextery(),
+  Intelligence: new Intelligence(),
+  MaxHealth: new MaxHealth(),
+  CurrentHealth: new CurrentHealth(),
+  Agility: new Agility(),
+  Damage: new Damage(),
+  Defense: new Defense(),
+  Energy: new Energy(),
+  Resistance: new Resistance(),
+  Spell: new Spell(),
+  Level: new Level(),
+  NeededExperience: new NeededExperience(),
+  TotalExperience: new TotalExperience(),
 };
 
 export type BASE_PRIMARY_ATTRIBUTE = {
@@ -51,37 +51,38 @@ export type BASE_BATTLE_ATTRIBUTE = {
 
 export const GenerateBaseCharacterAttributes = (
   characterClass: CharacterClass
-): BaseAttributeModel[] => {
+): Attribute[] => {
   if (characterClass !== CharacterClass.NONE)
     CharacterConstants.CHARACTER_BUILD_BY_CLASS[characterClass]();
   GenerateBaseLevelAttributes();
+
   return Object.values(LIST_ATTRIBUTES);
 };
 
 export const GenerateBasePrimaryAttributes = (
   attributes: BASE_PRIMARY_ATTRIBUTE
 ): void => {
-  LIST_ATTRIBUTES.Strength.Value = attributes.Strength;
-  LIST_ATTRIBUTES.Dextery.Value = attributes.Dextery;
-  LIST_ATTRIBUTES.Intelligence.Value = attributes.Intelligence;
-  LIST_ATTRIBUTES.MaxHealth.Value = attributes.MaxHealth;
+  LIST_ATTRIBUTES.Strength.SetValue(attributes.Strength);
+  LIST_ATTRIBUTES.Dextery.SetValue(attributes.Dextery);
+  LIST_ATTRIBUTES.Intelligence.SetValue(attributes.Intelligence);
+  LIST_ATTRIBUTES.MaxHealth.SetValue(attributes.MaxHealth);
 };
 
 export const GenerateBaseBattleAttributes = (
   attributes: BASE_BATTLE_ATTRIBUTE
 ): void => {
-  LIST_ATTRIBUTES.CurrentHealth.Value = LIST_ATTRIBUTES.MaxHealth.Value;
-  LIST_ATTRIBUTES.Agility.Value = attributes.Agility;
-  LIST_ATTRIBUTES.Damage.Value = attributes.Damage;
-  LIST_ATTRIBUTES.Defense.Value = attributes.Defense;
-  LIST_ATTRIBUTES.Energy.Value = attributes.Energy;
-  LIST_ATTRIBUTES.Resistance.Value = attributes.Resistance;
-  LIST_ATTRIBUTES.Spell.Value = attributes.Spell;
+  LIST_ATTRIBUTES.CurrentHealth.SetValue(LIST_ATTRIBUTES.MaxHealth.GetValue());
+  LIST_ATTRIBUTES.Agility.SetValue(attributes.Agility);
+  LIST_ATTRIBUTES.Damage.SetValue(attributes.Damage);
+  LIST_ATTRIBUTES.Defense.SetValue(attributes.Defense);
+  LIST_ATTRIBUTES.Energy.SetValue(attributes.Energy);
+  LIST_ATTRIBUTES.Resistance.SetValue(attributes.Resistance);
+  LIST_ATTRIBUTES.Spell.SetValue(attributes.Spell);
 };
 
 const GenerateBaseLevelAttributes = (): void => {
-  LIST_ATTRIBUTES.Level.Value = 1;
-  LIST_ATTRIBUTES.TotalExperience.Value = 0;
+  LIST_ATTRIBUTES.Level.SetValue(1);
+  LIST_ATTRIBUTES.TotalExperience.SetValue(0);
   //TODO: Revisar experiencia necesaria.
-  LIST_ATTRIBUTES.NeededExperience.Value = 200;
+  LIST_ATTRIBUTES.NeededExperience.SetValue(200);
 };

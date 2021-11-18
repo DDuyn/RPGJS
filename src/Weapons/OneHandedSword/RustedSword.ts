@@ -1,6 +1,5 @@
 import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
-import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
-import { Strength } from "../../Attributes/PrimaryAttributes/Strength";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { IncreasedDamage } from "../../Modifiers/DamageModifier/IncreasedDamage";
 import { BaseModifierModel } from "../../Modifiers/Model/Base/BaseModifierModel";
 import { Constants } from "../../Shared/Constants/Constants";
@@ -10,6 +9,7 @@ import { Rarity } from "../../Shared/Enums/Rarity";
 import { WeaponType } from "../../Shared/Enums/WeaponType";
 import { IWeapon } from "../Interfaces/IWeapon";
 import { BaseWeaponModel } from "../Models/BaseWeaponModel";
+import { CalculateBaseDamage } from "../Utils/CalculateBaseDamage";
 import { GenerateExplicitsModifers } from "../Utils/GenerateExplicitsModifiers";
 import { GenerateItemName } from "../Utils/GenerateItemNameByModifierType";
 import { GeneratePrefixes } from "../Utils/GeneratePrefixes";
@@ -24,7 +24,7 @@ export class RustedSword implements IWeapon {
   private IMPLICITS: BaseModifierModel[] = [
     new IncreasedDamage().BuildModifier(),
   ];
-  private REQUIREMENTS: Map<BaseAttributeModel, number> = new Map();
+  private REQUIREMENTS: Map<string, number> = new Map();
   private PREFIXES: BaseAffixModel[] = [];
   private SUFFIXES: BaseAffixModel[] = [];
   private EXPLICITS: BaseModifierModel[] = [];
@@ -32,9 +32,7 @@ export class RustedSword implements IWeapon {
   BuildWeapon(levelItem: number, rarity: Rarity): BaseWeaponModel {
     this.PREFIXES = GeneratePrefixes(rarity);
     this.SUFFIXES = GenerateSuffixes(rarity, this.PREFIXES.length > 0);
-    this.REQUIREMENTS = new Map([
-      [new Strength().BuildAttribute(), 3 * levelItem],
-    ]);
+    this.REQUIREMENTS = new Map([[AttributeConstants.STRENGTH, 3 * levelItem]]);
     this.EXPLICITS = GenerateExplicitsModifers(this.PREFIXES, this.SUFFIXES);
 
     return {
@@ -49,7 +47,7 @@ export class RustedSword implements IWeapon {
           ? this.BASE_NAME
           : Constants.STRING_EMPY,
       Description: this.DESCRIPTION,
-      Damage: this.BASE_DAMAGE,
+      Damage: CalculateBaseDamage(this.BASE_DAMAGE, levelItem, rarity),
       LocationWeapon: [LocationWeapon.MAIN_HAND, LocationWeapon.OFF_HAND],
       WeaponType: this.WEAPON_TYPE,
       IsTwoHanded: this.IS_TWO_HANDED,

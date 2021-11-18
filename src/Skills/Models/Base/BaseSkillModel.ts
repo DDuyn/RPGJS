@@ -1,5 +1,5 @@
 import { BaseAttributeModel } from "../../../Attributes/Models/Base/BaseAttributeModel";
-import { BaseCharacterModel } from "../../../Character/Model/Base/BaseCharacterModel";
+import { ICharacter } from "../../../Character/Interfaces/ICharacter";
 import { AttributeModifyType } from "../../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { SkillType } from "../../../Shared/Enums/SkillType";
@@ -21,7 +21,7 @@ export type BaseSkillModel = {
   Requirements: Map<BaseAttributeModel, number>;
   LogicSkill: (
     this: BaseSkillModel,
-    attacker: BaseCharacterModel,
-    defender?: BaseCharacterModel
+    attacker: ICharacter,
+    defender?: ICharacter
   ) => void;
 };

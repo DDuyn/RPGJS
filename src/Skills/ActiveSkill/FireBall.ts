@@ -1,6 +1,6 @@
 import { BaseAttributeModel } from "../../Attributes/Models/Base/BaseAttributeModel";
-import { Dextery } from "../../Attributes/PrimaryAttributes/Dextery";
-import { Intelligence } from "../../Attributes/PrimaryAttributes/Intelligence";
+import { Dextery } from "../../Attributes/Models/PrimaryAttributes/Dextery";
+import { Intelligence } from "../../Attributes/Models/PrimaryAttributes/Intelligence";
 import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
 import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";

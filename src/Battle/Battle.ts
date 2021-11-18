@@ -1,4 +1,4 @@
-import { BaseAttributeCharacter } from "../Character/Base/BaseAttributesCharacter";
+import { BaseAttributeCharacter } from "../Character/Classes/Base/BaseAttributesCharacter";
 import { Loot } from "../Loot/Loot";
 import { GenerateRandomLoot } from "../Loot/Utils/GenerateRandomLoot";
 import { CharacterType } from "../Shared/Enums/CharacterType";
