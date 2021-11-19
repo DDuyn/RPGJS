@@ -1,7 +1,7 @@
 import { IAttribute } from "../../../Attributes/Interfaces/IAttribute";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
-import { BaseSkillModel } from "../../../Skills/Models/Base/BaseSkillModel";
+import { ISkill } from "../../../Skills/Interfaces/ISkill";
 import { BaseWeaponModel } from "../../../Weapons/Models/BaseWeaponModel";
 
 export type BaseCharacterModel = {
@@ -9,6 +9,6 @@ export type BaseCharacterModel = {
   Class: CharacterClass;
   Type: CharacterType;
   Attributes: IAttribute[];
-  Skills: BaseSkillModel[];
+  Skills: ISkill[];
   Weapons: BaseWeaponModel[];
 };

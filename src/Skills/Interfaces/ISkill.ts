@@ -1,12 +1,28 @@
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
-import { BaseCharacterModel } from "../../Character/Model/Base/BaseCharacterModel";
+import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { SkillType } from "../../Shared/Enums/SkillType";
+import { ValueType } from "../../Shared/Enums/ValueType";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
 
 export interface ISkill {
-  GenerateSkill(character?: BaseCharacterModel): BaseSkillModel;
-  LogicSkill(
-    this: BaseSkillModel,
-    attacker: ICharacter,
-    defender?: ICharacter
-  ): void;
+  BuildSkill(
+    skillName: string,
+    skillType: SkillType,
+    valueType: ValueType,
+    skillCharacterClass: CharacterClass,
+    energyCost: number,
+    baseValue: number,
+    isCastSelf: boolean,
+    duration: number,
+    description: string,
+    requirements: Map<string, number>,
+    character: ICharacter
+  ): BaseSkillModel;
+  GetData(): BaseSkillModel;
+  CanPurchase(
+    requirements: Map<string, number>,
+    character: ICharacter
+  ): boolean;
+  GetBaseValue(): number;
+  LogicSkill(this: ISkill, attacker: ICharacter, defender?: ICharacter): void;
 }

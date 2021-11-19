@@ -1,7 +1,7 @@
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
 import { CharacterType } from "../Shared/Enums/CharacterType";
 import { Utils } from "../Shared/Utils/Utils";
-import { BaseSkillModel } from "../Skills/Models/Base/BaseSkillModel";
+import { ISkill } from "../Skills/Interfaces/ISkill";
 import { ICharacter } from "./Interfaces/ICharacter";
 import { BaseCharacterModel } from "./Model/Base/BaseCharacterModel";
 import { GenerateBaseCharacterAttributes } from "./Model/Base/Utils/GenerateCharacter";
@@ -48,11 +48,8 @@ export abstract class Character implements ICharacter {
    * @param skill
    * @param defender
    */
-  DoSkill(
-    this: ICharacter,
-    skill: BaseSkillModel,
-    defender?: ICharacter
-  ): void {
+  DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void {
+    console.log(skill);
     skill.LogicSkill(this, defender);
   }
 

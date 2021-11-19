@@ -1,6 +1,6 @@
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
-import { BaseSkillModel } from "../../Skills/Models/Base/BaseSkillModel";
+import { ISkill } from "../../Skills/Interfaces/ISkill";
 import { BaseCharacterModel } from "../Model/Base/BaseCharacterModel";
 
 export interface ICharacter {
@@ -9,7 +9,7 @@ export interface ICharacter {
     characterClass: CharacterClass,
     characterType: CharacterType
   ): BaseCharacterModel;
-  DoSkill(this: ICharacter, skill: BaseSkillModel, defender?: ICharacter): void;
+  DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void;
   GetData(): BaseCharacterModel;
   GetValueByAttribute(attributeName: string): number;
   SetValueInAttribute(value: number, attributeName: string): void;

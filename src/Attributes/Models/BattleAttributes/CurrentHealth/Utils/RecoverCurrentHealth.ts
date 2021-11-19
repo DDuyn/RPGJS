@@ -1,7 +1,7 @@
 import { ICharacter } from "../../../../../Character/Interfaces/ICharacter";
 import { AttributeModifyType } from "../../../../../Shared/Enums/AttributeModifyType";
 import { ValueType } from "../../../../../Shared/Enums/ValueType";
-import { BaseSkillModel } from "../../../../../Skills/Models/Base/BaseSkillModel";
+import { ISkill } from "../../../../../Skills/Interfaces/ISkill";
 import { AttributeConstants } from "../../../../Constants/AttributeConstants";
 
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
@@ -40,15 +40,15 @@ const CurrentHealthIsEqualsMaxHealth = (
 const HasPassiveHealthSkill = (character: ICharacter): boolean => {
   return !!character
     .GetData()
-    .Skills.find((s) => s.AttributeModifier === AttributeModifyType.HEALTH);
+    .Skills.find((s) => "HEALTH" === AttributeModifyType.HEALTH);
 };
 
-const GetHealthSkillPassive = (character: ICharacter): BaseSkillModel => {
+const GetHealthSkillPassive = (character: ICharacter): ISkill => {
   return character
     .GetData()
-    .Skills.find((s) => s.AttributeModifier === AttributeModifyType.HEALTH)!;
+    .Skills.find((s) => "HEALTH" === AttributeModifyType.HEALTH)!;
 };
 
-const IsValueSkillPercentDamage = (skill: BaseSkillModel): boolean => {
-  return skill.ValueType === ValueType.PERCENT;
+const IsValueSkillPercentDamage = (skill: ISkill): boolean => {
+  return skill.GetData().ValueType === ValueType.PERCENT;
 };

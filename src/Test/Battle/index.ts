@@ -6,6 +6,7 @@ import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleMod
 import { Mage } from "../../Character/Model/Mage/Mage";
 import { Warrior } from "../../Character/Model/Warrior/Warrior";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
+import { FireBall } from "../../Skills/ActiveSkill/FireBall";
 
 const battleManager = Container.get<BattleManager>(BattleManager);
 
@@ -48,6 +49,11 @@ console.log(
   warrior.GetData().Name,
   warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
 );
+
+warrior.GetData().Skills.push(new FireBall(warrior));
+
+warrior.DoSkill(warrior.GetData().Skills[0], mage);
+
 /*
 const partyPlayer: PartyModel = { Characters: [playerInBattle] };
 const partyEnemy: PartyModel = { Characters: [enemyInBattle] };
