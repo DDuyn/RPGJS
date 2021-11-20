@@ -1,5 +1,6 @@
 import { ICharacter } from "../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
+import { PassiveType } from "../Shared/Enums/PassiveType";
 import { SkillType } from "../Shared/Enums/SkillType";
 import { ValueType } from "../Shared/Enums/ValueType";
 import { Utils } from "../Shared/Utils/Utils";
@@ -18,6 +19,7 @@ export abstract class Skill implements ISkill {
     skillType: SkillType,
     valueType: ValueType,
     skillCharacterClass: CharacterClass,
+    passiveType: PassiveType,
     energyCost: number,
     baseValue: number,
     isCastSelf: boolean,
@@ -31,6 +33,7 @@ export abstract class Skill implements ISkill {
       SkillType: skillType,
       ValueType: valueType,
       SkillCharacterClass: skillCharacterClass,
+      PassiveType: passiveType,
       EnergyCost: energyCost,
       BaseValue: baseValue,
       IsCastSelf: isCastSelf,
@@ -42,6 +45,10 @@ export abstract class Skill implements ISkill {
     };
 
     return Utils.DeepClone<BaseSkillModel>(model);
+  }
+
+  GetName(): string {
+    return this.Data.Name;
   }
 
   GetData(): BaseSkillModel {

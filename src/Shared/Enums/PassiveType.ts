@@ -1,4 +1,4 @@
-export enum AttributeModifyType {
+export enum PassiveType {
   NONE = "NONE",
   HEALTH = "HEALTH",
   DEFENSE = "DEFENSE",

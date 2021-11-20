@@ -1,5 +1,5 @@
 import { ICharacter } from "../../../../../Character/Interfaces/ICharacter";
-import { AttributeModifyType } from "../../../../../Shared/Enums/AttributeModifyType";
+import { PassiveType } from "../../../../../Shared/Enums/PassiveType";
 import { ValueType } from "../../../../../Shared/Enums/ValueType";
 import { ISkill } from "../../../../../Skills/Interfaces/ISkill";
 import { AttributeConstants } from "../../../../Constants/AttributeConstants";
@@ -40,13 +40,13 @@ const CurrentHealthIsEqualsMaxHealth = (
 const HasPassiveHealthSkill = (character: ICharacter): boolean => {
   return !!character
     .GetData()
-    .Skills.find((s) => "HEALTH" === AttributeModifyType.HEALTH);
+    .Skills.find((s) => "HEALTH" === PassiveType.HEALTH);
 };
 
 const GetHealthSkillPassive = (character: ICharacter): ISkill => {
   return character
     .GetData()
-    .Skills.find((s) => "HEALTH" === AttributeModifyType.HEALTH)!;
+    .Skills.find((s) => "HEALTH" === PassiveType.HEALTH)!;
 };
 
 const IsValueSkillPercentDamage = (skill: ISkill): boolean => {

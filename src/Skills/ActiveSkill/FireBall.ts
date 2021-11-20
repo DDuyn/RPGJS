@@ -1,6 +1,7 @@
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { PassiveType } from "../../Shared/Enums/PassiveType";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { ISkill } from "../Interfaces/ISkill";
@@ -29,6 +30,7 @@ export class FireBall extends Skill implements IUpgradeSkill {
       SkillType.ACTIVE_SKILL,
       ValueType.FLAT,
       CharacterClass.MAGE,
+      PassiveType.NONE,
       this.ENERGY_COST,
       this.BASE_VALUE,
       this.IS_CAST_SELF,

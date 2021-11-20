@@ -13,4 +13,6 @@ export interface ICharacter {
   GetData(): BaseCharacterModel;
   GetValueByAttribute(attributeName: string): number;
   SetValueInAttribute(value: number, attributeName: string): void;
+  GetSkill(skillName: string): ISkill;
+  PurchaseSkill(skill: ISkill): boolean;
 }

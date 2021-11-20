@@ -4,8 +4,9 @@ import { Utils } from "../Shared/Utils/Utils";
 import { ISkill } from "../Skills/Interfaces/ISkill";
 import { ICharacter } from "./Interfaces/ICharacter";
 import { BaseCharacterModel } from "./Model/Base/BaseCharacterModel";
-import { GenerateBaseCharacterAttributes } from "./Model/Base/Utils/GenerateCharacter";
-import { FindAttributeByName } from "./Utils/FindAttributeByName";
+import { FindAttributeByName, FindSkillByName } from "./Utils/CharacterUtils";
+import { GenerateBasicSkills } from "./Utils/GenerateBasicSkills";
+import { GenerateBaseCharacterAttributes } from "./Utils/GenerateCharacter";
 
 export abstract class Character implements ICharacter {
   protected Data: BaseCharacterModel;
@@ -28,7 +29,7 @@ export abstract class Character implements ICharacter {
       Type: characterType,
       Attributes: GenerateBaseCharacterAttributes(characterClass),
       Weapons: [],
-      Skills: [],
+      Skills: GenerateBasicSkills(this),
     };
 
     return Utils.DeepClone<BaseCharacterModel>(model);
@@ -49,7 +50,6 @@ export abstract class Character implements ICharacter {
    * @param defender
    */
   DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void {
-    console.log(skill);
     skill.LogicSkill(this, defender);
   }
 
@@ -72,5 +72,25 @@ export abstract class Character implements ICharacter {
     this.Data.Attributes.find((attribute) =>
       FindAttributeByName(attributeName, attribute)
     )!.SetValue(value);
+  }
+
+  /**
+   * Return skill by skill name
+   * @param skillName
+   * @returns ISKill
+   */
+  GetSkill(skillName: string): ISkill {
+    return this.Data.Skills.find((skill) => FindSkillByName(skillName, skill))!;
+  }
+
+  /**
+   * Purchase skill for Character
+   * @param skill
+   * @returns boolean
+   */
+  PurchaseSkill(skill: ISkill): boolean {
+    if (!skill.GetData().CanPurchase) return false;
+    this.Data.Skills.push(skill);
+    return true;
   }
 }

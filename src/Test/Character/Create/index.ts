@@ -1,34 +1,18 @@
-import "reflect-metadata";
-import { Container } from "typedi";
-import { AttributeConstants } from "../../../Attributes/Constants/AttributeConstants";
-import { CharacterManager } from "../../../Character/Managers/CharacterManager";
-import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
+import { Warrior } from "../../../Character/Model/Warrior/Warrior";
+import { DataFileUtils } from "../../../Save&Load/Data/DataFile";
+import { Load } from "../../../Save&Load/Load/Load";
+import { Save } from "../../../Save&Load/Save/Save";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
 
-const characterManager = Container.get<CharacterManager>(CharacterManager);
+const warrior = new Warrior("Ragnar", CharacterType.PLAYER);
 
-const ragnar = characterManager.BuildCharacter(
-  "Ragnar",
-  CharacterClass.WARRIOR,
-  CharacterType.PLAYER
-);
+console.log(warrior.GetData().Name, warrior.GetData().Attributes);
+console.log(warrior.GetData().Name, warrior.GetData().Skills);
 
-console.log(ragnar.AttributeManager.GetListAttributes());
-
-const skillsInShop =
-  ragnar.SkillManager.GetSkillsForShoppingByCharacter(ragnar);
-const skillCart = skillsInShop.find((s) => s.Name === "Coverage")!;
-
-skillCart.CanPurchase
-  ? ragnar.SkillManager.AddSkill(skillCart)
-  : console.log("No puedo comprar");
-
-console.log(
-  "Antes",
-  ragnar.AttributeManager.GetValueByAttribute(AttributeConstants.DEFENSE)
-);
-ragnar.DoSkill(ragnar.SkillManager.GetSkill("Coverage"));
-console.log(
-  "Final",
-  ragnar.AttributeManager.GetValueByAttribute(AttributeConstants.DEFENSE)
-);
+const dataFile = new DataFileUtils();
+dataFile.SetOwnerDataFile("David");
+dataFile.SetCharacterDataFile([warrior]);
+Save.SaveDataInFile(dataFile.GetDataFile());
+const c = Load.LoadDataFromFile("David");
+const l = dataFile.ExtractCharacterDataFile(c);
+console.log(l[0].GetData().Name);

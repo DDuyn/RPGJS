@@ -1,5 +1,6 @@
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { PassiveType } from "../../Shared/Enums/PassiveType";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { BaseSkillModel } from "../Models/Base/BaseSkillModel";
@@ -10,6 +11,7 @@ export interface ISkill {
     skillType: SkillType,
     valueType: ValueType,
     skillCharacterClass: CharacterClass,
+    passiveType: PassiveType,
     energyCost: number,
     baseValue: number,
     isCastSelf: boolean,
@@ -19,6 +21,7 @@ export interface ISkill {
     character: ICharacter
   ): BaseSkillModel;
   GetData(): BaseSkillModel;
+  GetName(): string;
   CanPurchase(
     requirements: Map<string, number>,
     character: ICharacter

@@ -1,6 +1,7 @@
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { PassiveType } from "../../Shared/Enums/PassiveType";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { Utils } from "../../Shared/Utils/Utils";
@@ -23,9 +24,10 @@ export class Attack extends Skill {
     super();
     this.Data = this.BuildSkill(
       this.NAME,
-      SkillType.ACTIVE_SKILL,
+      SkillType.BASIC_SKILL,
       ValueType.FLAT,
-      CharacterClass.MAGE,
+      CharacterClass.NONE,
+      PassiveType.NONE,
       this.ENERGY_COST,
       this.BASE_VALUE,
       this.IS_CAST_SELF,
@@ -36,9 +38,7 @@ export class Attack extends Skill {
     );
   }
 
-  LogicSkill(this: ISkill, attacker: ICharacter, defender?: ICharacter): void {
-    console.log("Atacando a ", defender?.GetData().Name);
-
+  LogicSkill(this: ISkill, attacker: ICharacter, defender: ICharacter): void {
     const attackerDamage = attacker.GetValueByAttribute(
       AttributeConstants.DAMAGE
     );
@@ -54,9 +54,10 @@ export class Attack extends Skill {
       100 / (100 + defenderDefense)
     );
 
-    defender!.SetValueInAttribute(
-      Math.round(damageCalculated * defenseCalculated),
-      AttributeConstants.DEFENSE
-    );
+    const damageTotal =
+      defender.GetValueByAttribute(AttributeConstants.CURRENTHEALTH) -
+      Math.round(damageCalculated * defenseCalculated);
+
+    defender.SetValueInAttribute(damageTotal, AttributeConstants.CURRENTHEALTH);
   }
 }

@@ -1,10 +1,10 @@
 import { Utils } from "../../../../Shared/Utils/Utils";
 import {
-  BASE_BATTLE_ATTRIBUTE,
-  BASE_PRIMARY_ATTRIBUTE,
+  BATTLE_ATTRIBUTE,
   GenerateBaseBattleAttributes,
   GenerateBasePrimaryAttributes,
-} from "../../Base/Utils/GenerateCharacter";
+  PRIMARY_ATTRIBUTE,
+} from "../../../Utils/GenerateCharacter";
 
 export const GenerateMage = (): void => {
   GeneratePrimaryAttributes();
@@ -12,7 +12,7 @@ export const GenerateMage = (): void => {
 };
 
 const GeneratePrimaryAttributes = (): void => {
-  const BASE_PRIMARY_ATTRIBUTE: BASE_PRIMARY_ATTRIBUTE = {
+  const BASE_PRIMARY_ATTRIBUTE: PRIMARY_ATTRIBUTE = {
     Strength: Utils.Random(15, 30),
     Dextery: Utils.Random(15, 30),
     Intelligence: Utils.Random(40, 60),
@@ -23,7 +23,7 @@ const GeneratePrimaryAttributes = (): void => {
 };
 
 const GenerateBattleAttributes = (): void => {
-  const BASE_BATTLE_ATTRIBUTE: BASE_BATTLE_ATTRIBUTE = {
+  const BASE_BATTLE_ATTRIBUTE: BATTLE_ATTRIBUTE = {
     Agility: Utils.Random(15, 25),
     Damage: Utils.Random(60, 175),
     Defense: Utils.Random(60, 125),

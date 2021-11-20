@@ -1,20 +1,26 @@
-import { Attribute } from "../../../../Attributes/Attribute";
-import { Agility } from "../../../../Attributes/Models/BattleAttributes/Agility";
-import { CurrentHealth } from "../../../../Attributes/Models/BattleAttributes/CurrentHealth/CurrentHealth";
-import { Damage } from "../../../../Attributes/Models/BattleAttributes/Damage";
-import { Defense } from "../../../../Attributes/Models/BattleAttributes/Defense";
-import { Energy } from "../../../../Attributes/Models/BattleAttributes/Energy";
-import { Resistance } from "../../../../Attributes/Models/BattleAttributes/Resistance";
-import { Spell } from "../../../../Attributes/Models/BattleAttributes/Spell";
-import { Level } from "../../../../Attributes/Models/LevelAttributes/Level";
-import { NeededExperience } from "../../../../Attributes/Models/LevelAttributes/NeededExperience";
-import { TotalExperience } from "../../../../Attributes/Models/LevelAttributes/TotalExperience";
-import { Dextery } from "../../../../Attributes/Models/PrimaryAttributes/Dextery";
-import { Intelligence } from "../../../../Attributes/Models/PrimaryAttributes/Intelligence";
-import { MaxHealth } from "../../../../Attributes/Models/PrimaryAttributes/MaxHealth";
-import { Strength } from "../../../../Attributes/Models/PrimaryAttributes/Strength";
-import { CharacterClass } from "../../../../Shared/Enums/CharacterClass";
-import { CharacterConstants } from "../../../Constants/CharacterConstants";
+import { Attribute } from "../../Attributes/Attribute";
+import { Agility } from "../../Attributes/Models/BattleAttributes/Agility";
+import { CurrentHealth } from "../../Attributes/Models/BattleAttributes/CurrentHealth/CurrentHealth";
+import { Damage } from "../../Attributes/Models/BattleAttributes/Damage";
+import { Defense } from "../../Attributes/Models/BattleAttributes/Defense";
+import { Energy } from "../../Attributes/Models/BattleAttributes/Energy";
+import { Resistance } from "../../Attributes/Models/BattleAttributes/Resistance";
+import { Spell } from "../../Attributes/Models/BattleAttributes/Spell";
+import { Level } from "../../Attributes/Models/LevelAttributes/Level";
+import { NeededExperience } from "../../Attributes/Models/LevelAttributes/NeededExperience";
+import { TotalExperience } from "../../Attributes/Models/LevelAttributes/TotalExperience";
+import { Dextery } from "../../Attributes/Models/PrimaryAttributes/Dextery";
+import { Intelligence } from "../../Attributes/Models/PrimaryAttributes/Intelligence";
+import { MaxHealth } from "../../Attributes/Models/PrimaryAttributes/MaxHealth";
+import { Strength } from "../../Attributes/Models/PrimaryAttributes/Strength";
+import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { GenerateMage } from "../Model/Mage/Utils/GenerateMage";
+import { GenerateWarrior } from "../Model/Warrior/Utils/GenerateWarrior";
+
+const CHARACTER_BUILD_BY_CLASS = {
+  WARRIOR: () => GenerateWarrior(),
+  MAGE: () => GenerateMage(),
+};
 
 export const LIST_ATTRIBUTES = {
   Strength: new Strength(),
@@ -33,14 +39,14 @@ export const LIST_ATTRIBUTES = {
   TotalExperience: new TotalExperience(),
 };
 
-export type BASE_PRIMARY_ATTRIBUTE = {
+export type PRIMARY_ATTRIBUTE = {
   Strength: number;
   Dextery: number;
   Intelligence: number;
   MaxHealth: number;
 };
 
-export type BASE_BATTLE_ATTRIBUTE = {
+export type BATTLE_ATTRIBUTE = {
   Agility: number;
   Damage: number;
   Defense: number;
@@ -53,14 +59,14 @@ export const GenerateBaseCharacterAttributes = (
   characterClass: CharacterClass
 ): Attribute[] => {
   if (characterClass !== CharacterClass.NONE)
-    CharacterConstants.CHARACTER_BUILD_BY_CLASS[characterClass]();
+    CHARACTER_BUILD_BY_CLASS[characterClass]();
   GenerateBaseLevelAttributes();
 
   return Object.values(LIST_ATTRIBUTES);
 };
 
 export const GenerateBasePrimaryAttributes = (
-  attributes: BASE_PRIMARY_ATTRIBUTE
+  attributes: PRIMARY_ATTRIBUTE
 ): void => {
   LIST_ATTRIBUTES.Strength.SetValue(attributes.Strength);
   LIST_ATTRIBUTES.Dextery.SetValue(attributes.Dextery);
@@ -69,7 +75,7 @@ export const GenerateBasePrimaryAttributes = (
 };
 
 export const GenerateBaseBattleAttributes = (
-  attributes: BASE_BATTLE_ATTRIBUTE
+  attributes: BATTLE_ATTRIBUTE
 ): void => {
   LIST_ATTRIBUTES.CurrentHealth.SetValue(LIST_ATTRIBUTES.MaxHealth.GetValue());
   LIST_ATTRIBUTES.Agility.SetValue(attributes.Agility);

@@ -1,6 +1,7 @@
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
+import { PassiveType } from "../../Shared/Enums/PassiveType";
 import { SkillType } from "../../Shared/Enums/SkillType";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { ILogicSkill } from "../Interfaces/ILogicSkill";
@@ -29,6 +30,7 @@ export class ClockWork extends Skill implements ILogicSkill, IUpgradeSkill {
       SkillType.ACTIVE_SKILL,
       ValueType.PERCENT,
       CharacterClass.NONE,
+      PassiveType.NONE,
       this.ENERGY_COST,
       this.BASE_VALUE,
       this.IS_CAST_SELF,

@@ -1,26 +1,22 @@
-import { AttributeModifyType } from "../../Shared/Enums/AttributeModifyType";
+import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
 import { ValueType } from "../../Shared/Enums/ValueType";
-import { Utils } from "../../Shared/Utils/Utils";
-import { IModifier } from "../Interfaces/IModifier";
-import { BaseModifierModel } from "../Model/Base/BaseModifierModel";
+import { Modifier } from "../Modifier";
 
-export class AddSpell implements IModifier {
-  private TIER: number = Utils.Random(1, 10);
-  private BASE_MAX_VALUE: number = 5;
-  private NAME: string = "AddSpell";
-  private DESCRIPTION: string = `+${this.BASE_MAX_VALUE * this.TIER} Spell`;
-  private ATTRIBUTE_MODIFY: AttributeModifyType = AttributeModifyType.SPELL;
-  private VALUE_TYPE: ValueType = ValueType.FLAT;
-
-  BuildModifier(): BaseModifierModel {
-    return {
-      Name: this.NAME,
-      Description: this.DESCRIPTION,
-      AttributeModifier: this.ATTRIBUTE_MODIFY,
-      ValueType: this.VALUE_TYPE,
-      Tier: this.TIER,
-      MaxValue: this.BASE_MAX_VALUE * this.TIER,
-      MinValue: 0,
-    };
+export class AddSpell extends Modifier {
+  private BASE_VALUE: number = 5;
+  private NAME: string = "Add Spell";
+  /**
+   *
+   */
+  constructor() {
+    super();
+    this.Data = this.BuildModifier(
+      this.NAME,
+      this.BASE_VALUE,
+      AttributeConstants.SPELL,
+      ValueType.FLAT,
+      false
+    );
+    this.Data.Description = `+${this.Data.MinValue} Spell`;
   }
 }
