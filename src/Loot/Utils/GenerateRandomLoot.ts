@@ -1,6 +1,6 @@
 import { Rarity } from "../../Shared/Enums/Rarity";
 import { Utils } from "../../Shared/Utils/Utils";
-import { BaseWeaponModel } from "../../Weapons/Models/BaseWeaponModel";
+import { IWeapon } from "../../Weapons/Interfaces/IWeapon";
 import { GetRandomWeapon } from "../../Weapons/Utils/GetRandomWeapon";
 import { BaseLootModel } from "../Models/BaseLootModel";
 
@@ -31,13 +31,13 @@ export const GenerateRandomLoot = (levelDungeon: number): BaseLootModel => {
   return loot;
 };
 
-const GenerateWeaponLoot = (): BaseWeaponModel[] => {
+const GenerateWeaponLoot = (): IWeapon[] => {
   const totalNumberWeapons = GetTotalNumberWeapons();
   return GenerateRandomWeapons(totalNumberWeapons);
 };
 
-const GenerateRandomWeapons = (totalLootWeapon: number): BaseWeaponModel[] => {
-  const weaponsDroped: BaseWeaponModel[] = [];
+const GenerateRandomWeapons = (totalLootWeapon: number): IWeapon[] => {
+  const weaponsDroped: IWeapon[] = [];
 
   for (let index = 0; index < totalLootWeapon; index++) {
     const weaponGenerate = GetRandomWeapon(

@@ -1,6 +1,5 @@
-import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
-import { BaseModifierModel } from "../../Modifiers/Model/Base/BaseModifierModel";
-import { ItemType } from "../../Shared/Enums/ItemType";
+import { IAffix } from "../../Affixes/Interfaces/IAffix";
+import { IModifier } from "../../Modifiers/Interfaces/IModifier";
 import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
 import { Rarity } from "../../Shared/Enums/Rarity";
 import { WeaponType } from "../../Shared/Enums/WeaponType";
@@ -15,10 +14,9 @@ export type BaseWeaponModel = {
   Damage: number;
   LocationWeapon: LocationWeapon[];
   Level: number;
-  ItemType: ItemType;
-  Implicits: BaseModifierModel[];
-  Explicits: BaseModifierModel[];
-  Prefixes: BaseAffixModel[];
-  Suffixes: BaseAffixModel[];
+  Implicits: IModifier[];
+  Explicits: IModifier[];
+  Prefixes: IAffix[];
+  Suffixes: IAffix[];
   Requirements: Map<string, number>;
 };

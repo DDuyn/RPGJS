@@ -1,16 +1,15 @@
-import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
+import { IAffix } from "../../Affixes/Interfaces/IAffix";
 import { IModifier } from "../../Modifiers/Interfaces/IModifier";
-import { BaseModifierModel } from "../../Modifiers/Model/Base/BaseModifierModel";
 import { Utils } from "../../Shared/Utils/Utils";
 
-let ListPrefix: BaseAffixModel[] = [];
-let ListSuffix: BaseAffixModel[] = [];
-let explicitModifiersSelected: BaseModifierModel[] = [];
+let ListPrefix: IAffix[] = [];
+let ListSuffix: IAffix[] = [];
+let explicitModifiersSelected: IModifier[] = [];
 
 export const GenerateExplicitsModifers = (
-  prefixes: BaseAffixModel[],
-  suffixes: BaseAffixModel[]
-): BaseModifierModel[] => {
+  prefixes: IAffix[],
+  suffixes: IAffix[]
+): IModifier[] => {
   explicitModifiersSelected = [];
   ListPrefix = [...prefixes];
   ListSuffix = [...suffixes];
@@ -33,18 +32,10 @@ const SelectRandomSuffixModifier = (): void => {
   });
 };
 
-const GetRandomModifierByPrefix = (
-  prefix: BaseAffixModel
-): BaseModifierModel => {
-  return Utils.GetRandomElementFromList<IModifier>(
-    prefix.Modifiers
-  ).BuildModifier();
+const GetRandomModifierByPrefix = (prefix: IAffix): IModifier => {
+  return Utils.GetRandomElementFromList<IModifier>(prefix.GetData().Modifiers);
 };
 
-const GetRandomModifierBySuffix = (
-  suffix: BaseAffixModel
-): BaseModifierModel => {
-  return Utils.GetRandomElementFromList<IModifier>(
-    suffix.Modifiers
-  ).BuildModifier();
+const GetRandomModifierBySuffix = (suffix: IAffix): IModifier => {
+  return Utils.GetRandomElementFromList<IModifier>(suffix.GetData().Modifiers);
 };

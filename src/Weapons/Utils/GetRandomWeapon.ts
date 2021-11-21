@@ -1,7 +1,7 @@
 import { Rarity } from "../../Shared/Enums/Rarity";
 import { WeaponType } from "../../Shared/Enums/WeaponType";
 import { Utils } from "../../Shared/Utils/Utils";
-import { BaseWeaponModel } from "../Models/BaseWeaponModel";
+import { IWeapon } from "../Interfaces/IWeapon";
 import { GenerateOneHandedAxe } from "../OneHandedAxe/Utils/GenerateOneHandedAxe";
 import { GenerateOneHandedSword } from "../OneHandedSword/Utils/GenerateOneHandedSword";
 
@@ -12,10 +12,7 @@ const WEAPON_TYPE = {
     GenerateOneHandedSword(level, rarity),
 };
 
-export const GetRandomWeapon = (
-  level: number,
-  rarity: Rarity
-): BaseWeaponModel => {
+export const GetRandomWeapon = (level: number, rarity: Rarity): IWeapon => {
   const weaponType = GetRandomWeaponType();
   return WEAPON_TYPE[weaponType](level, rarity);
 };

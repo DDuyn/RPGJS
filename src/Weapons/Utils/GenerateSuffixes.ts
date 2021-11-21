@@ -1,4 +1,4 @@
-import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
+import { IAffix } from "../../Affixes/Interfaces/IAffix";
 import { GetAllSuffix } from "../../Affixes/Suffixes/Utils/GetAllSuffix";
 import { Rarity } from "../../Shared/Enums/Rarity";
 import { Utils } from "../../Shared/Utils/Utils";
@@ -10,19 +10,19 @@ const GENERATE_RARITY_ITEM = {
   LEGENDARY: () => GenerateUniqueItem(),
 };
 
-let ListSuffix: BaseAffixModel[] = [];
-let ListSuffixSelected: BaseAffixModel[] = [];
+let ListSuffix: IAffix[] = [];
+let ListSuffixSelected: IAffix[] = [];
 
 export const GenerateSuffixes = (
   rarity: Rarity,
   hasPrefix: boolean
-): BaseAffixModel[] => {
+): IAffix[] => {
   ListSuffixSelected = [];
   ListSuffix = [...GetAllSuffix()];
   return GenerateItem(rarity, hasPrefix);
 };
 
-const GenerateItem = (rarity: Rarity, hasPrefix: boolean): BaseAffixModel[] => {
+const GenerateItem = (rarity: Rarity, hasPrefix: boolean): IAffix[] => {
   if (rarity !== Rarity.COMMON) GENERATE_RARITY_ITEM[rarity](hasPrefix);
 
   return ListSuffixSelected;
@@ -55,10 +55,10 @@ const SelectRandomSuffix = (totalSuffix: number): void => {
   }
 };
 
-const GetRandomSuffix = (): BaseAffixModel => {
-  return Utils.GetRandomElementFromList<BaseAffixModel>(ListSuffix);
+const GetRandomSuffix = (): IAffix => {
+  return Utils.GetRandomElementFromList<IAffix>(ListSuffix);
 };
 
-const GetIndexSuffix = (suffix: BaseAffixModel): number => {
-  return Utils.GetIndexFromList<BaseAffixModel>(ListSuffix, suffix);
+const GetIndexSuffix = (suffix: IAffix): number => {
+  return Utils.GetIndexFromList<IAffix>(ListSuffix, suffix);
 };

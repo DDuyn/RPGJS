@@ -1,14 +1,14 @@
-import { BaseAffixModel } from "../../Affixes/Models/BaseAffixModel";
+import { IAffix } from "../../Affixes/Interfaces/IAffix";
 import { AffixType } from "../../Shared/Enums/AffixType";
 import { Rarity } from "../../Shared/Enums/Rarity";
 
-let ListPrefix: BaseAffixModel[] = [];
-let ListSuffix: BaseAffixModel[] = [];
+let ListPrefix: IAffix[] = [];
+let ListSuffix: IAffix[] = [];
 
 export const GenerateItemName = (
   baseItemName: string,
-  listPrefixSelected: BaseAffixModel[],
-  listSuffixSelected: BaseAffixModel[],
+  listPrefixSelected: IAffix[],
+  listSuffixSelected: IAffix[],
   rarity: Rarity
 ): string => {
   ListPrefix = [...listPrefixSelected];
@@ -36,8 +36,9 @@ const GenerateMagicItemName = (baseItemName: string): string => {
 };
 
 const GetNameByModifierType = (type: AffixType): string | undefined => {
-  if (type === AffixType.PREFIX) return ListPrefix[0]?.Name || undefined;
-  else return ListSuffix[0]?.Name || undefined;
+  if (type === AffixType.PREFIX)
+    return ListPrefix[0]?.GetData().Name || undefined;
+  else return ListSuffix[0]?.GetData().Name || undefined;
 };
 
 const GenerateRareItemName = (): string => {

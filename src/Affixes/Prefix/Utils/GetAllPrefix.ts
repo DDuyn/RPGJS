@@ -1,9 +1,9 @@
 import { AffixType } from "../../../Shared/Enums/AffixType";
-import { BaseAffixModel } from "../../Models/BaseAffixModel";
+import { IAffix } from "../../Interfaces/IAffix";
 import { GetAllAffixes } from "../../Utils/GetAllAffixes";
 
-export const GetAllPrefix = (): BaseAffixModel[] => {
+export const GetAllPrefix = (): IAffix[] => {
   return GetAllAffixes().filter(
-    (affix) => affix.AffixType === AffixType.PREFIX
+    (affix) => affix.GetData().AffixType === AffixType.PREFIX
   );
 };
