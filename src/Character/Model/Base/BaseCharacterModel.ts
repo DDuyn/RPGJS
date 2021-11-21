@@ -1,8 +1,9 @@
 import { IAttribute } from "../../../Attributes/Interfaces/IAttribute";
 import { CharacterClass } from "../../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../../Shared/Enums/CharacterType";
+import { LocationWeapon } from "../../../Shared/Enums/LocationWeapon";
 import { ISkill } from "../../../Skills/Interfaces/ISkill";
-import { BaseWeaponModel } from "../../../Weapons/Models/BaseWeaponModel";
+import { IWeapon } from "../../../Weapons/Interfaces/IWeapon";
 
 export type BaseCharacterModel = {
   Name: string;
@@ -10,5 +11,5 @@ export type BaseCharacterModel = {
   Type: CharacterType;
   Attributes: IAttribute[];
   Skills: ISkill[];
-  Weapons: BaseWeaponModel[];
+  Weapons: Map<LocationWeapon, IWeapon>;
 };

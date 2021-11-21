@@ -1,7 +1,11 @@
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
 import { CharacterType } from "../Shared/Enums/CharacterType";
+import { LocationWeapon } from "../Shared/Enums/LocationWeapon";
+import { Rarity } from "../Shared/Enums/Rarity";
 import { Utils } from "../Shared/Utils/Utils";
 import { ISkill } from "../Skills/Interfaces/ISkill";
+import { IWeapon } from "../Weapons/Interfaces/IWeapon";
+import { CopperSword } from "../Weapons/OneHandedSword/CopperSword";
 import { ICharacter } from "./Interfaces/ICharacter";
 import { BaseCharacterModel } from "./Model/Base/BaseCharacterModel";
 import { FindAttributeByName, FindSkillByName } from "./Utils/CharacterUtils";
@@ -28,7 +32,9 @@ export abstract class Character implements ICharacter {
       Class: characterClass,
       Type: characterType,
       Attributes: GenerateBaseCharacterAttributes(characterClass),
-      Weapons: [],
+      Weapons: new Map([
+        [LocationWeapon.MAIN_HAND, new CopperSword(1, Rarity.COMMON)],
+      ]),
       Skills: GenerateBasicSkills(this),
     };
 
@@ -92,5 +98,31 @@ export abstract class Character implements ICharacter {
     if (!skill.GetData().CanPurchase) return false;
     this.Data.Skills.push(skill);
     return true;
+  }
+
+  /**
+   * Equip Weapon for Character
+   * @param weapon
+   * @param location
+   * @returns
+   */
+  EquipWeapon(weapon: IWeapon, location: LocationWeapon): void {
+    if (
+      !weapon
+        .GetData()
+        .LocationWeapon.some((locationWeapon) => locationWeapon === location)
+    )
+      throw new Error("Cannot equip");
+
+    this.Data.Weapons.set(location, weapon);
+    //TODO: Recalcular atributos
+  }
+
+  /**
+   * Unequip weapon
+   * @param location
+   */
+  UnequipWeapon(location: LocationWeapon): void {
+    this.Data.Weapons.delete(location);
   }
 }
