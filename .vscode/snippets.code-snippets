@@ -1,0 +1,39 @@
+{
+  "Skill": {
+    "scope": "typescript",
+    "prefix": ["sk", "skill"],
+    "body": [
+      "export class ${1:NAME_SKILL} extends Skill {",
+      "private NAME: string = '${2:NAME_SKILL}';",
+      "private ENERGY_COST: number = ${3:ENERGY_COST};",
+      "private DURATION: number = ${4:DURATION};",
+      "private BASE_VALUE: number = ${5:BASE_VALUE};",
+      "private IS_CAST_SELF: boolean = ${6:IS_CAST_SELF};",
+      "private DESCRIPTION: string = '${7:DESCRIPTION}';",
+      "private REQUIREMENTS: Map<string, number> = new Map([${12:REQUIREMENTS}]);",
+      "",
+      "constructor(character: ICharacter) {",
+      "super()",
+      "this.Data = this.BuildSkill(",
+      "this.NAME,",
+      "SkillType.${8|ACTIVE_SKILL,BASIC_SKILL,PASSIVE_SKILL|},",
+      "ValueType.${9|FLAT,PERCENT|},",
+      "CharacterClass.${10|NONE,WARRIOR,MAGE|},",
+      "PassiveType.${11|NONE,HEALTH,DAMAGE|},",
+      "this.ENERGY_COST,",
+      "this.BASE_VALUE,",
+      "this.IS_CAST_SELF,",
+      "this.DURATION,",
+      "this.DESCRIPTION,",
+      "this.REQUIREMENTS,",
+      "character)",
+      "}",
+      "",
+      "LogicSkill(this: ISkill, attacker: ICharacter, defender?: ICharacter): void {",
+      "throw new Error('Method not implemented.');",
+      "}",
+      "}"
+    ],
+    "description": "Create new skill"
+  }
+}
