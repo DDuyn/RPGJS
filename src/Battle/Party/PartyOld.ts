@@ -4,7 +4,7 @@ import { Loot } from "../../Loot/Loot";
 import { Utils } from "../../Shared/Utils/Utils";
 import { CharacterInBattle } from "../Type/CharacterInBattle";
 
-export class Party {
+export class PartyOld {
   private party: CharacterInBattle[] = [];
   //TODO: Sistema de inventario
   private lootParty: Loot[] = [];

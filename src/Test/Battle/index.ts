@@ -1,18 +1,12 @@
-import "reflect-metadata";
-import Container from "typedi";
 import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
-import { BattleManager } from "../../Battle/Managers/BattleManager";
+import { Battle } from "../../Battle/Battle";
 import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleModel";
 import { Mage } from "../../Character/Model/Mage/Mage";
 import { Warrior } from "../../Character/Model/Warrior/Warrior";
+import { Party } from "../../Party/Party";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
-import { Attack } from "../../Skills/BasicSkill/Attack";
-
-const battleManager = Container.get<BattleManager>(BattleManager);
 
 const warrior = new Warrior("Ragnar", CharacterType.PLAYER);
-const warrior1 = new Warrior("Ragnar 1", CharacterType.PLAYER);
-
 const mage = new Mage("Merlín", CharacterType.IA);
 
 const playerInBattle: CharacterInBattleModel = {
@@ -29,10 +23,6 @@ const enemyInBattle: CharacterInBattleModel = {
   IsDead: false,
 };
 
-console.log(warrior.GetData().Name, warrior.GetData().Attributes);
-console.log(warrior1.GetData().Name, warrior1.GetData().Attributes);
-console.log(mage.GetData().Name, mage.GetData().Attributes);
-
 console.log(
   warrior.GetData().Name,
   warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
@@ -43,37 +33,24 @@ console.log(
   mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
 );
 
-warrior.SetValueInAttribute(999, AttributeConstants.CURRENTHEALTH);
+const battle = new Battle();
+const party = new Party();
+
+const partyPlayer = party.CreateParty([playerInBattle]);
+const partyEnemy = party.CreateParty([enemyInBattle]);
+
+battle.InitBattle(partyPlayer, partyEnemy);
+battle.SetSkill(warrior.GetSkill("Attack"), warrior.GetData().Type);
+battle.SetSkill(mage.GetSkill("Attack"), mage.GetData().Type);
+battle.Combat();
 
 console.log(
+  "Vida Main before",
   warrior.GetData().Name,
   warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
 );
-
-warrior.GetData().Skills.push(new Attack(warrior));
-
-warrior.DoSkill(warrior.GetData().Skills[0], mage);
 console.log(
-  "tras",
+  "Vida Main before",
   mage.GetData().Name,
   mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
 );
-
-/*
-const partyPlayer: PartyModel = { Characters: [playerInBattle] };
-const partyEnemy: PartyModel = { Characters: [enemyInBattle] };
-
-battleManager.InitBattle(partyPlayer, partyEnemy);
-partyPlayer.Characters[0].Skill = warrior.SkillManager.GetSkill("Attack");
-partyEnemy.Characters[0].Skill = mage.SkillManager.GetSkill("Attack");
-battleManager.Combat();
-
-console.log(
-  "Vida Main before",
-  warrior.AttributeManager.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
-);
-console.log(
-  "Vida Main before",
-  warrior.AttributeManager.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
-);
-*/

@@ -1,12 +1,12 @@
 import { BaseLootModel } from "../../Loot/Models/BaseLootModel";
+import { BasePartyModel } from "../../Party/Models/BasePartyModel";
 import { CharacterInBattleModel } from "./CharacterInBattleModel";
-import { PartyModel } from "./PartyModel";
 
 export type BaseBattleModel = {
-  PlayerParty: PartyModel;
+  PlayerParty: BasePartyModel;
   Loot: BaseLootModel;
-  PlayerPartyInBattle: PartyModel;
-  Enemies: PartyModel;
+  PlayerPartyInBattle: BasePartyModel;
+  Enemies: BasePartyModel;
   PlayerCombatient: CharacterInBattleModel;
   EnemyCombatient: CharacterInBattleModel;
 };

@@ -114,6 +114,8 @@ export abstract class Character implements ICharacter {
     )
       throw new Error("Cannot equip");
 
+    if (this.Data.Weapons.has(location)) this.Data.Weapons.delete(location);
+
     this.Data.Weapons.set(location, weapon);
     //TODO: Recalcular atributos
   }
