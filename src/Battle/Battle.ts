@@ -7,7 +7,7 @@ import { IBattle } from "./Interfaces/IBattle";
 import { BaseBattleModel } from "./Models/BaseBattleModel";
 import { CharacterInBattleModel } from "./Models/CharacterInBattleModel";
 import { SyncCharacterDataBattle } from "./Utils/BattleUtilts";
-import { GainExperience } from "./Utils/GainExperience";
+import { EndBattleLogic } from "./Utils/EndBattleLogic";
 import { SetTurnBattle } from "./Utils/SetTurnBattle";
 import { TurnLogicBattle } from "./Utils/TurnLogicBattle";
 
@@ -36,15 +36,15 @@ export class Battle implements IBattle {
   }
 
   SetSkill(skill: ISkill, characterType: CharacterType): void {
-    characterType === CharacterType.PLAYER
-      ? (this.Data.PlayerCombatient.Skill = skill)
-      : (this.Data.EnemyCombatient.Skill = skill);
+    if (characterType === CharacterType.PLAYER)
+      this.Data.PlayerCombatient.Skill = skill;
+    else this.Data.EnemyCombatient.Skill = skill;
   }
 
   SwitchCombatient(character: CharacterInBattleModel): void {
-    character.Character.GetData().Type === CharacterType.PLAYER
-      ? (this.Data.PlayerCombatient = character)
-      : (this.Data.EnemyCombatient = character);
+    if (character.Character.GetData().Type === CharacterType.PLAYER)
+      this.Data.PlayerCombatient = character;
+    else this.Data.EnemyCombatient = character;
 
     this.Data.PlayerCombatient.IsCombat = true;
   }
@@ -55,6 +55,6 @@ export class Battle implements IBattle {
       this.Data.PlayerPartyInBattle
     );
 
-    GainExperience(this.Data.PlayerParty.Characters, 500);
+    EndBattleLogic(this.Data.PlayerParty.Characters, 500);
   }
 }

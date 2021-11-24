@@ -13,8 +13,9 @@ const CharacterDoSkill = (
   defender: CharacterInBattleModel
 ): void => {
   if (attacker.Skill?.GetData().IsCastSelf)
-    attacker.Character.DoSkill(attacker.Skill!);
+    attacker.Character.DoSkill(attacker.Skill);
   else attacker.Character.DoSkill(attacker.Skill!, defender.Character);
+
   console.log(
     attacker.Character.GetData().Name,
     attacker.Character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH),

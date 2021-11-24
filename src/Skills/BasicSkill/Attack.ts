@@ -42,7 +42,8 @@ export class Attack extends Skill {
     const attackerDamage = attacker.GetValueByAttribute(
       AttributeConstants.DAMAGE
     );
-    const defenderDefense = defender!.GetValueByAttribute(
+
+    const defenderDefense = defender.GetValueByAttribute(
       AttributeConstants.DEFENSE
     );
 

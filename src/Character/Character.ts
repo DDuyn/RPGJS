@@ -1,4 +1,5 @@
 import { AttributeConstants } from "../Attributes/Constants/AttributeConstants";
+import { RecoverCurrentHealth } from "../Attributes/Models/BattleAttributes/CurrentHealth/Utils/RecoverCurrentHealth";
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
 import { CharacterType } from "../Shared/Enums/CharacterType";
 import { LocationWeapon } from "../Shared/Enums/LocationWeapon";
@@ -65,7 +66,6 @@ export abstract class Character implements ICharacter {
    * @param experience
    */
   GainExperience(experience: number): void {
-    console.log("Experience", experience);
     const totalExperience =
       this.GetValueByAttribute(AttributeConstants.TOTALEXPERIENCE) + experience;
     const neededExperience = this.GetValueByAttribute(
@@ -80,6 +80,20 @@ export abstract class Character implements ICharacter {
         AttributeConstants.NEEDEDEXPERIENCE
       );
     }
+
+    this.SetValueInAttribute(
+      totalExperience,
+      AttributeConstants.TOTALEXPERIENCE
+    );
+  }
+
+  /**
+   * Recover current health
+   */
+  RecoverCurrentHealth(): void {
+    //TODO: Reubicar
+    const healthRecovered = RecoverCurrentHealth(this);
+    this.SetValueInAttribute(healthRecovered, AttributeConstants.CURRENTHEALTH);
   }
 
   /**

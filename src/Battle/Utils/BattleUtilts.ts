@@ -11,41 +11,50 @@ export const SyncCharacterDataBattle = (
 ): void => {
   PARTY = party;
   PARTY_IN_BATTLE = partyInBattle;
-  SyncCharactersInCombat();
-  SyncCharactersCurrentHealth();
+  SyncCharacters();
 };
 
-const SyncCharactersInCombat = (): void => {
+const SyncCharacters = (): void => {
   PARTY_IN_BATTLE.Characters.forEach((characterBattle) => {
-    if (characterBattle.IsCombat) {
-      const character = GetCharacterFromParty(
-        characterBattle,
-        PARTY.Characters
-      );
-      console.log(character.Character.GetData().Name);
-      character.IsCombat = true;
-    }
+    const character = GetCharacterFromParty(characterBattle);
+    SyncCharactersIsCombat(character, characterBattle);
+    SyncCharactersCurrentHealth(character, characterBattle);
+    SyncCharactersIsDead(character, characterBattle);
   });
 };
 
-const SyncCharactersCurrentHealth = (): void => {
-  PARTY_IN_BATTLE.Characters.forEach((characterBattle) => {
-    const character = GetCharacterFromParty(characterBattle, PARTY.Characters);
-    const currentHealth = characterBattle.Character.GetValueByAttribute(
-      AttributeConstants.CURRENTHEALTH
-    );
-    character.Character.SetValueInAttribute(
-      currentHealth,
-      AttributeConstants.CURRENTHEALTH
-    );
-  });
+const SyncCharactersIsCombat = (
+  character: CharacterInBattleModel,
+  characterBattle: CharacterInBattleModel
+): void => {
+  if (characterBattle.IsCombat) character.IsCombat = true;
+};
+
+const SyncCharactersCurrentHealth = (
+  character: CharacterInBattleModel,
+  characterBattle: CharacterInBattleModel
+): void => {
+  const currentHealth = characterBattle.Character.GetValueByAttribute(
+    AttributeConstants.CURRENTHEALTH
+  );
+  character.Character.SetValueInAttribute(
+    currentHealth,
+    AttributeConstants.CURRENTHEALTH
+  );
+};
+
+const SyncCharactersIsDead = (
+  character: CharacterInBattleModel,
+  characterBattle: CharacterInBattleModel
+): void => {
+  if (characterBattle.IsDead) character.IsDead = true;
 };
 
 const GetCharacterFromParty = (
-  character: CharacterInBattleModel,
-  characters: CharacterInBattleModel[]
+  characterBattle: CharacterInBattleModel
 ): CharacterInBattleModel => {
-  return characters.find(
-    (c) => c.Character.GetData().Name === character.Character.GetData().Name
+  return PARTY.Characters.find(
+    (c) =>
+      c.Character.GetData().Name === characterBattle.Character.GetData().Name
   )!;
 };

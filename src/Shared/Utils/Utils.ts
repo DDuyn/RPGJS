@@ -1,6 +1,14 @@
 import _ from "lodash";
 
 export class Utils {
+  public static IsNull(object: any): boolean {
+    return object === null;
+  }
+
+  public static IsUndefined(object: any): boolean {
+    return object === undefined;
+  }
+
   public static Random(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
@@ -10,11 +18,11 @@ export class Utils {
   }
 
   public static GetRandomElementFromList<T>(list: T[]): T {
-    return list[Math.floor(Math.random() * list.length)] as T;
+    return list[Math.floor(Math.random() * list.length)];
   }
 
   public static DeepClone<T>(object: T): T {
-    return _.cloneDeep(object) as T;
+    return _.cloneDeep(object);
   }
 
   public static GetRandomEnumKey<T>(enumeration: any): T {

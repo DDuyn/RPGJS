@@ -13,6 +13,7 @@ export interface ICharacter {
   ): BaseCharacterModel;
   DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void;
   GainExperience(experience: number): void;
+  RecoverCurrentHealth(): void;
   GetData(): BaseCharacterModel;
   GetValueByAttribute(attributeName: string): number;
   SetValueInAttribute(value: number, attributeName: string): void;

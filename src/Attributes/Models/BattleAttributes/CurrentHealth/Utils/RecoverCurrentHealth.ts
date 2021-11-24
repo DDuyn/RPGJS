@@ -1,54 +1,34 @@
 import { ICharacter } from "../../../../../Character/Interfaces/ICharacter";
 import { PassiveType } from "../../../../../Shared/Enums/PassiveType";
-import { ValueType } from "../../../../../Shared/Enums/ValueType";
+import { Utils } from "../../../../../Shared/Utils/Utils";
 import { ISkill } from "../../../../../Skills/Interfaces/ISkill";
 import { AttributeConstants } from "../../../../Constants/AttributeConstants";
 
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
 
 export const RecoverCurrentHealth = (character: ICharacter): number => {
-  let currentHealth = character.GetValueByAttribute(
+  const currentHealth = character.GetValueByAttribute(
     AttributeConstants.CURRENTHEALTH
   );
+  console.log("Recover", currentHealth);
   const maxHealth = character.GetValueByAttribute(AttributeConstants.MAXHEALTH);
 
-  if (CurrentHealthIsEqualsMaxHealth(currentHealth, maxHealth))
-    return maxHealth;
+  if (currentHealth >= maxHealth) return maxHealth;
 
-  if (!HasPassiveHealthSkill(character))
+  const passiveSkill = GetHealthSkillPassive(character);
+
+  if (Utils.IsNull(passiveSkill) || Utils.IsUndefined(passiveSkill))
     return (
       currentHealth + Math.round(currentHealth * BASE_PERCENT_HEALTH_RECOVER)
     );
 
-  const passiveSkill = GetHealthSkillPassive(character);
-  passiveSkill.LogicSkill(character);
+  character.DoSkill(passiveSkill);
 
-  if (!IsValueSkillPercentDamage(passiveSkill)) return currentHealth;
-
-  return (
-    currentHealth + Math.round(currentHealth * BASE_PERCENT_HEALTH_RECOVER)
-  );
-};
-
-const CurrentHealthIsEqualsMaxHealth = (
-  currentHealth: number,
-  maxHealth: number
-): boolean => {
-  return currentHealth >= maxHealth;
-};
-
-const HasPassiveHealthSkill = (character: ICharacter): boolean => {
-  return !!character
-    .GetData()
-    .Skills.find((s) => "HEALTH" === PassiveType.HEALTH);
+  return character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH);
 };
 
 const GetHealthSkillPassive = (character: ICharacter): ISkill => {
   return character
     .GetData()
-    .Skills.find((s) => "HEALTH" === PassiveType.HEALTH)!;
-};
-
-const IsValueSkillPercentDamage = (skill: ISkill): boolean => {
-  return skill.GetData().ValueType === ValueType.PERCENT;
+    .Skills.find((s) => s.GetData().PassiveType === PassiveType.HEALTH)!;
 };

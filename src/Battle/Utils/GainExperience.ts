@@ -8,6 +8,6 @@ export const GainExperience = (
   const totalCombatients = characters.filter((c) => c.IsCombat).length;
   const experience = Utils.Rounded(experienceGained / totalCombatients);
   characters.forEach((c) => {
-    if (c.IsCombat) c.Character.GainExperience(experience);
+    if (c.IsCombat && !c.IsDead) c.Character.GainExperience(experience);
   });
 };
