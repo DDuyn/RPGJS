@@ -18,13 +18,19 @@ export const RecoverCurrentHealth = (character: ICharacter): number => {
   const passiveSkill = GetHealthSkillPassive(character);
 
   if (Utils.IsNull(passiveSkill) || Utils.IsUndefined(passiveSkill))
-    return (
-      currentHealth + Math.round(currentHealth * BASE_PERCENT_HEALTH_RECOVER)
-    );
+    BaseRecoverHealth(currentHealth);
 
   character.DoSkill(passiveSkill);
 
-  return character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH);
+  return BaseRecoverHealth(
+    character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+  );
+};
+
+const BaseRecoverHealth = (currentHealth: number): number => {
+  return (
+    currentHealth + Math.round(currentHealth * BASE_PERCENT_HEALTH_RECOVER)
+  );
 };
 
 const GetHealthSkillPassive = (character: ICharacter): ISkill => {
