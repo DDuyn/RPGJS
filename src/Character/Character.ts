@@ -1,3 +1,4 @@
+import { AttributeConstants } from "../Attributes/Constants/AttributeConstants";
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
 import { CharacterType } from "../Shared/Enums/CharacterType";
 import { LocationWeapon } from "../Shared/Enums/LocationWeapon";
@@ -57,6 +58,28 @@ export abstract class Character implements ICharacter {
    */
   DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void {
     skill.LogicSkill(this, defender);
+  }
+
+  /**
+   * Character gain experience
+   * @param experience
+   */
+  GainExperience(experience: number): void {
+    console.log("Experience", experience);
+    const totalExperience =
+      this.GetValueByAttribute(AttributeConstants.TOTALEXPERIENCE) + experience;
+    const neededExperience = this.GetValueByAttribute(
+      AttributeConstants.NEEDEDEXPERIENCE
+    );
+    const level = this.GetValueByAttribute(AttributeConstants.LEVEL);
+
+    if (totalExperience >= neededExperience) {
+      this.SetValueInAttribute(level + 1, AttributeConstants.LEVEL);
+      this.SetValueInAttribute(
+        neededExperience * 4,
+        AttributeConstants.NEEDEDEXPERIENCE
+      );
+    }
   }
 
   /**

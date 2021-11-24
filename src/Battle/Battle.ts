@@ -6,6 +6,8 @@ import { ISkill } from "../Skills/Interfaces/ISkill";
 import { IBattle } from "./Interfaces/IBattle";
 import { BaseBattleModel } from "./Models/BaseBattleModel";
 import { CharacterInBattleModel } from "./Models/CharacterInBattleModel";
+import { SyncCharacterDataBattle } from "./Utils/BattleUtilts";
+import { GainExperience } from "./Utils/GainExperience";
 import { SetTurnBattle } from "./Utils/SetTurnBattle";
 import { TurnLogicBattle } from "./Utils/TurnLogicBattle";
 
@@ -43,9 +45,16 @@ export class Battle implements IBattle {
     character.Character.GetData().Type === CharacterType.PLAYER
       ? (this.Data.PlayerCombatient = character)
       : (this.Data.EnemyCombatient = character);
+
+    this.Data.PlayerCombatient.IsCombat = true;
   }
 
   EndBattle(): void {
-    throw new Error("Method not implemented.");
+    SyncCharacterDataBattle(
+      this.Data.PlayerParty,
+      this.Data.PlayerPartyInBattle
+    );
+
+    GainExperience(this.Data.PlayerParty.Characters, 500);
   }
 }

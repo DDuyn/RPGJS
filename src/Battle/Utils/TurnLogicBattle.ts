@@ -15,6 +15,12 @@ const CharacterDoSkill = (
   if (attacker.Skill?.GetData().IsCastSelf)
     attacker.Character.DoSkill(attacker.Skill!);
   else attacker.Character.DoSkill(attacker.Skill!, defender.Character);
+  console.log(
+    attacker.Character.GetData().Name,
+    attacker.Character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH),
+    defender.Character.GetData().Name,
+    defender.Character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+  );
 };
 
 const IsCombatientDead = (character: CharacterInBattleModel): boolean => {

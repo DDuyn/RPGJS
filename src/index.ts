@@ -1,5 +1,3 @@
-import { Battle } from "./Battle/BattleOld";
-import { Party } from "./Battle/Party/Party";
 import { Mage } from "./Character/Classes/Mage/Mage";
 import { Warrior } from "./Character/Classes/Warrior/Warrior";
 import { WarriorAttributes } from "./Character/Classes/Warrior/WarriorAttributes";

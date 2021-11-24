@@ -8,4 +8,7 @@ export abstract class AttributeConstants {
   static readonly DEXTERY = "Dextery";
   static readonly INTELLIGENCE = "Intelligence";
   static readonly SPELL = "Spell";
+  static readonly TOTALEXPERIENCE = "TotalExperience";
+  static readonly NEEDEDEXPERIENCE = "NeededExperience";
+  static readonly LEVEL = "Level";
 }

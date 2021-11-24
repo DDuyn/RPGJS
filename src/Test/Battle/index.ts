@@ -43,14 +43,17 @@ battle.InitBattle(partyPlayer, partyEnemy);
 battle.SetSkill(warrior.GetSkill("Attack"), warrior.GetData().Type);
 battle.SetSkill(mage.GetSkill("Attack"), mage.GetData().Type);
 battle.Combat();
+battle.EndBattle();
 
 console.log(
   "Vida Main before",
   warrior.GetData().Name,
-  warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+  warrior.GetValueByAttribute(AttributeConstants.CURRENTHEALTH),
+  warrior.GetValueByAttribute(AttributeConstants.TOTALEXPERIENCE)
 );
 console.log(
   "Vida Main before",
   mage.GetData().Name,
-  mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
+  mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH),
+  mage.GetValueByAttribute(AttributeConstants.TOTALEXPERIENCE)
 );
