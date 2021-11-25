@@ -5,9 +5,11 @@ import { Mage } from "../../Character/Model/Mage/Mage";
 import { Warrior } from "../../Character/Model/Warrior/Warrior";
 import { Party } from "../../Party/Party";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
+import { Regenerate } from "../../Skills/PassiveSkill/Regenerate";
 
 const warrior = new Warrior("Ragnar", CharacterType.PLAYER);
 const mage = new Mage("Merlín", CharacterType.IA);
+const regenerate = new Regenerate(warrior);
 
 const playerInBattle: CharacterInBattleModel = {
   Character: warrior,
@@ -33,6 +35,8 @@ console.log(
   mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH)
 );
 
+warrior.PurchaseSkill(regenerate);
+
 const battle = new Battle();
 const party = new Party();
 
@@ -57,3 +61,5 @@ console.log(
   mage.GetValueByAttribute(AttributeConstants.CURRENTHEALTH),
   mage.GetValueByAttribute(AttributeConstants.TOTALEXPERIENCE)
 );
+
+partyPlayer.LootParty?.Weapons?.forEach((w) => console.log(w.GetData()));

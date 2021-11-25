@@ -44,8 +44,13 @@ export class Regenerate extends Skill implements IUpgradeSkill {
     const currentHealth = attacker.GetValueByAttribute(
       AttributeConstants.CURRENTHEALTH
     );
+    const maxHealth = attacker.GetValueByAttribute(
+      AttributeConstants.MAXHEALTH
+    );
+
     const healthRecovered =
-      currentHealth + Math.round(currentHealth * this.GetBaseValue());
+      currentHealth +
+      Math.round((maxHealth - currentHealth) * this.GetBaseValue());
     attacker.SetValueInAttribute(
       healthRecovered,
       AttributeConstants.CURRENTHEALTH

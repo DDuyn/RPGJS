@@ -54,7 +54,7 @@ export class Battle implements IBattle {
       this.Data.PlayerParty,
       this.Data.PlayerPartyInBattle
     );
-
+    this.Data.PlayerParty.LootParty = this.Data.Loot;
     EndBattleLogic(this.Data.PlayerParty.Characters, 500);
   }
 }
