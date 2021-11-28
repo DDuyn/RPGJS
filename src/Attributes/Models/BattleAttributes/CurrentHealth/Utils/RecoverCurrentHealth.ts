@@ -2,15 +2,13 @@ import { ICharacter } from "../../../../../Character/Interfaces/ICharacter";
 import { PassiveType } from "../../../../../Shared/Enums/PassiveType";
 import { Utils } from "../../../../../Shared/Utils/Utils";
 import { ISkill } from "../../../../../Skills/Interfaces/ISkill";
-import { AttributeConstants } from "../../../../Constants/AttributeConstants";
+import { Attributes } from "../../../../Constants/Attributes";
 
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
 
 export const RecoverCurrentHealth = (character: ICharacter): number => {
-  const currentHealth = character.GetValueByAttribute(
-    AttributeConstants.CURRENTHEALTH
-  );
-  const maxHealth = character.GetValueByAttribute(AttributeConstants.MAXHEALTH);
+  const currentHealth = character.GetValueByAttribute(Attributes.CURRENTHEALTH);
+  const maxHealth = character.GetValueByAttribute(Attributes.MAXHEALTH);
   const differenceHealth = maxHealth - currentHealth;
 
   if (currentHealth >= maxHealth) return maxHealth;
@@ -23,7 +21,7 @@ export const RecoverCurrentHealth = (character: ICharacter): number => {
   character.DoSkill(passiveSkill);
 
   return BaseRecoverHealth(
-    character.GetValueByAttribute(AttributeConstants.CURRENTHEALTH),
+    character.GetValueByAttribute(Attributes.CURRENTHEALTH),
     differenceHealth
   );
 };

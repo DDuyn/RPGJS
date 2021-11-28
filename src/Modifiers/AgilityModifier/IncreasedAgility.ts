@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ValueType } from "../../Shared/Enums/ValueType";
 import { Modifier } from "../Modifier";
 
@@ -13,7 +13,7 @@ export class IncreasedAgility extends Modifier {
     this.Data = this.BuildModifier(
       this.NAME,
       this.BASE_VALUE,
-      AttributeConstants.AGILITY,
+      Attributes.AGILITY,
       ValueType.FLAT,
       true
     );

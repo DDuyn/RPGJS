@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -14,9 +14,7 @@ export class FrostBall extends Skill {
   private BASE_VALUE: number = 25;
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Frost Ball";
-  private REQUIREMENTS: Map<string, number> = new Map([
-    [AttributeConstants.SPELL, 50],
-  ]);
+  private REQUIREMENTS: Map<string, number> = new Map([[Attributes.SPELL, 50]]);
 
   constructor(character: ICharacter) {
     super();

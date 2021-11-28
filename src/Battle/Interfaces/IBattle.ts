@@ -6,6 +6,7 @@ import { CharacterInBattleModel } from "../Models/CharacterInBattleModel";
 export interface IBattle {
   InitBattle(party: BasePartyModel, enemies: BasePartyModel): void;
   Combat(): void;
+  GetCombatient(): CharacterInBattleModel;
   SetSkill(skill: ISkill, characterType: CharacterType): void;
   SwitchCombatient(character: CharacterInBattleModel): void;
   EndBattle(): void;

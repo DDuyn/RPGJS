@@ -3,28 +3,26 @@ import { Utils } from "../../Shared/Utils/Utils";
 import { IWeapon } from "../../Weapons/Interfaces/IWeapon";
 import { GetRandomWeapon } from "../../Weapons/Utils/GetRandomWeapon";
 import { BaseLootModel } from "../Models/BaseLootModel";
-
-//TODO: MOVER
-type PROBABILITY_RARITY_ITEM = { rarity: Rarity; probability: number };
+import { ProbabilityLoot } from "../Models/ProbabilityLoot";
 
 let LEVEL_DUNGEON: number = 0;
-let RARITY_DUNGEON: PROBABILITY_RARITY_ITEM[] = [];
+let RARITY_DUNGEON: ProbabilityLoot[] = [];
 //TODO: BORRAR
-const TEST_CHANCES_RARITY: PROBABILITY_RARITY_ITEM[] = [
-  { rarity: Rarity.COMMON, probability: 45 },
-  { rarity: Rarity.MAGIC, probability: 40 },
-  { rarity: Rarity.RARE, probability: 4 },
-  { rarity: Rarity.UNIQUE, probability: 1 },
-  { rarity: Rarity.LEGENDARY, probability: 0 },
+const TEST_CHANCES_RARITY: ProbabilityLoot[] = [
+  { Rarity: Rarity.COMMON, Probability: 45 },
+  { Rarity: Rarity.MAGIC, Probability: 40 },
+  { Rarity: Rarity.RARE, Probability: 4 },
+  { Rarity: Rarity.UNIQUE, Probability: 1 },
+  { Rarity: Rarity.LEGENDARY, Probability: 0 },
 ];
 
 //TODO: Pasaremos instancia de Dungeon que contendrá el minimo level del item y el maximo
 //TODO: La instancia de Dungeon tendrá los porcentajes de rarity
 export const GenerateRandomLoot = (levelDungeon: number): BaseLootModel => {
   LEVEL_DUNGEON = levelDungeon;
-  RARITY_DUNGEON = Utils.Shuffle<PROBABILITY_RARITY_ITEM>(
-    TEST_CHANCES_RARITY.flatMap((rarity: PROBABILITY_RARITY_ITEM) =>
-      Array(rarity.probability).fill(rarity)
+  RARITY_DUNGEON = Utils.Shuffle<ProbabilityLoot>(
+    TEST_CHANCES_RARITY.flatMap((rarity: ProbabilityLoot) =>
+      Array(rarity.Probability).fill(rarity)
     )
   );
   const loot: BaseLootModel = { Weapons: GenerateWeaponLoot() };
@@ -60,6 +58,5 @@ const GenerateItemLevel = () => {
 };
 
 const GenerateRarity = () => {
-  return Utils.GetRandomElementFromList<PROBABILITY_RARITY_ITEM>(RARITY_DUNGEON)
-    .rarity;
+  return Utils.GetRandomElementFromList<ProbabilityLoot>(RARITY_DUNGEON).Rarity;
 };

@@ -1,4 +1,4 @@
-import { ICharacter } from "../../Character/Interfaces/ICharacter";
+import { PlayerCharacter } from "../../Character/PlayerCharacters/PlayerCharacter";
 import { Utils } from "../../Shared/Utils/Utils";
 import { CharacterInBattleModel } from "../Models/CharacterInBattleModel";
 
@@ -19,16 +19,17 @@ export const EndBattleLogic = (
 const ExecuteLogic = (): void => {
   CHARACTERS.forEach((character) => {
     if (character.IsCombat && !character.IsDead)
-      GainExperience(character.Character);
-    if (!character.IsDead) RecoverCurrentHealth(character.Character);
+      GainExperience(character.Character as PlayerCharacter);
+    if (!character.IsDead)
+      RecoverCurrentHealth(character.Character as PlayerCharacter);
   });
 };
 
-const GainExperience = (character: ICharacter): void => {
+const GainExperience = (character: PlayerCharacter): void => {
   const experience = Utils.Rounded(EXPERIENCE_GAINED / TOTAL_COMBATIENTS);
   character.GainExperience(experience);
 };
 
-const RecoverCurrentHealth = (character: ICharacter): void => {
+const RecoverCurrentHealth = (character: PlayerCharacter): void => {
   character.RecoverCurrentHealth();
 };

@@ -1,6 +1,6 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
-import { ICharacter } from "../../Character/Interfaces/ICharacter";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { Utils } from "../../Shared/Utils/Utils";
+import { Action } from "../Enums/Action";
 import { CharacterInBattleModel } from "../Models/CharacterInBattleModel";
 import { TurnBattleModel } from "../Models/TurnBattleModel";
 
@@ -12,8 +12,8 @@ export const SetTurnBattle = (
 ): TurnBattleModel => {
   turnBattle = { First: player, Second: enemy };
 
-  const agilityPlayer = CalculateAgility(player.Character);
-  const agilityEnemy = CalculateAgility(enemy.Character);
+  const agilityPlayer = CalculateAgility(player);
+  const agilityEnemy = CalculateAgility(enemy);
 
   if (agilityEnemy > agilityPlayer) EnemyIsMostFastThanPlayer(player, enemy);
   if (agilityEnemy === agilityPlayer) EnemyEqualsFastAsPlayer(player, enemy);
@@ -21,9 +21,11 @@ export const SetTurnBattle = (
   return turnBattle;
 };
 
-const CalculateAgility = (character: ICharacter): number => {
+const CalculateAgility = (character: CharacterInBattleModel): number => {
   //TODO: Generar método para definir turnos.
-  return character.GetValueByAttribute(AttributeConstants.AGILITY);
+  return character.Action === Action.SWITCH
+    ? 0
+    : character.Character.GetValueByAttribute(Attributes.AGILITY);
 };
 
 const EnemyIsMostFastThanPlayer = (

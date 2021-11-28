@@ -4,4 +4,5 @@ import { BaseLootModel } from "../../Loot/Models/BaseLootModel";
 export type BasePartyModel = {
   Characters: CharacterInBattleModel[];
   LootParty?: BaseLootModel;
+  GetCharacter: (name: string) => CharacterInBattleModel;
 };

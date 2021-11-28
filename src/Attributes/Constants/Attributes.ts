@@ -1,4 +1,4 @@
-export abstract class AttributeConstants {
+export abstract class Attributes {
   static readonly CURRENTHEALTH = "CurrentHealth";
   static readonly MAXHEALTH = "MaxHealth";
   static readonly DAMAGE = "Damage";

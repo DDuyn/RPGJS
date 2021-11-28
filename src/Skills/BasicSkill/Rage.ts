@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -38,10 +38,10 @@ export class Rage extends Skill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const damage = attacker.GetValueByAttribute(AttributeConstants.DAMAGE);
+    const damage = attacker.GetValueByAttribute(Attributes.DAMAGE);
     attacker.SetValueInAttribute(
       damage + this.GetBaseValue(),
-      AttributeConstants.DAMAGE
+      Attributes.DAMAGE
     );
   }
 }

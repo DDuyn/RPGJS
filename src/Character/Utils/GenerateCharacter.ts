@@ -1,69 +1,7 @@
-import { Attribute } from "../../Attributes/Attribute";
-import { Agility } from "../../Attributes/Models/BattleAttributes/Agility";
-import { CurrentHealth } from "../../Attributes/Models/BattleAttributes/CurrentHealth/CurrentHealth";
-import { Damage } from "../../Attributes/Models/BattleAttributes/Damage";
-import { Defense } from "../../Attributes/Models/BattleAttributes/Defense";
-import { Energy } from "../../Attributes/Models/BattleAttributes/Energy";
-import { Resistance } from "../../Attributes/Models/BattleAttributes/Resistance";
-import { Spell } from "../../Attributes/Models/BattleAttributes/Spell";
-import { Level } from "../../Attributes/Models/LevelAttributes/Level";
-import { NeededExperience } from "../../Attributes/Models/LevelAttributes/NeededExperience";
-import { TotalExperience } from "../../Attributes/Models/LevelAttributes/TotalExperience";
-import { Dextery } from "../../Attributes/Models/PrimaryAttributes/Dextery";
-import { Intelligence } from "../../Attributes/Models/PrimaryAttributes/Intelligence";
-import { MaxHealth } from "../../Attributes/Models/PrimaryAttributes/MaxHealth";
-import { Strength } from "../../Attributes/Models/PrimaryAttributes/Strength";
-import { CharacterClass } from "../../Shared/Enums/CharacterClass";
-import { GenerateMage } from "../Model/Mage/Utils/GenerateMage";
-import { GenerateWarrior } from "../Model/Warrior/Utils/GenerateWarrior";
-
-const CHARACTER_BUILD_BY_CLASS = {
-  WARRIOR: () => GenerateWarrior(),
-  MAGE: () => GenerateMage(),
-};
-
-export const LIST_ATTRIBUTES = {
-  Strength: new Strength(),
-  Dextery: new Dextery(),
-  Intelligence: new Intelligence(),
-  MaxHealth: new MaxHealth(),
-  CurrentHealth: new CurrentHealth(),
-  Agility: new Agility(),
-  Damage: new Damage(),
-  Defense: new Defense(),
-  Energy: new Energy(),
-  Resistance: new Resistance(),
-  Spell: new Spell(),
-  Level: new Level(),
-  NeededExperience: new NeededExperience(),
-  TotalExperience: new TotalExperience(),
-};
-
-export type PRIMARY_ATTRIBUTE = {
-  Strength: number;
-  Dextery: number;
-  Intelligence: number;
-  MaxHealth: number;
-};
-
-export type BATTLE_ATTRIBUTE = {
-  Agility: number;
-  Damage: number;
-  Defense: number;
-  Energy: number;
-  Resistance: number;
-  Spell: number;
-};
-
-export const GenerateBaseCharacterAttributes = (
-  characterClass: CharacterClass
-): Attribute[] => {
-  if (characterClass !== CharacterClass.NONE)
-    CHARACTER_BUILD_BY_CLASS[characterClass]();
-  GenerateBaseLevelAttributes();
-
-  return Object.values(LIST_ATTRIBUTES);
-};
+import { LIST_ATTRIBUTES } from "../../Attributes/Constants/ListAttributes";
+import { BATTLE_ATTRIBUTE } from "../../Attributes/Models/Base/BattleAttributeModel";
+import { LEVEL_ATTRIBUTE } from "../../Attributes/Models/Base/LevelAttributeModel";
+import { PRIMARY_ATTRIBUTE } from "../../Attributes/Models/Base/PrimaryAttributeModel";
 
 export const GenerateBasePrimaryAttributes = (
   attributes: PRIMARY_ATTRIBUTE
@@ -86,9 +24,11 @@ export const GenerateBaseBattleAttributes = (
   LIST_ATTRIBUTES.Spell.SetValue(attributes.Spell);
 };
 
-const GenerateBaseLevelAttributes = (): void => {
-  LIST_ATTRIBUTES.Level.SetValue(1);
-  LIST_ATTRIBUTES.TotalExperience.SetValue(0);
+export const GenerateBaseLevelAttributes = (
+  attributes: LEVEL_ATTRIBUTE
+): void => {
+  LIST_ATTRIBUTES.Level.SetValue(attributes.Level);
+  LIST_ATTRIBUTES.TotalExperience.SetValue(attributes.TotalExperience);
   //TODO: Revisar experiencia necesaria.
-  LIST_ATTRIBUTES.NeededExperience.SetValue(200);
+  LIST_ATTRIBUTES.NeededExperience.SetValue(attributes.NeededExperience);
 };

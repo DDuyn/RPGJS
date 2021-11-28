@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -39,13 +39,9 @@ export class Attack extends Skill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter, defender: ICharacter): void {
-    const attackerDamage = attacker.GetValueByAttribute(
-      AttributeConstants.DAMAGE
-    );
+    const attackerDamage = attacker.GetValueByAttribute(Attributes.DAMAGE);
 
-    const defenderDefense = defender.GetValueByAttribute(
-      AttributeConstants.DEFENSE
-    );
+    const defenderDefense = defender.GetValueByAttribute(Attributes.DEFENSE);
 
     const damageCalculated: number = Utils.Random(
       attackerDamage * 0.75,
@@ -56,9 +52,9 @@ export class Attack extends Skill {
     );
 
     const damageTotal =
-      defender.GetValueByAttribute(AttributeConstants.CURRENTHEALTH) -
+      defender.GetValueByAttribute(Attributes.CURRENTHEALTH) -
       Math.round(damageCalculated * defenseCalculated);
 
-    defender.SetValueInAttribute(damageTotal, AttributeConstants.CURRENTHEALTH);
+    defender.SetValueInAttribute(damageTotal, Attributes.CURRENTHEALTH);
   }
 }

@@ -6,14 +6,32 @@ export class Party implements IParty {
   private Data: BasePartyModel;
 
   /**
-   * Create party
-   * @param characters
+   *
+   */
+  constructor(characters: CharacterInBattleModel[]) {
+    this.Data = {
+      Characters: characters,
+      LootParty: undefined,
+      GetCharacter: this.GetCharacter,
+    };
+  }
+
+  /**
+   * Get Character from Party
+   * @param character
    * @returns
    */
-  CreateParty(characters: CharacterInBattleModel[]): BasePartyModel {
-    const model = {
-      Characters: characters,
-    };
-    return model;
+  GetCharacter(name: string): CharacterInBattleModel {
+    return this.Data.Characters.find(
+      (c) => c.Character.GetData().Name === name
+    )!;
+  }
+
+  /**
+   * Get Data
+   * @returns
+   */
+  GetData(): BasePartyModel {
+    return this.Data;
   }
 }

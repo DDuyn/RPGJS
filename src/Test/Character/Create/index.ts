@@ -1,13 +1,12 @@
-import { Warrior } from "../../../Character/Model/Warrior/Warrior";
+import { Warrior } from "../../../Character/PlayerCharacters/Warrior/Warrior";
 import { DataFileUtils } from "../../../Save&Load/Data/DataFile";
 import { Load } from "../../../Save&Load/Load/Load";
 import { Save } from "../../../Save&Load/Save/Save";
-import { CharacterType } from "../../../Shared/Enums/CharacterType";
 import { LocationWeapon } from "../../../Shared/Enums/LocationWeapon";
 import { Rarity } from "../../../Shared/Enums/Rarity";
 import { CopperSword } from "../../../Weapons/OneHandedSword/CopperSword";
 
-const warrior = new Warrior("Ragnar", CharacterType.PLAYER);
+const warrior = new Warrior("Ragnar");
 
 console.log(warrior.GetData().Name, warrior.GetData().Attributes);
 console.log(warrior.GetData().Name, warrior.GetData().Skills);

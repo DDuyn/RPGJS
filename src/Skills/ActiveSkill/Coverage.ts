@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -17,8 +17,8 @@ export class Coverage extends Skill implements ILogicSkill, IUpgradeSkill {
   private IS_CAST_SELF: boolean = true;
   private DESCRIPTION: string = "Description Coverage";
   private REQUIREMENTS: Map<string, number> = new Map([
-    [AttributeConstants.STRENGTH, 5],
-    [AttributeConstants.MAXHEALTH, 20],
+    [Attributes.STRENGTH, 5],
+    [Attributes.MAXHEALTH, 20],
   ]);
 
   /**
@@ -43,10 +43,10 @@ export class Coverage extends Skill implements ILogicSkill, IUpgradeSkill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const defense = attacker.GetValueByAttribute(AttributeConstants.DEFENSE);
+    const defense = attacker.GetValueByAttribute(Attributes.DEFENSE);
     attacker.SetValueInAttribute(
       defense + this.GetBaseValue(),
-      AttributeConstants.DEFENSE
+      Attributes.DEFENSE
     );
   }
 

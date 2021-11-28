@@ -2,5 +2,6 @@ import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleMod
 import { BasePartyModel } from "../Models/BasePartyModel";
 
 export interface IParty {
-  CreateParty(characters: CharacterInBattleModel[]): BasePartyModel;
+  GetData(): BasePartyModel;
+  GetCharacter(name: string): CharacterInBattleModel;
 }

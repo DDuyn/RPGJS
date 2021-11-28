@@ -1,14 +1,21 @@
+import { LIST_ATTRIBUTES } from "../../../../Attributes/Constants/ListAttributes";
+import { IAttribute } from "../../../../Attributes/Interfaces/IAttribute";
+import { BATTLE_ATTRIBUTE } from "../../../../Attributes/Models/Base/BattleAttributeModel";
+import { LEVEL_ATTRIBUTE } from "../../../../Attributes/Models/Base/LevelAttributeModel";
+import { PRIMARY_ATTRIBUTE } from "../../../../Attributes/Models/Base/PrimaryAttributeModel";
 import { Utils } from "../../../../Shared/Utils/Utils";
 import {
-  BATTLE_ATTRIBUTE,
   GenerateBaseBattleAttributes,
+  GenerateBaseLevelAttributes,
   GenerateBasePrimaryAttributes,
-  PRIMARY_ATTRIBUTE,
 } from "../../../Utils/GenerateCharacter";
 
-export const GenerateMage = (): void => {
+export const GenerateMage = (): IAttribute[] => {
   GeneratePrimaryAttributes();
   GenerateBattleAttributes();
+  GenerateLevelAttributes();
+
+  return Object.values(LIST_ATTRIBUTES);
 };
 
 const GeneratePrimaryAttributes = (): void => {
@@ -32,4 +39,13 @@ const GenerateBattleAttributes = (): void => {
     Spell: Utils.Random(150, 300),
   };
   GenerateBaseBattleAttributes(BASE_BATTLE_ATTRIBUTE);
+};
+
+const GenerateLevelAttributes = (): void => {
+  const BASE_LEVEL_ATTRIBUTE: LEVEL_ATTRIBUTE = {
+    Level: 1,
+    TotalExperience: 0,
+    NeededExperience: 200,
+  };
+  GenerateBaseLevelAttributes(BASE_LEVEL_ATTRIBUTE);
 };

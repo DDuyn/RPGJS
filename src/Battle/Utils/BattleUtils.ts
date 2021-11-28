@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { BasePartyModel } from "../../Party/Models/BasePartyModel";
 import { CharacterInBattleModel } from "../Models/CharacterInBattleModel";
 
@@ -35,11 +35,11 @@ const SyncCharactersCurrentHealth = (
   characterBattle: CharacterInBattleModel
 ): void => {
   const currentHealth = characterBattle.Character.GetValueByAttribute(
-    AttributeConstants.CURRENTHEALTH
+    Attributes.CURRENTHEALTH
   );
   character.Character.SetValueInAttribute(
     currentHealth,
-    AttributeConstants.CURRENTHEALTH
+    Attributes.CURRENTHEALTH
   );
 };
 

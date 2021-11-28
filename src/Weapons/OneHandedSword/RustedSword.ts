@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { Rarity } from "../../Shared/Enums/Rarity";
 import { OneHandedSword } from "./Base/OneHandedSword";
 
@@ -11,7 +11,7 @@ export class RustedSword extends OneHandedSword {
       "Rusted Sword",
       "Rusted Sword Description",
       3,
-      new Map([[AttributeConstants.STRENGTH, 3 * leveItem]]),
+      new Map([[Attributes.STRENGTH, 3 * leveItem]]),
       leveItem,
       rarity
     );

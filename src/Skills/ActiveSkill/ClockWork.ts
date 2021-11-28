@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -17,7 +17,7 @@ export class ClockWork extends Skill implements ILogicSkill, IUpgradeSkill {
   private IS_CAST_SELF: boolean = true;
   private DESCRIPTION: string = "Description ClockWork";
   private REQUIREMENTS: Map<string, number> = new Map([
-    [AttributeConstants.AGILITY, 25],
+    [Attributes.AGILITY, 500],
   ]);
 
   /**
@@ -42,9 +42,9 @@ export class ClockWork extends Skill implements ILogicSkill, IUpgradeSkill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const agility = attacker.GetValueByAttribute(AttributeConstants.AGILITY);
+    const agility = attacker.GetValueByAttribute(Attributes.AGILITY);
     const agilityModified = agility + Math.round(agility * this.GetBaseValue());
-    attacker.SetValueInAttribute(agilityModified, AttributeConstants.AGILITY);
+    attacker.SetValueInAttribute(agilityModified, Attributes.AGILITY);
   }
 
   UpgradeSkill(): void {

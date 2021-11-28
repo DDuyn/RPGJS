@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -16,8 +16,8 @@ export class FireBall extends Skill implements IUpgradeSkill {
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Description FireBall";
   private REQUIREMENTS: Map<string, number> = new Map([
-    [AttributeConstants.INTELLIGENCE, 20],
-    [AttributeConstants.DEXTERY, 20],
+    [Attributes.INTELLIGENCE, 20],
+    [Attributes.DEXTERY, 20],
   ]);
 
   /**

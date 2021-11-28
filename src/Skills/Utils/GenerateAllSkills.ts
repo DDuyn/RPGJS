@@ -1,4 +1,5 @@
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
+import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { ClockWork } from "../ActiveSkill/ClockWork";
 import { Coverage } from "../ActiveSkill/Coverage";
 import { FireBall } from "../ActiveSkill/FireBall";
@@ -6,7 +7,7 @@ import { Smash } from "../ActiveSkill/Smash";
 import { ISkill } from "../Interfaces/ISkill";
 import { Regenerate } from "../PassiveSkill/Regenerate";
 
-const ALL_SKILLS: ISkill[] = [];
+let ALL_SKILLS: ISkill[] = [];
 
 const GENERATE_SKILL_BY_CHARACTER_CLASS = {
   NONE: () => new Error("Cannot be NONE of character class"),
@@ -15,10 +16,14 @@ const GENERATE_SKILL_BY_CHARACTER_CLASS = {
 };
 
 export const GenerateAllSkills = (character: ICharacter): ISkill[] => {
+  ALL_SKILLS = [];
   GenerateCommonSkills(character);
-  GENERATE_SKILL_BY_CHARACTER_CLASS[character.GetData().Class](character);
+  GENERATE_SKILL_BY_CHARACTER_CLASS[
+    character.GetData().Class as CharacterClass
+  ](character);
 
-  return ALL_SKILLS;
+  const names = Array.from(character.GetSkills().map((s) => s.GetName()));
+  return ALL_SKILLS.filter((s) => !names.includes(s.GetName()));
 };
 
 const GenerateCommonSkills = (character: ICharacter): void => {

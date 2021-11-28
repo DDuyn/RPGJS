@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -16,7 +16,7 @@ export class Regenerate extends Skill implements IUpgradeSkill {
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Description Regenerate";
   private REQUIREMENTS: Map<string, number> = new Map([
-    [AttributeConstants.MAXHEALTH, 100],
+    [Attributes.MAXHEALTH, 100],
   ]);
 
   /**
@@ -42,19 +42,14 @@ export class Regenerate extends Skill implements IUpgradeSkill {
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
     const currentHealth = attacker.GetValueByAttribute(
-      AttributeConstants.CURRENTHEALTH
+      Attributes.CURRENTHEALTH
     );
-    const maxHealth = attacker.GetValueByAttribute(
-      AttributeConstants.MAXHEALTH
-    );
+    const maxHealth = attacker.GetValueByAttribute(Attributes.MAXHEALTH);
 
     const healthRecovered =
       currentHealth +
       Math.round((maxHealth - currentHealth) * this.GetBaseValue());
-    attacker.SetValueInAttribute(
-      healthRecovered,
-      AttributeConstants.CURRENTHEALTH
-    );
+    attacker.SetValueInAttribute(healthRecovered, Attributes.CURRENTHEALTH);
   }
 
   UpgradeSkill(): void {

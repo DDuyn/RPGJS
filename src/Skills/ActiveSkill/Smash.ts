@@ -1,4 +1,4 @@
-import { AttributeConstants } from "../../Attributes/Constants/AttributeConstants";
+import { Attributes } from "../../Attributes/Constants/Attributes";
 import { ICharacter } from "../../Character/Interfaces/ICharacter";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { PassiveType } from "../../Shared/Enums/PassiveType";
@@ -16,7 +16,7 @@ export class Smash extends Skill implements IUpgradeSkill {
   private IS_CAST_SELF: boolean = false;
   private DESCRIPTION: string = "Description Smash";
   private REQUIREMENTS: Map<string, number> = new Map([
-    [AttributeConstants.STRENGTH, 8],
+    [Attributes.STRENGTH, 8],
   ]);
 
   /**

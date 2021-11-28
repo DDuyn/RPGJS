@@ -1,25 +1,12 @@
-import "reflect-metadata";
-import Container from "typedi";
-import { CharacterManager } from "../../Character/Managers/CharacterManager";
-import { CharacterClass } from "../../Shared/Enums/CharacterClass";
-import { CharacterType } from "../../Shared/Enums/CharacterType";
-import { SkillManager } from "../../Skills/Managers/SkillManager";
+import { Warrior } from "../../Character/PlayerCharacters/Warrior/Warrior";
+import { GenerateAllSkills } from "../../Skills/Utils/GenerateAllSkills";
 
-const characterManager = Container.get<CharacterManager>(CharacterManager);
-const skillManager = Container.get<SkillManager>(SkillManager);
+const ragnar = new Warrior("Ragnar");
 
-const ragnar = characterManager.BuildCharacter(
-  "Ragnar",
-  CharacterClass.WARRIOR,
-  CharacterType.PLAYER
-);
+let skillsShop = GenerateAllSkills(ragnar);
+console.log("Primera tienda", skillsShop);
+const skill = skillsShop.find((s) => s.GetName() === "Regenerate");
+ragnar.PurchaseSkill(skill!);
 
-const skillsInShop = skillManager.GetSkillsForShoppingByCharacter(ragnar);
-const skillCart = skillsInShop.find((s) => s.Name === "Smash")!;
-
-console.log(skillsInShop);
-
-skillCart.CanPurchase
-  ? ragnar.SkillManager.AddSkill(skillCart)
-  : console.log("No puedo comprar");
-console.log(ragnar.SkillManager.GetSkills());
+skillsShop = GenerateAllSkills(ragnar);
+console.log("Segunda tienda", skillsShop);
