@@ -1,4 +1,4 @@
-import { Rarity } from "../../Shared/Enums/Rarity";
+import { BaseDungeonModel } from "../../Dungeon/Model/BaseDungeonModel";
 import { Utils } from "../../Shared/Utils/Utils";
 import { IWeapon } from "../../Weapons/Interfaces/IWeapon";
 import { GetRandomWeapon } from "../../Weapons/Utils/GetRandomWeapon";
@@ -7,21 +7,15 @@ import { ProbabilityLoot } from "../Models/ProbabilityLoot";
 
 let LEVEL_DUNGEON: number = 0;
 let RARITY_DUNGEON: ProbabilityLoot[] = [];
-//TODO: BORRAR
-const TEST_CHANCES_RARITY: ProbabilityLoot[] = [
-  { Rarity: Rarity.COMMON, Probability: 45 },
-  { Rarity: Rarity.MAGIC, Probability: 40 },
-  { Rarity: Rarity.RARE, Probability: 4 },
-  { Rarity: Rarity.UNIQUE, Probability: 1 },
-  { Rarity: Rarity.LEGENDARY, Probability: 0 },
-];
 
 //TODO: Pasaremos instancia de Dungeon que contendrá el minimo level del item y el maximo
 //TODO: La instancia de Dungeon tendrá los porcentajes de rarity
-export const GenerateRandomLoot = (levelDungeon: number): BaseLootModel => {
-  LEVEL_DUNGEON = levelDungeon;
+export const GenerateRandomLoot = (
+  dungeon: BaseDungeonModel
+): BaseLootModel => {
+  LEVEL_DUNGEON = dungeon.Level;
   RARITY_DUNGEON = Utils.Shuffle<ProbabilityLoot>(
-    TEST_CHANCES_RARITY.flatMap((rarity: ProbabilityLoot) =>
+    dungeon.Loot.flatMap((rarity: ProbabilityLoot) =>
       Array(rarity.Probability).fill(rarity)
     )
   );

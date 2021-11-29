@@ -7,8 +7,6 @@ export const TurnLogicBattle = (turnBattle: TurnBattleModel): void => {
   CharacterDoSkill(turnBattle.First, turnBattle.Second);
   if (!IsCombatientDead(turnBattle.Second))
     CharacterDoSkill(turnBattle.Second, turnBattle.First);
-
-  //TODO: SI LA ACCION ES CAMBIO DE PERSONAJE
 };
 
 const CharacterDoSkill = (

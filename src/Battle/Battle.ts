@@ -1,3 +1,4 @@
+import { BaseDungeonModel } from "../Dungeon/Model/BaseDungeonModel";
 import { GenerateRandomLoot } from "../Loot/Utils/GenerateRandomLoot";
 import { BasePartyModel } from "../Party/Models/BasePartyModel";
 import { CharacterType } from "../Shared/Enums/CharacterType";
@@ -15,12 +16,19 @@ import { TurnLogicBattle } from "./Utils/TurnLogicBattle";
 export class Battle implements IBattle {
   private Data: BaseBattleModel;
 
-  InitBattle(party: BasePartyModel, enemies: BasePartyModel): void {
+  InitBattle(
+    party: BasePartyModel,
+    dungeon: BaseDungeonModel,
+    numberPhase: number
+  ): void {
     const playerParty = Utils.DeepClone<BasePartyModel>(party);
-    const enemyParty = Utils.DeepClone<BasePartyModel>(enemies);
+    const enemyParty = Utils.DeepClone<BasePartyModel>(
+      dungeon.Phases.find((p) => p.Phase === numberPhase)!.Enemies
+    );
+
     this.Data = {
       PlayerParty: party,
-      Loot: GenerateRandomLoot(1),
+      Loot: GenerateRandomLoot(dungeon),
       PlayerPartyInBattle: playerParty,
       Enemies: enemyParty,
       PlayerCombatient: playerParty.Characters.find((c) => c.IsStarter)!,

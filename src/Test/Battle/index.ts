@@ -5,6 +5,7 @@ import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleMod
 import { Undead } from "../../Character/EnemyCharacters/Undead/Undead";
 import { Mage } from "../../Character/PlayerCharacters/Mage/Mage";
 import { Warrior } from "../../Character/PlayerCharacters/Warrior/Warrior";
+import { Cave } from "../../Dungeon/Cave/Cave";
 import { Party } from "../../Party/Party";
 import { Regenerate } from "../../Skills/PassiveSkill/Regenerate";
 
@@ -30,43 +31,16 @@ const playerInBattle: CharacterInBattleModel[] = [
   },
 ];
 
-//TODO: Generar random
-const enemyInBattle: CharacterInBattleModel[] = [
-  {
-    Character: undead,
-    Action: Action.WAIT,
-    IsStarter: true,
-    IsCombat: true,
-    IsDead: false,
-  },
-  {
-    Character: undead,
-    Action: Action.WAIT,
-    IsStarter: false,
-    IsCombat: false,
-    IsDead: false,
-  },
-];
-
-console.log(
-  warrior.GetData().Name,
-  warrior.GetValueByAttribute(Attributes.CURRENTHEALTH)
-);
-
-console.log(
-  undead.GetData().Name,
-  undead.GetValueByAttribute(Attributes.CURRENTHEALTH),
-  undead.GetValueByAttribute(Attributes.LEVEL)
-);
-
 warrior.PurchaseSkill(regenerate);
 
 const battle = new Battle();
 
 const partyPlayer = new Party(playerInBattle);
-const partyEnemy = new Party(enemyInBattle);
 
-battle.InitBattle(partyPlayer.GetData(), partyEnemy.GetData());
+const cave = new Cave();
+cave.GenerateDungeon();
+
+battle.InitBattle(partyPlayer.GetData(), cave.GetData(), 1);
 let currentCombatient = battle.GetCombatient();
 
 /*battle.SetSkill(
