@@ -5,11 +5,7 @@ import { ISkill } from "../../Skills/Interfaces/ISkill";
 import { CharacterInBattleModel } from "../Models/CharacterInBattleModel";
 
 export interface IBattle {
-  InitBattle(
-    party: BasePartyModel,
-    dungeon: BaseDungeonModel,
-    numberPhase: number
-  ): void;
+  InitBattle(party: BasePartyModel, dungeon: BaseDungeonModel): void;
   Combat(): void;
   GetCombatient(): CharacterInBattleModel;
   SetSkill(skill: ISkill, characterType: CharacterType): void;

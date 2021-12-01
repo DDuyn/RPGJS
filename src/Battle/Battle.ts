@@ -1,3 +1,4 @@
+import { GenerateCave } from "../Dungeon/Cave/Utils/GenerateCave";
 import { BaseDungeonModel } from "../Dungeon/Model/BaseDungeonModel";
 import { GenerateRandomLoot } from "../Loot/Utils/GenerateRandomLoot";
 import { BasePartyModel } from "../Party/Models/BasePartyModel";
@@ -16,15 +17,9 @@ import { TurnLogicBattle } from "./Utils/TurnLogicBattle";
 export class Battle implements IBattle {
   private Data: BaseBattleModel;
 
-  InitBattle(
-    party: BasePartyModel,
-    dungeon: BaseDungeonModel,
-    numberPhase: number
-  ): void {
+  InitBattle(party: BasePartyModel, dungeon: BaseDungeonModel): void {
     const playerParty = Utils.DeepClone<BasePartyModel>(party);
-    const enemyParty = Utils.DeepClone<BasePartyModel>(
-      dungeon.Phases.find((p) => p.Phase === numberPhase)!.Enemies
-    );
+    const enemyParty = GenerateCave(dungeon.Level);
 
     this.Data = {
       PlayerParty: party,
@@ -34,6 +29,8 @@ export class Battle implements IBattle {
       PlayerCombatient: playerParty.Characters.find((c) => c.IsStarter)!,
       EnemyCombatient: enemyParty.Characters.find((e) => e.IsStarter)!,
     };
+
+    console.log(enemyParty);
   }
 
   GetCombatient(): CharacterInBattleModel {
@@ -45,6 +42,8 @@ export class Battle implements IBattle {
       this.Data.PlayerCombatient,
       this.Data.EnemyCombatient
     );
+    this.Data.EnemyCombatient.Skill =
+      this.Data.EnemyCombatient.Character.GetSkill("Attack");
     TurnLogicBattle(turnBattle);
   }
 

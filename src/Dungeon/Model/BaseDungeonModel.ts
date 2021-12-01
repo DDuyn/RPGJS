@@ -1,11 +1,11 @@
 import { ProbabilityLoot } from "../../Loot/Models/ProbabilityLoot";
+import { DungeonType } from "../../Shared/Enums/DungeonType";
 import { EnemyType } from "../../Shared/Enums/EnemyType";
-import { PhaseDungeonModel } from "./PhaseDungeonModel";
 
 export type BaseDungeonModel = {
   Name: string;
   Level: number;
+  DungeonType: DungeonType;
   EnemiesType: EnemyType[];
-  Phases: PhaseDungeonModel[];
   Loot: ProbabilityLoot[];
 };

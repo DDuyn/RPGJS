@@ -12,7 +12,6 @@ export class Party implements IParty {
     this.Data = {
       Characters: characters,
       LootParty: undefined,
-      GetCharacter: this.GetCharacter,
     };
   }
 

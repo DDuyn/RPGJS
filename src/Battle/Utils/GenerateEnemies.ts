@@ -7,13 +7,14 @@ import { Utils } from "../../Shared/Utils/Utils";
 const TOTAL_ENEMIES = 4;
 
 export const GenerateEnemies = (dungeon: BaseDungeonModel): BasePartyModel => {
-  const enemyType = dungeon.EnemiesType;
+  CreateEnemyParty(dungeon.EnemiesType);
   return new Party([]).GetData();
 };
 
 const CreateEnemyParty = (enemiesType: EnemyType[]): BasePartyModel => {
   for (let index = 0; index < TOTAL_ENEMIES; index++) {
-    const enemyType = Utils.GetRandomEnumKey<EnemyType>(enemiesType);
+    const enemyType = Utils.GetRandomElementFromList<EnemyType>(enemiesType);
+    console.log(enemyType);
   }
 
   return new Party([]).GetData();

@@ -6,11 +6,11 @@ export class Undead extends EnemyCharacter {
   /**
    *
    */
-  constructor(minLevel: number, maxLevel: number) {
+  constructor(level: number) {
     super(
       "Undead",
       EnemyType.UNDEAD,
-      GenerateAttributesUndead(minLevel, maxLevel)
+      GenerateAttributesUndead(level, level + 4)
     );
   }
 }

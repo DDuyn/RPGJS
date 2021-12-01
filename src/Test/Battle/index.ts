@@ -2,7 +2,6 @@ import { Attributes } from "../../Attributes/Constants/Attributes";
 import { Battle } from "../../Battle/Battle";
 import { Action } from "../../Battle/Enums/Action";
 import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleModel";
-import { Undead } from "../../Character/EnemyCharacters/Undead/Undead";
 import { Mage } from "../../Character/PlayerCharacters/Mage/Mage";
 import { Warrior } from "../../Character/PlayerCharacters/Warrior/Warrior";
 import { Cave } from "../../Dungeon/Cave/Cave";
@@ -11,7 +10,6 @@ import { Regenerate } from "../../Skills/PassiveSkill/Regenerate";
 
 const warrior = new Warrior("Ragnar");
 const mage = new Mage("Merlin");
-const undead = new Undead(1, 4);
 const regenerate = new Regenerate(warrior);
 
 const playerInBattle: CharacterInBattleModel[] = [
@@ -38,16 +36,10 @@ const battle = new Battle();
 const partyPlayer = new Party(playerInBattle);
 
 const cave = new Cave();
-cave.GenerateDungeon();
 
-battle.InitBattle(partyPlayer.GetData(), cave.GetData(), 1);
+battle.InitBattle(partyPlayer.GetData(), cave.GetData());
+
 let currentCombatient = battle.GetCombatient();
-
-/*battle.SetSkill(
-  currentCombatient.Character.GetSkill("Attack"),
-  currentCombatient.Character.GetData().Type
-); */
-battle.SetSkill(undead.GetSkill("Attack"), undead.GetData().Type);
 
 battle.SwitchCombatient(partyPlayer.GetCharacter(mage.GetData().Name));
 battle.Combat();
@@ -57,7 +49,6 @@ battle.SetSkill(
   currentCombatient.Character.GetSkill("Attack"),
   currentCombatient.Character.GetData().Type
 );
-battle.SetSkill(undead.GetSkill("Attack"), undead.GetData().Type);
 
 battle.Combat();
 battle.EndBattle();
@@ -73,12 +64,6 @@ console.log(
   mage.GetData().Name,
   mage.GetValueByAttribute(Attributes.CURRENTHEALTH),
   mage.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
-);
-console.log(
-  "Vida Main before",
-  undead.GetData().Name,
-  undead.GetValueByAttribute(Attributes.CURRENTHEALTH),
-  undead.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
 );
 
 partyPlayer
