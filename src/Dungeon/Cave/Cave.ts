@@ -6,9 +6,9 @@ export class Cave extends Dungeon {
   /**
    *
    */
-  constructor() {
+  constructor(level: number) {
     super();
-    this.Data = this.BuildDungeon("Cave", DungeonType.CAVE, [
+    this.Data = this.BuildDungeon("Cave", level, DungeonType.CAVE, [
       EnemyType.UNDEAD,
       EnemyType.WOLF,
     ]);

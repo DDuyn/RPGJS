@@ -11,6 +11,7 @@ export abstract class Dungeon implements IDungeon {
 
   BuildDungeon(
     name: string,
+    level: number,
     dungeonType: DungeonType,
     enemies: EnemyType[]
   ): BaseDungeonModel {
@@ -18,7 +19,7 @@ export abstract class Dungeon implements IDungeon {
       Name: name,
       DungeonType: dungeonType,
       EnemiesType: enemies,
-      Level: 1,
+      Level: level,
       Loot: this.GenerateRarityLoot(),
     };
     return Utils.DeepClone<BaseDungeonModel>(model);

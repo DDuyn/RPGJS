@@ -1,3 +1,4 @@
+import { IDungeon } from "../../Dungeon/Interfaces/IDungeon";
 import { BaseDungeonModel } from "../../Dungeon/Model/BaseDungeonModel";
 import { Utils } from "../../Shared/Utils/Utils";
 import { IWeapon } from "../../Weapons/Interfaces/IWeapon";
@@ -19,36 +20,44 @@ export const GenerateRandomLoot = (
       Array(rarity.Probability).fill(rarity)
     )
   );
-  const loot: BaseLootModel = { Weapons: GenerateWeaponLoot() };
+  const loot: BaseLootModel = { Weapons: GenerateWeaponLoot(), Dungeons: [] };
   return loot;
 };
 
 const GenerateWeaponLoot = (): IWeapon[] => {
-  const totalNumberWeapons = GetTotalNumberWeapons();
+  const totalNumberWeapons = GetTotalNumberByLevel();
   return GenerateRandomWeapons(totalNumberWeapons);
 };
 
-const GenerateRandomWeapons = (totalLootWeapon: number): IWeapon[] => {
-  const weaponsDroped: IWeapon[] = [];
+const GenerateDungeonLoot = (): IDungeon[] => {
+  const totalNumberDungeons = GetTotalNumberByLevel();
+  return;
+};
 
-  for (let index = 0; index < totalLootWeapon; index++) {
-    const weaponGenerate = GetRandomWeapon(
-      GenerateItemLevel(),
-      GenerateRarity()
-    );
-    weaponsDroped.push(weaponGenerate);
+const GenerateRandomDungeons;
+
+const GenerateRandomWeapons = (totalLoot: number): IWeapon[] | IDungeon[] => {
+  const lootDropped: IWeapon[] = [];
+
+  for (let index = 0; index < totalLoot; index++) {
+    const lootGenerate = GetWeapon();
+    lootDropped.push(lootGenerate);
   }
-  return weaponsDroped;
+  return lootDropped;
+};
+
+const GetWeapon = (): IWeapon => {
+  return GetRandomWeapon(GenerateItemLevel(), GenerateRarity());
 };
 
 //TODO: Convertir al minimo y máximo dado por la Dungeon
-const GetTotalNumberWeapons = () => {
-  return Utils.Random(LEVEL_DUNGEON, 4);
+const GetTotalNumberByLevel = () => {
+  return Utils.Random(LEVEL_DUNGEON, LEVEL_DUNGEON + 4);
 };
 
 //TODO: Convertir al minimo y máximo dado por la Dungeon
 const GenerateItemLevel = () => {
-  return Utils.Random(LEVEL_DUNGEON, 10);
+  return Utils.Random(LEVEL_DUNGEON, LEVEL_DUNGEON + 4);
 };
 
 const GenerateRarity = () => {

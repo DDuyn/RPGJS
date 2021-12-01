@@ -34,7 +34,7 @@ export class DataFileUtils {
     return data.character!;
   }
 
-  public ExtractDungeonDataFile(data: DataFile): IDungeon[] {
+  public ExtractDungeonDataFile(data: DataFile): IMap[] {
     data.dungeons?.forEach((dungeon) => {
       Object.setPrototypeOf(dungeon, Dungeon.prototype);
     });

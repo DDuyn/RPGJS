@@ -42,8 +42,11 @@ export class Battle implements IBattle {
       this.Data.PlayerCombatient,
       this.Data.EnemyCombatient
     );
-    this.Data.EnemyCombatient.Skill =
-      this.Data.EnemyCombatient.Character.GetSkill("Attack");
+
+    this.SetSkill(
+      this.Data.EnemyCombatient.Character.GetSkill("Attack"),
+      CharacterType.IA
+    );
     TurnLogicBattle(turnBattle);
   }
 
