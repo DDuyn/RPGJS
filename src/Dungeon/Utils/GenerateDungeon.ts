@@ -1,12 +1,12 @@
-import { Action } from "../../../Battle/Enums/Action";
-import { CharacterInBattleModel } from "../../../Battle/Models/CharacterInBattleModel";
-import { EnemyCharacter } from "../../../Character/EnemyCharacters/EnemyCharacter";
-import { Undead } from "../../../Character/EnemyCharacters/Undead/Undead";
-import { Wolf } from "../../../Character/EnemyCharacters/Wolf/Wolf";
-import { ICharacter } from "../../../Character/Interfaces/ICharacter";
-import { BasePartyModel } from "../../../Party/Models/BasePartyModel";
-import { EnemyType } from "../../../Shared/Enums/EnemyType";
-import { Utils } from "../../../Shared/Utils/Utils";
+import { Action } from "../../Battle/Enums/Action";
+import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleModel";
+import { EnemyCharacter } from "../../Character/EnemyCharacters/EnemyCharacter";
+import { Undead } from "../../Character/EnemyCharacters/Undead/Undead";
+import { Wolf } from "../../Character/EnemyCharacters/Wolf/Wolf";
+import { ICharacter } from "../../Character/Interfaces/ICharacter";
+import { BasePartyModel } from "../../Party/Models/BasePartyModel";
+import { EnemyType } from "../../Shared/Enums/EnemyType";
+import { Utils } from "../../Shared/Utils/Utils";
 
 const ENEMY_TYPE = {
   UNDEAD: (level: number) => new Undead(level),
@@ -14,20 +14,17 @@ const ENEMY_TYPE = {
   WITCH: (level: number) => new Undead(level),
 };
 
-let LEVEL: number = 1;
-
-export const GenerateCave = (level: number): BasePartyModel => {
-  LEVEL = level;
-  const enemies: ICharacter[] = GenerateEnemies();
+export const GeneratePartyEnemy = (level: number): BasePartyModel => {
+  const enemies: ICharacter[] = GenerateEnemies(level);
   return GenerateEnemyParty(enemies);
 };
 
-const GenerateEnemies = (): ICharacter[] => {
+const GenerateEnemies = (level: number): ICharacter[] => {
   const enemies: EnemyCharacter[] = [];
-  const totalEnemies = Utils.Random(4 + LEVEL, 12 + LEVEL);
+  const totalEnemies = Utils.Random(4 + level, 12 + level);
   for (let index = 0; index < totalEnemies; index++) {
     const enemyType = Utils.GetRandomEnumKey<EnemyType>(EnemyType);
-    const enemy = ENEMY_TYPE[enemyType](LEVEL);
+    const enemy = ENEMY_TYPE[enemyType](level);
     enemies.push(enemy);
   }
   return enemies;

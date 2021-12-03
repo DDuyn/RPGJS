@@ -1,10 +1,10 @@
 import { ProbabilityLoot } from "../Loot/Models/ProbabilityLoot";
 import { DungeonType } from "../Shared/Enums/DungeonType";
-import { EnemyType } from "../Shared/Enums/EnemyType";
 import { Rarity } from "../Shared/Enums/Rarity";
 import { Utils } from "../Shared/Utils/Utils";
 import { IDungeon } from "./Interfaces/IDungeon";
 import { BaseDungeonModel } from "./Model/BaseDungeonModel";
+import { GeneratePartyEnemy } from "./Utils/GenerateDungeon";
 
 export abstract class Dungeon implements IDungeon {
   protected Data: BaseDungeonModel;
@@ -12,15 +12,14 @@ export abstract class Dungeon implements IDungeon {
   BuildDungeon(
     name: string,
     level: number,
-    dungeonType: DungeonType,
-    enemies: EnemyType[]
+    dungeonType: DungeonType
   ): BaseDungeonModel {
     const model: BaseDungeonModel = {
       Name: name,
       DungeonType: dungeonType,
-      EnemiesType: enemies,
       Level: level,
-      Loot: this.GenerateRarityLoot(),
+      Enemies: GeneratePartyEnemy(level),
+      ProbabilityLoot: this.GenerateRarityLoot(),
     };
     return Utils.DeepClone<BaseDungeonModel>(model);
   }
@@ -29,11 +28,7 @@ export abstract class Dungeon implements IDungeon {
     return this.Data;
   }
 
-  UpgradeLevel(): void {
-    this.Data.Level++;
-  }
-
-  GenerateRarityLoot(): ProbabilityLoot[] {
+  private GenerateRarityLoot(): ProbabilityLoot[] {
     return [
       { Rarity: Rarity.COMMON, Probability: 45 },
       { Rarity: Rarity.MAGIC, Probability: 40 },

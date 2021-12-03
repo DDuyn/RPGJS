@@ -35,7 +35,7 @@ const battle = new Battle();
 
 const partyPlayer = new Party(playerInBattle);
 
-const cave = new Cave();
+const cave = new Cave(1);
 
 battle.InitBattle(partyPlayer.GetData(), cave.GetData());
 
@@ -66,6 +66,10 @@ console.log(
   mage.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
 );
 
-partyPlayer
-  .GetData()
-  .LootParty?.Weapons?.forEach((w) => console.log(w.GetData()));
+console.log(partyPlayer.GetData().LootParty?.Dungeons);
+console.log(partyPlayer.GetData().LootParty?.Weapons);
+
+battle.InitBattle(
+  partyPlayer.GetData(),
+  partyPlayer.GetData().LootParty?.Dungeons[0].GetData()!
+);

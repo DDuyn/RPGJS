@@ -1,4 +1,3 @@
-import { GenerateCave } from "../Dungeon/Cave/Utils/GenerateCave";
 import { BaseDungeonModel } from "../Dungeon/Model/BaseDungeonModel";
 import { GenerateRandomLoot } from "../Loot/Utils/GenerateRandomLoot";
 import { BasePartyModel } from "../Party/Models/BasePartyModel";
@@ -19,8 +18,7 @@ export class Battle implements IBattle {
 
   InitBattle(party: BasePartyModel, dungeon: BaseDungeonModel): void {
     const playerParty = Utils.DeepClone<BasePartyModel>(party);
-    const enemyParty = GenerateCave(dungeon.Level);
-
+    const enemyParty = dungeon.Enemies;
     this.Data = {
       PlayerParty: party,
       Loot: GenerateRandomLoot(dungeon),

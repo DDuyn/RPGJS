@@ -1,16 +1,11 @@
-import { ProbabilityLoot } from "../../Loot/Models/ProbabilityLoot";
 import { DungeonType } from "../../Shared/Enums/DungeonType";
-import { EnemyType } from "../../Shared/Enums/EnemyType";
 import { BaseDungeonModel } from "../Model/BaseDungeonModel";
 
 export interface IDungeon {
   BuildDungeon(
     name: string,
     level: number,
-    dungeonType: DungeonType,
-    enemies: EnemyType[]
+    dungeonType: DungeonType
   ): BaseDungeonModel;
   GetData(): BaseDungeonModel;
-  UpgradeLevel(): void;
-  GenerateRarityLoot(): ProbabilityLoot[];
 }
