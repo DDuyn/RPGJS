@@ -15,9 +15,14 @@ export class IncreasedAttackSpeed extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.AGILITY,
-      ValueType.PERCENT,
-      false
+      ValueType.PERCENT
     );
-    this.Data.Description = `Increased ${this.Data.MinValue}% Attack Speed`;
+    this.Data.Description = `Increased ${this.Data.Value}% Attack Speed`;
   }
+
+  /*Apply(character: ICharacter): void {
+    const baseAgility = character.GetValueByAttribute(Attributes.AGILITY);
+    const agility = Utils.PercentOfValue(baseAgility, this.Data.Value);
+    character.SetValueInAttribute(agility, Attributes.AGILITY);
+  }*/
 }

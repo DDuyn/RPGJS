@@ -69,6 +69,22 @@ export abstract class Weapon implements IWeapon {
     return Utils.DeepClone<BaseWeaponModel>(model);
   }
 
+  /**
+   * Check weapon has explicits modifiers
+   * @returns boolean
+   */
+  HasExplicits(): boolean {
+    return this.Data.Explicits.length > 0;
+  }
+
+  /**
+   * Check weapon has implicits modifiers
+   * @returns boolean
+   */
+  HasImplicits(): boolean {
+    return this.Data.Implicits.length > 0;
+  }
+
   GetData(): BaseWeaponModel {
     return this.Data;
   }

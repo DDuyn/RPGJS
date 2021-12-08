@@ -40,7 +40,7 @@ export abstract class Skill implements ISkill {
       Duration: duration,
       Description: description,
       Requirements: requirements,
-      CanPurchase: this.CanPurchase(requirements, character), //TODO: Revisar
+      CanPurchase: this.CanPurchase(requirements, character),
       Level: 1,
     };
 

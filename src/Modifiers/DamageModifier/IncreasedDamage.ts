@@ -15,9 +15,8 @@ export class IncreasedDamage extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.DAMAGE,
-      ValueType.FLAT,
-      true
+      ValueType.FLAT
     );
-    this.Data.Description = `Increased Damage ${this.Data.MinValue} to ${this.Data.MaxValue}`;
+    this.Data.Description = `Increased Damage ${this.Data.Value}`;
   }
 }

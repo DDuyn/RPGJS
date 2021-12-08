@@ -15,9 +15,8 @@ export class IncreasedSpell extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.SPELL,
-      ValueType.FLAT,
-      true
+      ValueType.FLAT
     );
-    this.Data.Description = `Increased Spell ${this.Data.MinValue} to ${this.Data.MaxValue}`;
+    this.Data.Description = `Increased Spell ${this.Data.Value}`;
   }
 }

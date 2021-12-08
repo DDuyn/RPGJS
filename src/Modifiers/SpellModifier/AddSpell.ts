@@ -14,9 +14,8 @@ export class AddSpell extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.SPELL,
-      ValueType.FLAT,
-      false
+      ValueType.FLAT
     );
-    this.Data.Description = `+${this.Data.MinValue} Spell`;
+    this.Data.Description = `+${this.Data.Value} Spell`;
   }
 }

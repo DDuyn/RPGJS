@@ -17,6 +17,7 @@ export interface IWeapon {
     levelItem: number,
     rarity: Rarity
   ): BaseWeaponModel;
-
+  HasImplicits(): boolean;
+  HasExplicits(): boolean;
   GetData(): BaseWeaponModel;
 }

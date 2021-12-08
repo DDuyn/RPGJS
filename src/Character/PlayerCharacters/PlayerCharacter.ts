@@ -1,6 +1,6 @@
 import { Attributes } from "../../Attributes/Constants/Attributes";
 import { IAttribute } from "../../Attributes/Interfaces/IAttribute";
-import { RecoverCurrentHealth } from "../../Attributes/Models/BattleAttributes/CurrentHealth/Utils/RecoverCurrentHealth";
+import { CurrentHealth } from "../../Attributes/Models/BattleAttributes/CurrentHealth/CurrentHealth";
 import { CharacterClass } from "../../Shared/Enums/CharacterClass";
 import { CharacterType } from "../../Shared/Enums/CharacterType";
 import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
@@ -8,6 +8,7 @@ import { ISkill } from "../../Skills/Interfaces/ISkill";
 import { IWeapon } from "../../Weapons/Interfaces/IWeapon";
 import { Character } from "../Character";
 import { IPlayerCharacter } from "../Interfaces/IPlayerCharacter";
+import { CalculateAttributesByWeapon } from "../Utils/CalculateAttributesByWeapon";
 import { GenerateBasicSkills } from "../Utils/GenerateBasicSkills";
 
 export abstract class PlayerCharacter
@@ -60,8 +61,9 @@ export abstract class PlayerCharacter
    * Recover current health
    */
   RecoverCurrentHealth(): void {
-    //TODO: Reubicar
-    const healthRecovered = RecoverCurrentHealth(this);
+    const healthRecovered = this.GetAttribute<CurrentHealth>(
+      Attributes.CURRENTHEALTH
+    ).GetCurrentHealthRecovered(this);
     this.SetValueInAttribute(healthRecovered, Attributes.CURRENTHEALTH);
   }
 
@@ -94,6 +96,7 @@ export abstract class PlayerCharacter
 
     this.Data.Weapons.set(location, weapon);
     //TODO: Recalcular atributos
+    CalculateAttributesByWeapon(this, weapon);
   }
 
   /**

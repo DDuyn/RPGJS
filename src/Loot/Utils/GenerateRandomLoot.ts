@@ -64,7 +64,6 @@ const GetDungeon = (): IDungeon => {
   return GetRandomDungeon(GenerateItemLevel());
 };
 
-//TODO: Convertir al minimo y máximo dado por la Dungeon
 const GetTotalNumberByLevel = () => {
   return Utils.Random(LEVEL_DUNGEON, LEVEL_DUNGEON + 4);
 };

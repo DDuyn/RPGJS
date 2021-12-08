@@ -6,6 +6,7 @@ import { Mage } from "../../Character/PlayerCharacters/Mage/Mage";
 import { Warrior } from "../../Character/PlayerCharacters/Warrior/Warrior";
 import { Cave } from "../../Dungeon/Cave/Cave";
 import { Party } from "../../Party/Party";
+import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
 import { Regenerate } from "../../Skills/PassiveSkill/Regenerate";
 
 const warrior = new Warrior("Ragnar");
@@ -68,6 +69,11 @@ console.log(
 
 console.log(partyPlayer.GetData().LootParty?.Dungeons);
 console.log(partyPlayer.GetData().LootParty?.Weapons);
+
+warrior.EquipWeapon(
+  partyPlayer.GetData().LootParty!.Weapons![0],
+  LocationWeapon.MAIN_HAND
+);
 
 battle.InitBattle(
   partyPlayer.GetData(),

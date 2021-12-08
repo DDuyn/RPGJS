@@ -15,9 +15,8 @@ export class IncreseadDamagePercent extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.DAMAGE,
-      ValueType.PERCENT,
-      true
+      ValueType.PERCENT
     );
-    this.Data.Description = `Increased Damage ${this.Data.MinValue}% to ${this.Data.MaxValue}%`;
+    this.Data.Description = `Increased Damage ${this.Data.Value}%`;
   }
 }

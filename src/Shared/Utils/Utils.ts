@@ -39,4 +39,8 @@ export class Utils {
   public static GetIndexFromList<T>(list: T[], element: any): number {
     return list.indexOf(element);
   }
+
+  public static PercentOfValue(value: number, percent: number): number {
+    return value + Math.round(value * (percent / 100));
+  }
 }

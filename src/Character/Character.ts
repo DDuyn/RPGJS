@@ -61,6 +61,17 @@ export abstract class Character implements ICharacter {
   }
 
   /**
+   * Find Attribute by attribute name
+   * @param attributeName
+   * @returns
+   */
+  GetAttribute<T>(attributeName: string): T {
+    return this.Data.Attributes.find((attribute) =>
+      FindAttributeByName(attributeName, attribute)
+    )! as unknown as T;
+  }
+
+  /**
    * Find value by attribute name
    * @param attributeName
    */

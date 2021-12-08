@@ -1,3 +1,4 @@
+import { ICharacter } from "../Character/Interfaces/ICharacter";
 import { Constants } from "../Shared/Constants/Constants";
 import { ValueType } from "../Shared/Enums/ValueType";
 import { Utils } from "../Shared/Utils/Utils";
@@ -11,8 +12,7 @@ export abstract class Modifier implements IModifier {
     modifierName: string,
     baseValue: number,
     attributeModifier: string,
-    valueType: ValueType,
-    hasValueRange: boolean
+    valueType: ValueType
   ): BaseModifierModel {
     const tier = Utils.Random(1, 10);
     const model: BaseModifierModel = {
@@ -21,9 +21,23 @@ export abstract class Modifier implements IModifier {
       Tier: tier,
       AttributeModifier: attributeModifier,
       ValueType: valueType,
-      MinValue: baseValue * tier,
-      MaxValue: hasValueRange ? baseValue * 2 * tier : 0,
+      Value: baseValue * tier,
     };
     return Utils.DeepClone<BaseModifierModel>(model);
+  }
+
+  /**
+   * Apply Effects
+   * @param character
+   */
+  Apply(character: ICharacter): void {
+    const baseValue = character.GetValueByAttribute(
+      this.Data.AttributeModifier
+    );
+    const calculateValue =
+      this.Data.ValueType === ValueType.PERCENT
+        ? Utils.PercentOfValue(baseValue, this.Data.Value)
+        : baseValue + this.Data.Value;
+    character.SetValueInAttribute(calculateValue, this.Data.AttributeModifier);
   }
 }

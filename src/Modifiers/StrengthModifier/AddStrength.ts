@@ -15,9 +15,8 @@ export class AddStrength extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.STRENGTH,
-      ValueType.FLAT,
-      false
+      ValueType.FLAT
     );
-    this.Data.Description = `+ ${this.Data.MinValue} Strength`;
+    this.Data.Description = `+ ${this.Data.Value} Strength`;
   }
 }

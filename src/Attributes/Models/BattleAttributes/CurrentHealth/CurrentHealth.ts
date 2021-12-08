@@ -15,7 +15,6 @@ export class CurrentHealth extends Attribute {
   }
 
   GetCurrentHealthRecovered(character: ICharacter): number {
-    //TODO: Revisar
     return RecoverCurrentHealth(character);
   }
 }

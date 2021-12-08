@@ -15,6 +15,7 @@ export interface ICharacter {
   ): BaseCharacterModel;
   DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void;
   GetData(): BaseCharacterModel;
+  GetAttribute<T>(attributeName: string): T;
   GetValueByAttribute(attributeName: string): number;
   SetValueInAttribute(value: number, attributeName: string): void;
   GetSkill(skillName: string): ISkill;

@@ -14,9 +14,8 @@ export class IncreasedAgility extends Modifier {
       this.NAME,
       this.BASE_VALUE,
       Attributes.AGILITY,
-      ValueType.FLAT,
-      true
+      ValueType.FLAT
     );
-    this.Data.Description = `Increased Agility ${this.Data.MinValue} to ${this.Data.MaxValue}`;
+    this.Data.Description = `Increased Agility ${this.Data.Value}`;
   }
 }

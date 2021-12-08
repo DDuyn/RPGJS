@@ -1,4 +1,4 @@
-import { AddAgility } from "../../Modifiers/AgilityModifier/AddAgility";
+import { IncreasedAgility } from "../../Modifiers/AgilityModifier/IncreasedAgility";
 import { Suffix } from "./Base/Suffix";
 
 export class OffTheEagle extends Suffix {
@@ -6,6 +6,6 @@ export class OffTheEagle extends Suffix {
    *
    */
   constructor() {
-    super("Off the Eagle", [new AddAgility()]);
+    super("Off the Eagle", [new IncreasedAgility()]);
   }
 }
