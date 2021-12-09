@@ -39,9 +39,13 @@ export class Attack extends Skill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter, defender: ICharacter): void {
-    const attackerDamage = attacker.GetValueByAttribute(Attributes.DAMAGE);
+    const attackerDamage = attacker.GetValueModifiedByAttribute(
+      Attributes.DAMAGE
+    );
 
-    const defenderDefense = defender.GetValueByAttribute(Attributes.DEFENSE);
+    const defenderDefense = defender.GetValueModifiedByAttribute(
+      Attributes.DEFENSE
+    );
 
     const damageCalculated: number = Utils.Random(
       attackerDamage * 0.75,
@@ -52,9 +56,9 @@ export class Attack extends Skill {
     );
 
     const damageTotal =
-      defender.GetValueByAttribute(Attributes.CURRENTHEALTH) -
+      defender.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH) -
       Math.round(damageCalculated * defenseCalculated);
 
-    defender.SetValueInAttribute(damageTotal, Attributes.CURRENTHEALTH);
+    defender.SetValueModifiedInAttribute(damageTotal, Attributes.CURRENTHEALTH);
   }
 }

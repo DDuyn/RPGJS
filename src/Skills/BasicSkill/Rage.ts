@@ -38,8 +38,8 @@ export class Rage extends Skill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const damage = attacker.GetValueByAttribute(Attributes.DAMAGE);
-    attacker.SetValueInAttribute(
+    const damage = attacker.GetValueModifiedByAttribute(Attributes.DAMAGE);
+    attacker.SetValueModifiedInAttribute(
       damage + this.GetBaseValue(),
       Attributes.DAMAGE
     );

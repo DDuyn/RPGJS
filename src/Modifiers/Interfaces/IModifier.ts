@@ -9,5 +9,5 @@ export interface IModifier {
     attributeModifier: string,
     valueType: ValueType
   ): BaseModifierModel;
-  Apply(character: ICharacter): void;
+  Apply(character: ICharacter, addWeapon: boolean): void;
 }

@@ -30,14 +30,25 @@ export abstract class Modifier implements IModifier {
    * Apply Effects
    * @param character
    */
-  Apply(character: ICharacter): void {
-    const baseValue = character.GetValueByAttribute(
+  Apply(character: ICharacter, addWeapon: boolean): void {
+    const baseValue = character.GetValueModifiedByAttribute(
       this.Data.AttributeModifier
     );
-    const calculateValue =
-      this.Data.ValueType === ValueType.PERCENT
-        ? Utils.PercentOfValue(baseValue, this.Data.Value)
-        : baseValue + this.Data.Value;
-    character.SetValueInAttribute(calculateValue, this.Data.AttributeModifier);
+    let calculateValue = 0;
+    if (!addWeapon) {
+      calculateValue = character.GetValueByAttribute(
+        this.Data.AttributeModifier
+      );
+    } else {
+      calculateValue =
+        this.Data.ValueType === ValueType.PERCENT
+          ? Utils.AddPercentOfValue(baseValue, this.Data.Value)
+          : baseValue + this.Data.Value;
+    }
+
+    character.SetValueModifiedInAttribute(
+      calculateValue,
+      this.Data.AttributeModifier
+    );
   }
 }

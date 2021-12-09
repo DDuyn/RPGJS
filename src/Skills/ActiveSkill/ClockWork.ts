@@ -42,9 +42,9 @@ export class ClockWork extends Skill implements ILogicSkill, IUpgradeSkill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const agility = attacker.GetValueByAttribute(Attributes.AGILITY);
+    const agility = attacker.GetValueModifiedByAttribute(Attributes.AGILITY);
     const agilityModified = agility + Math.round(agility * this.GetBaseValue());
-    attacker.SetValueInAttribute(agilityModified, Attributes.AGILITY);
+    attacker.SetValueModifiedInAttribute(agilityModified, Attributes.AGILITY);
   }
 
   UpgradeSkill(): void {

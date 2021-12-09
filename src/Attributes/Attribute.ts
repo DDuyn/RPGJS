@@ -20,6 +20,7 @@ export abstract class Attribute implements IAttribute {
       Name: attributeName,
       AttributeType: attributeType,
       Value: 0,
+      ValueModified: 0,
     };
 
     return Utils.DeepClone<BaseAttributeModel>(model);
@@ -34,11 +35,27 @@ export abstract class Attribute implements IAttribute {
   }
 
   /**
+   * Set Attribute Value Modified
+   * @param value
+   */
+  SetValueModified(value: number): void {
+    this.Data.ValueModified = value;
+  }
+
+  /**
    * Get Attribute Value
    * @returns number
    */
   GetValue(): number {
     return this.Data.Value;
+  }
+
+  /**
+   * Get Attribute Value Modified
+   * @returns
+   */
+  GetValueModified(): number {
+    return this.Data.ValueModified;
   }
 
   GetName(): string {

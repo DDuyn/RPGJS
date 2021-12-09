@@ -14,6 +14,7 @@ export const GenerateWarrior = (): IAttribute[] => {
   GeneratePrimaryAttributes();
   GenerateBattleAttributes();
   GenerateLevelAttributes();
+
   return Object.values(LIST_ATTRIBUTES);
 };
 

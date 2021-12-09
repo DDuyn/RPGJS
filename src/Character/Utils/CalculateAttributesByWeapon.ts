@@ -7,33 +7,44 @@ let WEAPON: IWeapon;
 
 export const CalculateAttributesByWeapon = (
   character: ICharacter,
-  weapon: IWeapon
+  weapon: IWeapon,
+  addWeapon: boolean
 ): void => {
   CHARACTER = character;
   WEAPON = weapon;
-  console.log(weapon.GetData().Damage);
-  console.log(weapon.GetData().Implicits);
-  console.log(weapon.GetData().Explicits);
-  CalculateDamage();
-  CalculateImplicits();
-  CalculateExplicits();
+  console.log(weapon.GetData().Name, weapon.GetData().Damage);
+  weapon.GetData().Explicits.forEach((x) => console.table(x));
+  weapon.GetData().Implicits.forEach((x) => console.table(x));
+  CalculateDamage(addWeapon);
+  CalculateImplicits(addWeapon);
+  CalculateExplicits(addWeapon);
 };
 
-const CalculateDamage = (): void => {
-  const characterDamage = CHARACTER.GetValueByAttribute(Attributes.DAMAGE);
+const CalculateDamage = (addWeapon: boolean): void => {
   const weaponDamage = WEAPON.GetData().Damage;
-  CHARACTER.SetValueInAttribute(
-    characterDamage + weaponDamage,
+  const characterDamage = CHARACTER.GetValueModifiedByAttribute(
     Attributes.DAMAGE
   );
+
+  if (!addWeapon) {
+    CHARACTER.SetValueModifiedInAttribute(
+      CHARACTER.GetValueByAttribute(Attributes.DAMAGE),
+      Attributes.DAMAGE
+    );
+  } else {
+    CHARACTER.SetValueModifiedInAttribute(
+      characterDamage + weaponDamage,
+      Attributes.DAMAGE
+    );
+  }
 };
 
-const CalculateImplicits = (): void => {
+const CalculateImplicits = (addWeapon: boolean): void => {
   if (WEAPON.HasImplicits())
-    WEAPON.GetData().Implicits.forEach((i) => i.Apply(CHARACTER));
+    WEAPON.GetData().Implicits.forEach((i) => i.Apply(CHARACTER, addWeapon));
 };
 
-const CalculateExplicits = (): void => {
+const CalculateExplicits = (addWeapon: boolean): void => {
   if (WEAPON.HasExplicits())
-    WEAPON.GetData().Explicits.forEach((i) => i.Apply(CHARACTER));
+    WEAPON.GetData().Explicits.forEach((e) => e.Apply(CHARACTER, addWeapon));
 };

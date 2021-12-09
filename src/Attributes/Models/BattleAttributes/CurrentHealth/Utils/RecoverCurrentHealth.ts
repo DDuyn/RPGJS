@@ -7,8 +7,10 @@ import { Attributes } from "../../../../Constants/Attributes";
 const BASE_PERCENT_HEALTH_RECOVER: number = 0.2;
 
 export const RecoverCurrentHealth = (character: ICharacter): number => {
-  const currentHealth = character.GetValueByAttribute(Attributes.CURRENTHEALTH);
-  const maxHealth = character.GetValueByAttribute(Attributes.MAXHEALTH);
+  const currentHealth = character.GetValueModifiedByAttribute(
+    Attributes.CURRENTHEALTH
+  );
+  const maxHealth = character.GetValueModifiedByAttribute(Attributes.MAXHEALTH);
   const differenceHealth = maxHealth - currentHealth;
 
   if (currentHealth >= maxHealth) return maxHealth;
@@ -21,7 +23,7 @@ export const RecoverCurrentHealth = (character: ICharacter): number => {
   character.DoSkill(passiveSkill);
 
   return BaseRecoverHealth(
-    character.GetValueByAttribute(Attributes.CURRENTHEALTH),
+    character.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
     differenceHealth
   );
 };

@@ -20,5 +20,6 @@ export abstract class EnemyCharacter extends Character {
       attributes,
       skills
     );
+    this.SyncAttributes();
   }
 }

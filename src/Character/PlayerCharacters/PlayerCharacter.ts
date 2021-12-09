@@ -32,6 +32,7 @@ export abstract class PlayerCharacter
       attributes,
       skills
     );
+    this.SyncAttributes();
   }
 
   /**
@@ -92,11 +93,10 @@ export abstract class PlayerCharacter
     )
       throw new Error("Cannot equip");
 
-    if (this.Data.Weapons.has(location)) this.Data.Weapons.delete(location);
+    if (this.Data.Weapons.has(location)) this.UnequipWeapon(location);
 
     this.Data.Weapons.set(location, weapon);
-    //TODO: Recalcular atributos
-    CalculateAttributesByWeapon(this, weapon);
+    CalculateAttributesByWeapon(this, weapon, true);
   }
 
   /**
@@ -104,6 +104,10 @@ export abstract class PlayerCharacter
    * @param location
    */
   UnequipWeapon(location: LocationWeapon): void {
-    this.Data.Weapons.delete(location);
+    if (this.Data.Weapons.has(location)) {
+      const weapon = this.Data.Weapons.get(location)!;
+      this.Data.Weapons.delete(location);
+      CalculateAttributesByWeapon(this, weapon, false);
+    }
   }
 }

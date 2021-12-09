@@ -34,10 +34,10 @@ const SyncCharactersCurrentHealth = (
   character: CharacterInBattleModel,
   characterBattle: CharacterInBattleModel
 ): void => {
-  const currentHealth = characterBattle.Character.GetValueByAttribute(
+  const currentHealth = characterBattle.Character.GetValueModifiedByAttribute(
     Attributes.CURRENTHEALTH
   );
-  character.Character.SetValueInAttribute(
+  character.Character.SetValueModifiedInAttribute(
     currentHealth,
     Attributes.CURRENTHEALTH
   );

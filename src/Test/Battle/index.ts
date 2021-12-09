@@ -57,14 +57,14 @@ battle.EndBattle();
 console.log(
   "Vida Main before",
   warrior.GetData().Name,
-  warrior.GetValueByAttribute(Attributes.CURRENTHEALTH),
-  warrior.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
+  warrior.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
+  warrior.GetValueModifiedByAttribute(Attributes.TOTALEXPERIENCE)
 );
 console.log(
   "Vida Main before",
   mage.GetData().Name,
-  mage.GetValueByAttribute(Attributes.CURRENTHEALTH),
-  mage.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
+  mage.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
+  mage.GetValueModifiedByAttribute(Attributes.TOTALEXPERIENCE)
 );
 
 console.log(partyPlayer.GetData().LootParty?.Dungeons);

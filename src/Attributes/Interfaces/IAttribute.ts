@@ -6,6 +6,8 @@ export interface IAttribute {
     attributeType: AttributeType
   ): BaseAttributeModel;
   SetValue(value: number): void;
+  SetValueModified(value: number): void;
   GetValue(): number;
+  GetValueModified(): number;
   GetName(): string;
 }

@@ -40,7 +40,14 @@ export class Utils {
     return list.indexOf(element);
   }
 
-  public static PercentOfValue(value: number, percent: number): number {
+  public static AddPercentOfValue(value: number, percent: number): number {
     return value + Math.round(value * (percent / 100));
+  }
+
+  public static SubstractPercentOfValue(
+    value: number,
+    percent: number
+  ): number {
+    return value - Math.round(value * (percent / 100));
   }
 }

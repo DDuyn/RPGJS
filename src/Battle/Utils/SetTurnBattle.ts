@@ -25,7 +25,7 @@ const CalculateAgility = (character: CharacterInBattleModel): number => {
   //TODO: Generar método para definir turnos.
   return character.Action === Action.SWITCH
     ? 0
-    : character.Character.GetValueByAttribute(Attributes.AGILITY);
+    : character.Character.GetValueModifiedByAttribute(Attributes.AGILITY);
 };
 
 const EnemyIsMostFastThanPlayer = (

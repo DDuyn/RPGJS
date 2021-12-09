@@ -2,11 +2,8 @@ import { IAttribute } from "../Attributes/Interfaces/IAttribute";
 import { CharacterClass } from "../Shared/Enums/CharacterClass";
 import { CharacterType } from "../Shared/Enums/CharacterType";
 import { EnemyType } from "../Shared/Enums/EnemyType";
-import { LocationWeapon } from "../Shared/Enums/LocationWeapon";
-import { Rarity } from "../Shared/Enums/Rarity";
 import { Utils } from "../Shared/Utils/Utils";
 import { ISkill } from "../Skills/Interfaces/ISkill";
-import { CopperSword } from "../Weapons/OneHandedSword/CopperSword";
 import { ICharacter } from "./Interfaces/ICharacter";
 import { BaseCharacterModel } from "./Model/Base/BaseCharacterModel";
 import { FindAttributeByName, FindSkillByName } from "./Utils/CharacterUtils";
@@ -33,12 +30,9 @@ export abstract class Character implements ICharacter {
       Class: characterClass,
       Type: characterType,
       Attributes: attributes,
-      Weapons: new Map([
-        [LocationWeapon.MAIN_HAND, new CopperSword(1, Rarity.COMMON)],
-      ]), //TODO: Weapon inicial
+      Weapons: new Map(), //TODO: Weapon inicial
       Skills: skills,
     };
-
     return Utils.DeepClone<BaseCharacterModel>(model);
   }
 
@@ -48,6 +42,15 @@ export abstract class Character implements ICharacter {
    */
   GetData(): BaseCharacterModel {
     return this.Data;
+  }
+
+  /**
+   * Sync value attribute to value modified attribute
+   */
+  SyncAttributes(): void {
+    this.Data.Attributes.forEach((attribute) => {
+      attribute.SetValueModified(attribute.GetValue());
+    });
   }
 
   /**
@@ -82,6 +85,17 @@ export abstract class Character implements ICharacter {
   }
 
   /**
+   * Find value modified by attribute name
+   * @param attributeName
+   * @returns
+   */
+  GetValueModifiedByAttribute(attributeName: string): number {
+    return this.Data.Attributes.find((attribute) =>
+      FindAttributeByName(attributeName, attribute)
+    )!.GetValueModified();
+  }
+
+  /**
    * Set value in attribute
    * @param value
    * @param attributeName
@@ -90,6 +104,17 @@ export abstract class Character implements ICharacter {
     this.Data.Attributes.find((attribute) =>
       FindAttributeByName(attributeName, attribute)
     )!.SetValue(value);
+  }
+
+  /**
+   * Set value modified in attribute
+   * @param value
+   * @param attributeName
+   */
+  SetValueModifiedInAttribute(value: number, attributeName: string): void {
+    this.Data.Attributes.find((attribute) =>
+      FindAttributeByName(attributeName, attribute)
+    )!.SetValueModified(value);
   }
 
   /**

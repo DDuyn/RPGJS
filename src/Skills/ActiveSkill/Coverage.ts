@@ -43,8 +43,8 @@ export class Coverage extends Skill implements ILogicSkill, IUpgradeSkill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const defense = attacker.GetValueByAttribute(Attributes.DEFENSE);
-    attacker.SetValueInAttribute(
+    const defense = attacker.GetValueModifiedByAttribute(Attributes.DEFENSE);
+    attacker.SetValueModifiedInAttribute(
       defense + this.GetBaseValue(),
       Attributes.DEFENSE
     );

@@ -67,7 +67,7 @@ export abstract class Skill implements ISkill {
     let canPurchase = requirements.size > 0 ? true : false;
     if (requirements.size > 0) {
       requirements.forEach((requireValue, attribute) => {
-        if (requireValue > character.GetValueByAttribute(attribute))
+        if (requireValue > character.GetValueModifiedByAttribute(attribute))
           canPurchase = false;
       });
     }

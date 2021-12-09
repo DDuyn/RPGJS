@@ -41,15 +41,20 @@ export class Regenerate extends Skill implements IUpgradeSkill {
   }
 
   LogicSkill(this: ISkill, attacker: ICharacter): void {
-    const currentHealth = attacker.GetValueByAttribute(
+    const currentHealth = attacker.GetValueModifiedByAttribute(
       Attributes.CURRENTHEALTH
     );
-    const maxHealth = attacker.GetValueByAttribute(Attributes.MAXHEALTH);
+    const maxHealth = attacker.GetValueModifiedByAttribute(
+      Attributes.MAXHEALTH
+    );
 
     const healthRecovered =
       currentHealth +
       Math.round((maxHealth - currentHealth) * this.GetBaseValue());
-    attacker.SetValueInAttribute(healthRecovered, Attributes.CURRENTHEALTH);
+    attacker.SetValueModifiedInAttribute(
+      healthRecovered,
+      Attributes.CURRENTHEALTH
+    );
   }
 
   UpgradeSkill(): void {

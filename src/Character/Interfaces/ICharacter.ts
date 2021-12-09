@@ -14,10 +14,13 @@ export interface ICharacter {
     skills: ISkill[]
   ): BaseCharacterModel;
   DoSkill(this: ICharacter, skill: ISkill, defender?: ICharacter): void;
+  SyncAttributes(): void;
   GetData(): BaseCharacterModel;
   GetAttribute<T>(attributeName: string): T;
   GetValueByAttribute(attributeName: string): number;
   SetValueInAttribute(value: number, attributeName: string): void;
+  GetValueModifiedByAttribute(attributeName: string): number;
+  SetValueModifiedInAttribute(value: number, attributeName: string): void;
   GetSkill(skillName: string): ISkill;
   GetSkills(): ISkill[];
 }

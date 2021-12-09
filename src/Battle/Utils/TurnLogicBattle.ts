@@ -20,9 +20,9 @@ const CharacterDoSkill = (
 
     console.log(
       attacker.Character.GetData().Name,
-      attacker.Character.GetValueByAttribute(Attributes.CURRENTHEALTH),
+      attacker.Character.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
       defender.Character.GetData().Name,
-      defender.Character.GetValueByAttribute(Attributes.CURRENTHEALTH)
+      defender.Character.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH)
     );
 
     attacker.Skill = undefined;
@@ -30,7 +30,7 @@ const CharacterDoSkill = (
 };
 
 const IsCombatientDead = (character: CharacterInBattleModel): boolean => {
-  const currentHealth = character.Character.GetValueByAttribute(
+  const currentHealth = character.Character.GetValueModifiedByAttribute(
     Attributes.CURRENTHEALTH
   );
   if (currentHealth <= 0) character.IsDead = true;

@@ -3,7 +3,7 @@ import { ValueType } from "../../Shared/Enums/ValueType";
 import { Modifier } from "../Modifier";
 
 export class IncreseadDamagePercent extends Modifier {
-  private BASE_VALUE = 0.12;
+  private BASE_VALUE = 0.12; //TODO: Revisar valores
   private NAME: string = "Increased Damage Percent";
 
   /**
