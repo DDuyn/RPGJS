@@ -35,14 +35,19 @@ const battle = new Battle();
 const partyPlayer = new Party(playerInBattle);
 const cave = new Cave(1);
 
-battle.InitBattle(partyPlayer.GetData(), cave.GetData());
-const enemies = battle.GetEnemies();
+const enemies = battle.InitBattle(partyPlayer.GetData(), cave.GetData());
 let currentCombatient = battle.GetCombatient();
 
-for (let enemy of enemies) {
-  console.log(enemy);
-  while (!enemy.IsDead && !currentCombatient.IsDead) {
-    console.log("For", enemy.Character.GetData().Name, enemy.IsDead);
+let i = 0;
+console.log(enemies);
+while (battle.HasEnemiesLive()) {
+  while (!enemies[i].IsDead && !currentCombatient.IsDead) {
+    console.log(
+      "For",
+      enemies[i].Character.GetData().Name,
+      i,
+      enemies[i].IsDead
+    );
     battle.SetSkill(
       currentCombatient.Character.GetSkill("Attack"),
       currentCombatient.Character.GetData().Type
@@ -57,6 +62,7 @@ for (let enemy of enemies) {
     break;
   }
   battle.NextEnemy();
+  i++;
 }
 console.log("VENGA");
 
@@ -66,7 +72,7 @@ console.log(
   "Vida Main before",
   warrior.GetData().Name,
   warrior.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
-  warrior.GetValueModifiedByAttribute(Attributes.TOTALEXPERIENCE)
+  warrior.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
 );
 console.log(
   "Vida Main before",

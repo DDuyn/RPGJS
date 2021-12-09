@@ -17,7 +17,10 @@ import { TurnLogicBattle } from "./Utils/TurnLogicBattle";
 export class Battle implements IBattle {
   private Data: BaseBattleModel;
 
-  InitBattle(party: BasePartyModel, dungeon: BaseDungeonModel): void {
+  InitBattle(
+    party: BasePartyModel,
+    dungeon: BaseDungeonModel
+  ): CharacterInBattleModel[] {
     const playerParty = Utils.DeepClone<BasePartyModel>(party);
     const enemyParty = dungeon.Enemies;
     this.Data = {
@@ -28,19 +31,21 @@ export class Battle implements IBattle {
       PlayerCombatient: playerParty.Characters.find((c) => c.IsStarter)!,
       EnemyCombatient: enemyParty.Characters.find((e) => e.IsStarter)!,
     };
+
+    return this.Data.Enemies.Characters;
   }
 
   GetCombatient(): CharacterInBattleModel {
     return this.Data.PlayerCombatient;
   }
 
-  GetEnemies(): CharacterInBattleModel[] {
-    return this.Data.Enemies.Characters;
-  }
-
   NextEnemy(): void {
     const enemy = this.Data.Enemies.Characters.find((e) => !e.IsDead)!;
     this.Data.EnemyCombatient = enemy;
+  }
+
+  HasEnemiesLive(): boolean {
+    return this.Data.Enemies.Characters.some((e) => !e.IsDead);
   }
 
   Combat(): void {
