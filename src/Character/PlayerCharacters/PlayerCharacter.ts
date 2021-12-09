@@ -53,6 +53,9 @@ export abstract class PlayerCharacter
         neededExperience * 4,
         Attributes.NEEDEDEXPERIENCE
       );
+      //TODO: Calculate needed experience
+      //TODO: Calculate Upgrade Attributes
+      //TODO: Sync attributes with modifier and calculate with weapon
     }
 
     this.SetValueInAttribute(totalExperience, Attributes.TOTALEXPERIENCE);
