@@ -31,7 +31,7 @@ export abstract class Character implements ICharacter {
       Type: characterType,
       Attributes: attributes,
       Weapons: new Map(), //TODO: Weapon inicial
-      Skills: skills,
+      Skills: skills, //TODO: Skills selected
     };
     return Utils.DeepClone<BaseCharacterModel>(model);
   }

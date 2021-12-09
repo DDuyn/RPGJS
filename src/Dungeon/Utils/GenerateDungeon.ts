@@ -21,7 +21,7 @@ export const GeneratePartyEnemy = (level: number): BasePartyModel => {
 
 const GenerateEnemies = (level: number): ICharacter[] => {
   const enemies: EnemyCharacter[] = [];
-  const totalEnemies = Utils.Random(4 + level, 12 + level);
+  const totalEnemies = 2; //Utils.Random(4 + level, 12 + level);
   for (let index = 0; index < totalEnemies; index++) {
     const enemyType = Utils.GetRandomEnumKey<EnemyType>(EnemyType);
     const enemy = ENEMY_TYPE[enemyType](level);

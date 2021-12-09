@@ -7,6 +7,12 @@ export const TurnLogicBattle = (turnBattle: TurnBattleModel): void => {
   CharacterDoSkill(turnBattle.First, turnBattle.Second);
   if (!IsCombatientDead(turnBattle.Second))
     CharacterDoSkill(turnBattle.Second, turnBattle.First);
+
+  IsCombatientDead(turnBattle.First);
+  console.log(
+    turnBattle.First.Character.GetData().Name,
+    turnBattle.First.IsDead
+  );
 };
 
 const CharacterDoSkill = (
@@ -20,8 +26,10 @@ const CharacterDoSkill = (
 
     console.log(
       attacker.Character.GetData().Name,
+      attacker.Skill?.GetName(),
       attacker.Character.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
       defender.Character.GetData().Name,
+      defender.Skill?.GetName(),
       defender.Character.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH)
     );
 

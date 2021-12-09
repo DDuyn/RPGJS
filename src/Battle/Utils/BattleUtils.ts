@@ -37,6 +37,7 @@ const SyncCharactersCurrentHealth = (
   const currentHealth = characterBattle.Character.GetValueModifiedByAttribute(
     Attributes.CURRENTHEALTH
   );
+  console.log("Sync Healt", currentHealth);
   character.Character.SetValueModifiedInAttribute(
     currentHealth,
     Attributes.CURRENTHEALTH

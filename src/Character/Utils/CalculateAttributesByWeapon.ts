@@ -12,9 +12,6 @@ export const CalculateAttributesByWeapon = (
 ): void => {
   CHARACTER = character;
   WEAPON = weapon;
-  console.log(weapon.GetData().Name, weapon.GetData().Damage);
-  weapon.GetData().Explicits.forEach((x) => console.table(x));
-  weapon.GetData().Implicits.forEach((x) => console.table(x));
   CalculateDamage(addWeapon);
   CalculateImplicits(addWeapon);
   CalculateExplicits(addWeapon);

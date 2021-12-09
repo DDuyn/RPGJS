@@ -6,7 +6,6 @@ import { Mage } from "../../Character/PlayerCharacters/Mage/Mage";
 import { Warrior } from "../../Character/PlayerCharacters/Warrior/Warrior";
 import { Cave } from "../../Dungeon/Cave/Cave";
 import { Party } from "../../Party/Party";
-import { LocationWeapon } from "../../Shared/Enums/LocationWeapon";
 import { Regenerate } from "../../Skills/PassiveSkill/Regenerate";
 
 const warrior = new Warrior("Ragnar");
@@ -33,26 +32,35 @@ const playerInBattle: CharacterInBattleModel[] = [
 warrior.PurchaseSkill(regenerate);
 
 const battle = new Battle();
-
 const partyPlayer = new Party(playerInBattle);
-
 const cave = new Cave(1);
 
 battle.InitBattle(partyPlayer.GetData(), cave.GetData());
-
+const enemies = battle.GetEnemies();
 let currentCombatient = battle.GetCombatient();
 
-battle.SwitchCombatient(partyPlayer.GetCharacter(mage.GetData().Name));
-battle.Combat();
+for (let enemy of enemies) {
+  console.log(enemy);
+  while (!enemy.IsDead && !currentCombatient.IsDead) {
+    console.log("For", enemy.Character.GetData().Name, enemy.IsDead);
+    battle.SetSkill(
+      currentCombatient.Character.GetSkill("Attack"),
+      currentCombatient.Character.GetData().Type
+    );
 
-currentCombatient = battle.GetCombatient();
-battle.SetSkill(
-  currentCombatient.Character.GetSkill("Attack"),
-  currentCombatient.Character.GetData().Type
-);
+    battle.Combat();
+  }
 
-battle.Combat();
-battle.EndBattle();
+  if (currentCombatient.IsDead) {
+    console.log("HOLA");
+    battle.EndBattle();
+    break;
+  }
+  battle.NextEnemy();
+}
+console.log("VENGA");
+
+if (!currentCombatient.IsDead) battle.EndBattle();
 
 console.log(
   "Vida Main before",
@@ -65,17 +73,4 @@ console.log(
   mage.GetData().Name,
   mage.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
   mage.GetValueModifiedByAttribute(Attributes.TOTALEXPERIENCE)
-);
-
-console.log(partyPlayer.GetData().LootParty?.Dungeons);
-console.log(partyPlayer.GetData().LootParty?.Weapons);
-
-warrior.EquipWeapon(
-  partyPlayer.GetData().LootParty!.Weapons![0],
-  LocationWeapon.MAIN_HAND
-);
-
-battle.InitBattle(
-  partyPlayer.GetData(),
-  partyPlayer.GetData().LootParty?.Dungeons[0].GetData()!
 );

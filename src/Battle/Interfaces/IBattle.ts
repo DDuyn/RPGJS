@@ -8,6 +8,8 @@ export interface IBattle {
   InitBattle(party: BasePartyModel, dungeon: BaseDungeonModel): void;
   Combat(): void;
   GetCombatient(): CharacterInBattleModel;
+  GetEnemies(): CharacterInBattleModel[];
+  NextEnemy(): void;
   SetSkill(skill: ISkill, characterType: CharacterType): void;
   SwitchCombatient(character: CharacterInBattleModel): void;
   EndBattle(): void;

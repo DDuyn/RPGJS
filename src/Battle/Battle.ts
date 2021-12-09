@@ -10,6 +10,7 @@ import { BaseBattleModel } from "./Models/BaseBattleModel";
 import { CharacterInBattleModel } from "./Models/CharacterInBattleModel";
 import { SyncCharacterDataBattle } from "./Utils/BattleUtils";
 import { EndBattleLogic } from "./Utils/EndBattleLogic";
+import { RandomSkillEnemy } from "./Utils/RandomSkillEnemy";
 import { SetTurnBattle } from "./Utils/SetTurnBattle";
 import { TurnLogicBattle } from "./Utils/TurnLogicBattle";
 
@@ -27,12 +28,19 @@ export class Battle implements IBattle {
       PlayerCombatient: playerParty.Characters.find((c) => c.IsStarter)!,
       EnemyCombatient: enemyParty.Characters.find((e) => e.IsStarter)!,
     };
-
-    console.log(enemyParty);
   }
 
   GetCombatient(): CharacterInBattleModel {
     return this.Data.PlayerCombatient;
+  }
+
+  GetEnemies(): CharacterInBattleModel[] {
+    return this.Data.Enemies.Characters;
+  }
+
+  NextEnemy(): void {
+    const enemy = this.Data.Enemies.Characters.find((e) => !e.IsDead)!;
+    this.Data.EnemyCombatient = enemy;
   }
 
   Combat(): void {
@@ -42,7 +50,7 @@ export class Battle implements IBattle {
     );
 
     this.SetSkill(
-      this.Data.EnemyCombatient.Character.GetSkill("Attack"),
+      RandomSkillEnemy(this.Data.EnemyCombatient.Character),
       CharacterType.IA
     );
     TurnLogicBattle(turnBattle);
@@ -59,14 +67,9 @@ export class Battle implements IBattle {
   }
 
   SwitchCombatient(character: CharacterInBattleModel): void {
-    if (character.Character.GetData().Type === CharacterType.PLAYER) {
-      this.Data.PlayerCombatient = character;
-      this.Data.PlayerCombatient.IsCombat = true;
-      this.Data.PlayerCombatient.Action = Action.SWITCH;
-    } else {
-      this.Data.EnemyCombatient = character;
-      this.Data.EnemyCombatient.Action = Action.SWITCH;
-    }
+    this.Data.PlayerCombatient = character;
+    this.Data.PlayerCombatient.IsCombat = true;
+    this.Data.PlayerCombatient.Action = Action.SWITCH;
   }
 
   EndBattle(): void {
