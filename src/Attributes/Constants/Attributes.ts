@@ -11,4 +11,5 @@ export abstract class Attributes {
   static readonly TOTALEXPERIENCE = "TotalExperience";
   static readonly NEEDEDEXPERIENCE = "NeededExperience";
   static readonly LEVEL = "Level";
+  static readonly ENERGY = "Energy";
 }

@@ -19,11 +19,11 @@ export class Rage extends Skill {
   /**
    *
    */
-  constructor(character: ICharacter) {
+  constructor(character: ICharacter, level: number) {
     super();
     this.Data = this.BuildSkill(
       this.NAME,
-      SkillType.BASIC_SKILL,
+      SkillType.ACTIVE_SKILL,
       ValueType.FLAT,
       CharacterClass.NONE,
       PassiveType.NONE,
@@ -33,7 +33,8 @@ export class Rage extends Skill {
       this.DURATION,
       this.DESCRIPTION,
       this.REQUIREMENTS,
-      character
+      character,
+      level
     );
   }
 

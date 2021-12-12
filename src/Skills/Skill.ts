@@ -26,7 +26,8 @@ export abstract class Skill implements ISkill {
     duration: number,
     description: string,
     requirements: Map<string, number>,
-    character: ICharacter
+    character: ICharacter,
+    level: number
   ): BaseSkillModel {
     const model: BaseSkillModel = {
       Name: skillName,
@@ -34,14 +35,14 @@ export abstract class Skill implements ISkill {
       ValueType: valueType,
       SkillCharacterClass: skillCharacterClass,
       PassiveType: passiveType,
-      EnergyCost: energyCost,
-      BaseValue: baseValue,
+      EnergyCost: energyCost * level,
+      BaseValue: baseValue * level,
       IsCastSelf: isCastSelf,
       Duration: duration,
       Description: description,
       Requirements: requirements,
       CanPurchase: this.CanPurchase(requirements, character),
-      Level: 1,
+      Level: level,
     };
 
     return Utils.DeepClone<BaseSkillModel>(model);

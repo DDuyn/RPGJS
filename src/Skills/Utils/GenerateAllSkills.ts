@@ -27,15 +27,15 @@ export const GenerateAllSkills = (character: ICharacter): ISkill[] => {
 };
 
 const GenerateCommonSkills = (character: ICharacter): void => {
-  ALL_SKILLS.push(new Regenerate(character));
-  ALL_SKILLS.push(new ClockWork(character));
+  ALL_SKILLS.push(new Regenerate(character, 1));
+  ALL_SKILLS.push(new ClockWork(character, 1));
 };
 
 const GenerateWarriorSkills = (character: ICharacter): void => {
-  ALL_SKILLS.push(new Smash(character));
-  ALL_SKILLS.push(new Coverage(character));
+  ALL_SKILLS.push(new Smash(character, 1));
+  ALL_SKILLS.push(new Coverage(character, 1));
 };
 
 const GenerateMageSkills = (character: ICharacter): void => {
-  ALL_SKILLS.push(new FireBall(character));
+  ALL_SKILLS.push(new FireBall(character, 1));
 };

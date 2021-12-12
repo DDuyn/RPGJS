@@ -5,12 +5,14 @@ import { CharacterInBattleModel } from "../../Battle/Models/CharacterInBattleMod
 import { Mage } from "../../Character/PlayerCharacters/Mage/Mage";
 import { Warrior } from "../../Character/PlayerCharacters/Warrior/Warrior";
 import { Cave } from "../../Dungeon/Cave/Cave";
+import { IDungeon } from "../../Dungeon/Interfaces/IDungeon";
+import { BaseLootModel } from "../../Loot/Models/BaseLootModel";
 import { Party } from "../../Party/Party";
 import { Regenerate } from "../../Skills/PassiveSkill/Regenerate";
 
 const warrior = new Warrior("Ragnar");
 const mage = new Mage("Merlin");
-const regenerate = new Regenerate(warrior);
+const regenerate = new Regenerate(warrior, 1);
 
 const playerInBattle: CharacterInBattleModel[] = [
   {
@@ -30,53 +32,53 @@ const playerInBattle: CharacterInBattleModel[] = [
 ];
 
 warrior.PurchaseSkill(regenerate);
-
-const battle = new Battle();
-const partyPlayer = new Party(playerInBattle);
 const cave = new Cave(1);
 
-const enemies = battle.InitBattle(partyPlayer.GetData(), cave.GetData());
-let currentCombatient = battle.GetCombatient();
+const logic = (
+  characters: CharacterInBattleModel[],
+  dungeon: IDungeon
+): BaseLootModel => {
+  console.log(dungeon.GetData().Name);
+  const battle = new Battle();
+  const partyPlayer = new Party(characters);
+  const enemies = battle.InitBattle(partyPlayer.GetData(), dungeon.GetData());
+  let currentCombatient = battle.GetCombatient();
 
-let i = 0;
-console.log(enemies);
-while (battle.HasEnemiesLive()) {
-  while (!enemies[i].IsDead && !currentCombatient.IsDead) {
-    console.log(
-      "For",
-      enemies[i].Character.GetData().Name,
-      i,
-      enemies[i].IsDead
-    );
-    battle.SetSkill(
-      currentCombatient.Character.GetSkill("Attack"),
-      currentCombatient.Character.GetData().Type
-    );
+  let i = 0;
+  while (battle.HasEnemiesLive()) {
+    while (!enemies[i].IsDead && !currentCombatient.IsDead) {
+      battle.SetSkill(
+        currentCombatient.Character.GetSkill("Attack"),
+        currentCombatient.Character.GetData().Type
+      );
 
-    battle.Combat();
+      battle.Combat();
+    }
+
+    if (currentCombatient.IsDead) {
+      battle.EndBattle();
+      break;
+    }
+    battle.NextEnemy();
+    i++;
   }
 
-  if (currentCombatient.IsDead) {
-    console.log("HOLA");
-    battle.EndBattle();
-    break;
-  }
-  battle.NextEnemy();
-  i++;
-}
-console.log("VENGA");
+  if (!currentCombatient.IsDead) battle.EndBattle();
 
-if (!currentCombatient.IsDead) battle.EndBattle();
+  console.log(
+    "Vida Main before",
+    warrior.GetData().Name,
+    warrior.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
+    warrior.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
+  );
+  console.log(
+    "Vida Main before",
+    mage.GetData().Name,
+    mage.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
+    mage.GetValueModifiedByAttribute(Attributes.TOTALEXPERIENCE)
+  );
+  return partyPlayer.GetData().LootParty!;
+};
 
-console.log(
-  "Vida Main before",
-  warrior.GetData().Name,
-  warrior.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
-  warrior.GetValueByAttribute(Attributes.TOTALEXPERIENCE)
-);
-console.log(
-  "Vida Main before",
-  mage.GetData().Name,
-  mage.GetValueModifiedByAttribute(Attributes.CURRENTHEALTH),
-  mage.GetValueModifiedByAttribute(Attributes.TOTALEXPERIENCE)
-);
+const loot1 = logic(playerInBattle, cave);
+const loot2 = logic(playerInBattle, loot1.Dungeons[0]);

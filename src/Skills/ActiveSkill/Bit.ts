@@ -19,7 +19,7 @@ export class Bit extends Skill {
     [Attributes.STRENGTH, 10],
   ]);
 
-  constructor(character: ICharacter) {
+  constructor(character: ICharacter, level: number) {
     super();
     this.Data = this.BuildSkill(
       this.NAME,
@@ -33,7 +33,8 @@ export class Bit extends Skill {
       this.DURATION,
       this.DESCRIPTION,
       this.REQUIREMENTS,
-      character
+      character,
+      level
     );
   }
 

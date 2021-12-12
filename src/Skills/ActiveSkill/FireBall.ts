@@ -23,7 +23,7 @@ export class FireBall extends Skill implements IUpgradeSkill {
   /**
    *
    */
-  constructor(character: ICharacter) {
+  constructor(character: ICharacter, level: number) {
     super();
     this.Data = this.BuildSkill(
       this.NAME,
@@ -37,7 +37,8 @@ export class FireBall extends Skill implements IUpgradeSkill {
       this.DURATION,
       this.DESCRIPTION,
       this.REQUIREMENTS,
-      character
+      character,
+      level
     );
   }
 

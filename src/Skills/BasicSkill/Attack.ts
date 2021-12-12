@@ -34,7 +34,8 @@ export class Attack extends Skill {
       this.DURATION,
       this.DESCRIPTION,
       this.REQUIREMENTS,
-      character
+      character,
+      1
     );
   }
 

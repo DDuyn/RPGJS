@@ -9,7 +9,6 @@ export const TurnLogicBattle = (turnBattle: TurnBattleModel): void => {
     CharacterDoSkill(turnBattle.Second, turnBattle.First);
 
   IsCombatientDead(turnBattle.First);
-  //TODO: Contador kills
 };
 
 const CharacterDoSkill = (

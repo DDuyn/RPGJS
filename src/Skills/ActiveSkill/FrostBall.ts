@@ -16,7 +16,7 @@ export class FrostBall extends Skill {
   private DESCRIPTION: string = "Frost Ball";
   private REQUIREMENTS: Map<string, number> = new Map([[Attributes.SPELL, 50]]);
 
-  constructor(character: ICharacter) {
+  constructor(character: ICharacter, level: number) {
     super();
     this.Data = this.BuildSkill(
       this.NAME,
@@ -30,7 +30,8 @@ export class FrostBall extends Skill {
       this.DURATION,
       this.DESCRIPTION,
       this.REQUIREMENTS,
-      character
+      character,
+      level
     );
   }
 

@@ -23,7 +23,7 @@ export class ClockWork extends Skill implements ILogicSkill, IUpgradeSkill {
   /**
    *
    */
-  constructor(character: ICharacter) {
+  constructor(character: ICharacter, level: number) {
     super();
     this.Data = this.BuildSkill(
       this.NAME,
@@ -37,7 +37,8 @@ export class ClockWork extends Skill implements ILogicSkill, IUpgradeSkill {
       this.DURATION,
       this.DESCRIPTION,
       this.REQUIREMENTS,
-      character
+      character,
+      level
     );
   }
 

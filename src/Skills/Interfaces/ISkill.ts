@@ -18,7 +18,8 @@ export interface ISkill {
     duration: number,
     description: string,
     requirements: Map<string, number>,
-    character: ICharacter
+    character: ICharacter,
+    level: number
   ): BaseSkillModel;
   GetData(): BaseSkillModel;
   GetName(): string;
